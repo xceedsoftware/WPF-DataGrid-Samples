@@ -1,3 +1,7 @@
+![NuGet Downloads](https://img.shields.io/nuget/dt/Xceed.Products.Wpf.DataGrid.Full) ![Static Badge](https://img.shields.io/badge/.Net_Framework-4.0%2B-blue) ![Static Badge](https://img.shields.io/badge/.Net-5.0%2B-blue) [![Learn More](https://img.shields.io/badge/Learn-More-blue?style=flat&labelColor=gray)](https://xceed.com/en/our-products/product/datagrid-for-wpf)
+
+
+
 ![Xceed DataGrid for WPF](Resources/header.png)
 
 # Xceed DataGrid for WPF - Examples
