@@ -2,7 +2,7 @@
 
 
 
-![Xceed DataGrid for WPF](Resources/header.png)
+[![Xceed DataGrid for WPF](./Resources/header.png)](https://xceed.com/en/our-products/product/datagrid-for-wpf)
 
 # Xceed DataGrid for WPF - Examples
 
