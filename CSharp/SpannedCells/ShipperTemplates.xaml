@@ -1,0 +1,33 @@
+﻿<!-- 
+   Xceed DataGrid for WPF - SAMPLE CODE - Spanned Cells Sample Application
+   Copyright (c) 2007-2024 Xceed Software Inc.
+
+   [ShipperTemplates.xaml]
+
+   This ResourceDictionary contains various DataTemplates used to customize
+   the way Shipper informations are displayed and edited.
+
+   This file is part of the Xceed DataGrid for WPF product. The use
+   and distribution of this Sample Code is subject to the terms
+   and conditions referring to "Sample Code" that are specified in
+   the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.SpannedCells">
+
+   <!-- Using binding in WPF is a quick and easy way to display values in a UI. 
+        However, frequently the way the information is displayed is a bit too raw and 
+        you'll want to customize it. Converters are good way to do that. The Xceed
+        DataGridControl conforms entirely to this WPF structure. You can use Binding,
+        Converters and DataTemplates like everywhere else in the Framework. -->
+
+   <!-- A data template that will be used to represent a shipper with his 
+           company name. -->
+   <DataTemplate x:Key="shipperDataTemplate">
+      <TextBlock Text="{Binding CompanyName}"/>
+   </DataTemplate>
+
+</ResourceDictionary>

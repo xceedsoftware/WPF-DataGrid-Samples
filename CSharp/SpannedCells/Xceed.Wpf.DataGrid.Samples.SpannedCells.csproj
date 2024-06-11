@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{235BC008-4AF8-4126-B0E7-59A04BB6C6B7}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <RootNamespace>Xceed.Wpf.DataGrid.Samples.SpannedCells</RootNamespace>
+    <AssemblyName>Xceed.Wpf.DataGrid.Samples.SpannedCells</AssemblyName>
+    <WarningLevel>4</WarningLevel>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Xceed.Wpf.Controls">
+      <HintPath>..\..\..\..\Bin\Debug\Xceed.Wpf.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\..\..\..\Bin\Debug\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid.Samples.SampleData">
+      <HintPath>..\..\..\..\Bin\Debug\Xceed.Wpf.DataGrid.Samples.SampleData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="FlagPathConverter.cs" />
+    <Compile Include="..\XceedDeploymentLicense.cs">
+      <link>XceedDeploymentLicense.cs</link>
+    </Compile>
+    <Page Include="ConfigurationPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CountryTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomerTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EmployeeTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ConfigurationData.cs" />
+    <Compile Include="ConfigurationPanel.xaml.cs">
+      <DependentUpon>ConfigurationPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CountryCityData.cs" />
+    <Compile Include="CustomerConverter.cs" />
+    <Compile Include="CustomSpannedCellConfigurationSelector.cs" />
+    <Compile Include="CustomSpannedCellSelector.cs" />
+    <Compile Include="EmployeeForeignKeyConverter.cs" />
+    <Compile Include="IntegralConverter.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ShipperTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NameConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Flags\argentina.png" />
+    <EmbeddedResource Include="Flags\australia.png" />
+    <EmbeddedResource Include="Flags\austria.png" />
+    <EmbeddedResource Include="Flags\belgium.png" />
+    <EmbeddedResource Include="Flags\brazil.png" />
+    <EmbeddedResource Include="Flags\canada.png" />
+    <EmbeddedResource Include="Flags\denmark.png" />
+    <EmbeddedResource Include="Flags\finland.png" />
+    <EmbeddedResource Include="Flags\france.png" />
+    <EmbeddedResource Include="Flags\germany.png" />
+    <EmbeddedResource Include="Flags\ireland.png" />
+    <EmbeddedResource Include="Flags\italy.png" />
+    <EmbeddedResource Include="Flags\japan.png" />
+    <EmbeddedResource Include="Flags\mexico.png" />
+    <EmbeddedResource Include="Flags\netherlands.png" />
+    <EmbeddedResource Include="Flags\norway.png" />
+    <EmbeddedResource Include="Flags\notfound.png" />
+    <EmbeddedResource Include="Flags\poland.png" />
+    <EmbeddedResource Include="Flags\portugal.png" />
+    <EmbeddedResource Include="Flags\russia.png" />
+    <EmbeddedResource Include="Flags\singapore.png" />
+    <EmbeddedResource Include="Flags\spain.png" />
+    <EmbeddedResource Include="Flags\sudan.png" />
+    <EmbeddedResource Include="Flags\sweden.png" />
+    <EmbeddedResource Include="Flags\switzerland.png" />
+    <EmbeddedResource Include="Flags\uk.png" />
+    <EmbeddedResource Include="Flags\usa.png" />
+    <EmbeddedResource Include="Flags\venezuela.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

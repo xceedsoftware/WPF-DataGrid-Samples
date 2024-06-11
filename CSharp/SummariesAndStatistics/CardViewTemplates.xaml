@@ -1,0 +1,249 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Summaries & Statistics Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [CardViewTemplates.xaml]
+
+  This Page contains the various templates that will be added programmatically to the 
+  grid and group headers and footers, in CardView.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid">
+
+   <xcdg:StatResultConverter x:Key="statResultConverter" />
+
+   <!-- A StatRow is not as useful in views other than TableView, so most of the time you'll
+        want to add a custom Visual Tree in the headers footers of the grid and the 
+        groups instead. This is what we do here.
+        
+        This template will be added to the CardView and CompactCardView in code. -->
+   <DataTemplate x:Key="cardViewHeader">
+      <Border Margin="5,5,5,5"
+              Padding="2">
+         <Grid>
+            <!-- Display an image underneath the statistical results. -->
+            <Grid Width="100.55"
+                  Height="102"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Opacity="0.20">
+               <Path HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Height="102"
+                     Width="100.55"
+                     Stretch="Fill"
+                     Data="M 42.329071044921875,63.541748046875 C42.329071044921875,63.541748046875 41.555091857910156,37.01463317871094 41.555091857910156,37.01463317871094 41.555091857910156,37.01463317871094 69.52851104736328,38.1392822265625 69.52851104736328,38.1392822265625 69.52851104736328,38.1392822265625 70.70843505859375,62.328643798828125 70.70843505859375,62.328643798828125 70.70843505859375,62.328643798828125 42.329071044921875,63.541748046875 42.329071044921875,63.541748046875 zM 7.817096710205078,65.01702880859375 C7.817096710205078,65.01702880859375 7.659030914306641,35.65187072753906 7.659030914306641,35.65187072753906 7.659030914306641,35.65187072753906 39.49854278564453,36.93194580078125 39.49854278564453,36.93194580078125 39.49854278564453,36.93194580078125 40.239044189453125,63.631103515625 40.239044189453125,63.631103515625 40.239044189453125,63.631103515625 7.817096710205078,65.01702880859375 7.817096710205078,65.01702880859375 zM 40.981719970703125,90.409423828125 C40.981719970703125,90.409423828125 7.976226806640625,94.5789794921875 7.976226806640625,94.5789794921875 7.976226806640625,94.5789794921875 7.8278656005859375,67.01786804199219 7.8278656005859375,67.01786804199219 7.8278656005859375,67.01786804199219 40.289390563964844,65.44670104980469 40.289390563964844,65.44670104980469 40.289390563964844,65.44670104980469 40.981719970703125,90.409423828125 40.981719970703125,90.409423828125 zM 71.88774871826172,86.50511169433594 C71.88774871826172,86.50511169433594 43.10515594482422,90.14115905761719 43.10515594482422,90.14115905761719 43.10515594482422,90.14115905761719 42.38169860839844,65.34539794921875 42.38169860839844,65.34539794921875 42.38169860839844,65.34539794921875 70.78853607177734,63.970489501953125 70.78853607177734,63.970489501953125 70.78853607177734,63.970489501953125 71.88774871826172,86.50511169433594 71.88774871826172,86.50511169433594 zM 94.55467224121094,62.820159912109375 C94.55467224121094,62.820159912109375 95.90129089355469,83.47151184082031 95.90129089355469,83.47151184082031 95.90129089355469,83.47151184082031 73.62279510498047,86.28590393066406 73.62279510498047,86.28590393066406 73.62279510498047,86.28590393066406 72.50370025634766,63.887481689453125 72.50370025634766,63.887481689453125 72.50370025634766,63.887481689453125 94.55467224121094,62.820159912109375 94.55467224121094,62.820159912109375 zM 93.0068359375,39.08323669433594 C93.0068359375,39.08323669433594 94.4564208984375,61.31349182128906 94.4564208984375,61.31349182128906 94.4564208984375,61.31349182128906 72.42214965820312,62.25538635253906 72.42214965820312,62.25538635253906 72.42214965820312,62.25538635253906 71.22061920166016,38.20732116699219 71.22061920166016,38.20732116699219 71.22061920166016,38.20732116699219 93.0068359375,39.08323669433594 93.0068359375,39.08323669433594 zM 70.02021026611328,14.18182373046875 C70.02021026611328,14.18182373046875 91.55494689941406,16.817581176757812 91.55494689941406,16.817581176757812 91.55494689941406,16.817581176757812 92.91178894042969,37.62544250488281 92.91178894042969,37.62544250488281 92.91178894042969,37.62544250488281 71.14192199707031,36.63246154785156 71.14192199707031,36.63246154785156 71.14192199707031,36.63246154785156 70.02021026611328,14.18182373046875 70.02021026611328,14.18182373046875 zM 40.78448486328125,10.603500366210938 C40.78448486328125,10.603500366210938 68.34990692138672,13.977371215820312 68.34990692138672,13.977371215820312 68.34990692138672,13.977371215820312 69.45124053955078,36.55534362792969 69.45124053955078,36.55534362792969 69.45124053955078,36.55534362792969 41.504493713378906,35.280609130859375 41.504493713378906,35.280609130859375 41.504493713378906,35.280609130859375 40.78448486328125,10.603500366210938 40.78448486328125,10.603500366210938 zM 7.5022735595703125,6.5299072265625 C7.5022735595703125,6.5299072265625 38.761474609375,10.355880737304688 38.761474609375,10.355880737304688 38.761474609375,10.355880737304688 39.45014953613281,35.18690490722656 39.45014953613281,35.18690490722656 39.45014953613281,35.18690490722656 7.648719787597656,33.736358642578125 7.648719787597656,33.736358642578125 7.648719787597656,33.736358642578125 7.5022735595703125,6.5299072265625 7.5022735595703125,6.5299072265625 zM 0,0 C0,0 0,102 0,102 0,102 41.13880920410156,96.07363891601562 41.13880920410156,96.07363891601562 41.13880920410156,96.07363891601562 43.26927947998047,95.7667236328125 43.26927947998047,95.7667236328125 43.26927947998047,95.7667236328125 72.13665771484375,91.608154296875 72.13665771484375,91.608154296875 72.13665771484375,91.608154296875 73.87620544433594,91.35760498046875 73.87620544433594,91.35760498046875 73.87620544433594,91.35760498046875 100.54734802246094,87.515380859375 100.54734802246094,87.515380859375 100.54734802246094,87.515380859375 95.47836303710938,13.167251586914062 95.47836303710938,13.167251586914062 95.47836303710938,13.167251586914062 0,0 0,0 z"
+                     Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=xcdg:DataGridControl}, Path=Foreground}" />
+
+               <Path Margin="3.106,22.071,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Height="61.26"
+                     Width="91.47"
+                     Stretch="Fill"
+                     Data="M 3.1190948486328125,83.33097839355469 C3.1190948486328125,83.33097839355469 20.466583251953125,60.95234680175781 20.466583251953125,60.95234680175781 20.466583251953125,60.95234680175781 31.11712646484375,76.26828002929688 31.11712646484375,76.26828002929688 31.11712646484375,76.26828002929688 52.009178161621094,52.721771240234375 52.009178161621094,52.721771240234375 52.009178161621094,52.721771240234375 65.26348114013672,78.68121337890625 65.26348114013672,78.68121337890625 65.26348114013672,78.68121337890625 84.18389892578125,27.569534301757812 84.18389892578125,27.569534301757812 84.18389892578125,27.569534301757812 94.5753173828125,37.92253112792969 94.5753173828125,37.92253112792969 94.5753173828125,37.92253112792969 93.93475341796875,31.983596801757812 93.93475341796875,31.983596801757812 93.93475341796875,31.983596801757812 82.16024780273438,22.071014404296875 82.16024780273438,22.071014404296875 82.16024780273438,22.071014404296875 64.99775695800781,70.71223449707031 64.99775695800781,70.71223449707031 64.99775695800781,70.71223449707031 52.78575897216797,46.5894775390625 52.78575897216797,46.5894775390625 52.78575897216797,46.5894775390625 32.11145782470703,70.5255126953125 32.11145782470703,70.5255126953125 32.11145782470703,70.5255126953125 20.38565444946289,55.22607421875 20.38565444946289,55.22607421875 20.38565444946289,55.22607421875 3.105945587158203,77.12945556640625 3.105945587158203,77.12945556640625 3.105945587158203,77.12945556640625 3.1190948486328125,83.33097839355469 3.1190948486328125,83.33097839355469 z"
+                     Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=xcdg:DataGridControl}, Path=Foreground}" />
+            </Grid>
+
+            <StackPanel>
+               <DockPanel Margin="10,10,0,20">
+                  <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).CountOfProductID}"
+                             Margin="4,0,0,0"
+                             DockPanel.Dock="Right" />
+                  <TextBlock Text="Number of products :"
+                             DockPanel.Dock="Left" />
+               </DockPanel>
+
+               <!-- The bindings to statistical results in the following two sections
+                    use a StatResultConverter and a ConverterParameter to set a format 
+                    specifier. A currency format in these cases. -->
+               <DockPanel Margin="10,0,0,20">
+                  <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).AverageOfUnitPrice,Converter={StaticResource statResultConverter},ConverterParameter=c}"
+                             Margin="4,0,0,0"
+                             DockPanel.Dock="Right" />
+                  <TextBlock Text="Average of UnitPrice :"
+                             DockPanel.Dock="Left" />
+               </DockPanel>
+
+               <DockPanel Margin="10,0,0,0">
+                  <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).StDevOfUnitPrice,Converter={StaticResource statResultConverter},ConverterParameter=c}"
+                             Margin="4,0,0,0"
+                             DockPanel.Dock="Right" />
+                  <TextBlock Text="Standard deviation of UnitPrice :"
+                             DockPanel.Dock="Left" />
+               </DockPanel>
+            </StackPanel>
+         </Grid>
+      </Border>
+   </DataTemplate>
+
+   <!-- In CardView and CompactCardView, we want to replace the default 
+        GroupHeaderControl Template to include some statistical results. -->
+   <ControlTemplate x:Key="groupHeaderControlTemplate"
+                    TargetType="xcdg:GroupHeaderControl">
+
+      <!-- We use an ItemsControl inside the GroupHeaderControl to represent the
+           ancestors (ParentGroups) of the Group, and each item in this ItemsControl
+           is a Group templated to look like a single, stand-alone GroupHeaderControl. -->
+
+      <ControlTemplate.Resources>
+         <ResourceDictionary>
+            <ControlTemplate x:Key="groupExpanderToggleButtonTemplate"
+                             TargetType="ToggleButton">
+               <ContentPresenter x:Name="expanderGlyphPresenter"
+                                 Content="{x:Null}"
+                                 ContentTemplate="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).CollapseGroupGlyph}" />
+
+               <ControlTemplate.Triggers>
+                  <Trigger Property="IsChecked"
+                           Value="False">
+                     <Setter TargetName="expanderGlyphPresenter"
+                             Property="ContentTemplate"
+                             Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).ExpandGroupGlyph}" />
+                  </Trigger>
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <!-- This is the template used to represent one group level in the 
+                 GroupHeaderControl. -->
+            <DataTemplate x:Key="parentGroupItemTemplate">
+               <Grid Margin="0,0,0,1"
+                     xcdg:GroupLevelIndicatorPane.ShowIndicators="False"
+                     xcdg:GroupLevelIndicatorPane.ShowVerticalBorder="False"
+                     xcdg:GroupLevelIndicatorPane.GroupLevel="{Binding Level}">
+                  <Border Background="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=Background}"
+                          BorderBrush="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=BorderBrush}"
+                          BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=BorderThickness}" />
+
+                  <Border BorderThickness="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=BorderThickness}"
+                          Padding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=Padding}"
+                          Background="Transparent"
+                          Focusable="True"
+                          FocusVisualStyle="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=FocusVisualStyle}">
+
+                     <!-- Define all the standard InputBindings for a GroupHeaderControl. -->
+                     <Border.InputBindings>
+
+                        <KeyBinding Command="{x:Static xcdg:DataGridCommands.ToggleGroupExpansion}"
+                                    Key="Space" />
+
+                        <MouseBinding Command="{x:Static xcdg:DataGridCommands.ToggleGroupExpansion}"
+                                      MouseAction="LeftDoubleClick" />
+
+                     </Border.InputBindings>
+
+                     <DockPanel VerticalAlignment="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=VerticalContentAlignment}">
+                        <xcdg:GroupLevelIndicatorPane DockPanel.Dock="Left"
+                                                      Indented="False" />
+
+                        <!-- ToggleButton that is used to expand/collapse the group. -->
+                        <ToggleButton DockPanel.Dock="Left"
+                                      VerticalAlignment="Top"
+                                      Margin="0,3,0,0"
+                                      Focusable="False"
+                                      OverridesDefaultStyle="True"
+                                      Template="{StaticResource groupExpanderToggleButtonTemplate}"
+                                      IsChecked="{Binding IsExpanded}" />
+
+                        <StackPanel Margin="3,0,0,0">
+                           <ContentPresenter Content="{Binding}"
+                                             ContentTemplate="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=ContentTemplate}"
+                                             ContentTemplateSelector="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=ContentTemplateSelector}"
+                                             TextElement.FontWeight="Bold"
+                                             HorizontalAlignment="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=HorizontalContentAlignment}" />
+
+                           <!-- The DataContext of a GroupHeaderFooterItem is an 
+                                instance of Group that exposes various goodies. One of 
+                                them is the StatContext used to extract a 
+                                StatFunction's result. -->
+                           <StackPanel Orientation="Horizontal"
+                                       HorizontalAlignment="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=HorizontalContentAlignment}">
+                              <TextBlock Text="UnitPrice's avg : " />
+                              <TextBlock Text="{Binding StatContext.AverageOfUnitPrice,Converter={StaticResource statResultConverter},ConverterParameter=c}" />
+                           </StackPanel>
+
+                           <StackPanel Orientation="Horizontal"
+                                       HorizontalAlignment="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=xcdg:GroupHeaderControl},Path=HorizontalContentAlignment}">
+                              <TextBlock Text="UnitPrice's stdev : " />
+                              <TextBlock Text="{Binding StatContext.StDevOfUnitPrice,Converter={StaticResource statResultConverter},ConverterParameter=c}" />
+                           </StackPanel>
+                        </StackPanel>
+                     </DockPanel>
+                  </Border>
+               </Grid>
+            </DataTemplate>
+         </ResourceDictionary>
+      </ControlTemplate.Resources>
+
+      <Border>
+         <StackPanel Orientation="Vertical">
+            <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Content.ParentGroups}"
+                          Focusable="False"
+                          ItemTemplate="{StaticResource parentGroupItemTemplate}" />
+
+            <ContentPresenter Content="{TemplateBinding Content}"
+                              ContentTemplate="{StaticResource parentGroupItemTemplate}"
+                              HorizontalAlignment="Stretch" />
+         </StackPanel>
+      </Border>
+   </ControlTemplate>
+
+   <!-- In this GroupConfiguration, we prevent creating default Headers content (by 
+        setting DefaultHeadersFootersType to none) and add our own template.
+        
+        This GroupConfiguration will be added to the CardView in code and will 
+        dictate the behavior and content of groups. -->
+   <xcdg:GroupConfiguration x:Key="cardViewGroupConfigurationExpandedCollapsed"
+                            DefaultHeadersFootersType="None">
+      <xcdg:GroupConfiguration.Headers>
+         <!-- Our custom templated GroupHeaderControl will be visible even if the group is collapsed. -->
+         <xcdg:GroupHeaderFooterItemTemplate VisibleWhenCollapsed="True">
+            <DataTemplate>
+               <xcdg:GroupHeaderControl>
+                  <xcdg:GroupHeaderControl.Style>
+                     <Style TargetType="xcdg:GroupHeaderControl">
+                        <Setter Property="Template"
+                                Value="{StaticResource groupHeaderControlTemplate}" />
+                     </Style>
+                  </xcdg:GroupHeaderControl.Style>
+               </xcdg:GroupHeaderControl>
+            </DataTemplate>
+         </xcdg:GroupHeaderFooterItemTemplate>
+      </xcdg:GroupConfiguration.Headers>
+   </xcdg:GroupConfiguration>
+
+   <xcdg:GroupConfiguration x:Key="cardViewGroupConfigurationSummary"
+                            DefaultHeadersFootersType="None">
+      <xcdg:GroupConfiguration.Headers>
+         <!-- Our StatGroupHeaderControl will be visible even if the group is collapsed. -->
+         <xcdg:GroupHeaderFooterItemTemplate VisibleWhenCollapsed="True">
+            <DataTemplate>
+               <xcdg:StatGroupHeaderControl AutoCreateCells="False"
+                                            ShowGroupLabel="True">
+                  <xcdg:StatGroupHeaderControl.Cells>
+                     <!-- Each StatCell has a default StatResultConverter assigned to it,
+                          allowing only ConverterParameter that will format
+                          the result to be specified. To improve its usage in XAML, the StatResultConverter's
+                          parameter supports a simplified syntax of composite formatting. 
+                          Refer to the documentation for more informations. -->
+                     <xcdg:StatCell FieldName="UnitPrice"
+                                    ResultPropertyName="AverageOfUnitPrice"
+                                    ResultConverterParameter="[c]" />
+
+                     <xcdg:StatCell FieldName="UnitsInStock"
+                                    ResultPropertyName="StDevOfUnitPrice"
+                                    ResultConverterParameter="[c]" />
+                  </xcdg:StatGroupHeaderControl.Cells>
+               </xcdg:StatGroupHeaderControl>
+            </DataTemplate>
+         </xcdg:GroupHeaderFooterItemTemplate>
+      </xcdg:GroupConfiguration.Headers>
+   </xcdg:GroupConfiguration>
+
+</ResourceDictionary>

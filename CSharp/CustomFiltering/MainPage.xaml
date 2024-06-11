@@ -1,0 +1,367 @@
+﻿<!-- Xceed DataGrid for WPF - SAMPLE CODE - Custom Filtering Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainPage.xaml]
+
+     This Page contains the UI declarations of the Custom Filtering sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.CustomFiltering.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.CustomFiltering"
+      xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+      xmlns:clr="clr-namespace:System;assembly=mscorlib">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <!-- Setting the AutoFilterMode is sufficient to activate automatic filtering 
+              in your DataGrid and will cover most needs. Here, we do much more to 
+              demonstrate various ways to configure automatic filtering. -->
+         <xcdg:DataGridCollectionViewSource x:Key="cvs_orders"
+                                            Source="{Binding Source={x:Static Application.Current}, Path=Orders}"
+                                            AutoFilterMode="And"
+                                            AutoCreateItemProperties="False"
+                                            DefaultCalculateDistinctValues="True"
+                                            DistinctValuesUpdateMode="Auto"
+                                            DistinctValuesConstraint="Filtered"
+                                            Filter="OnDataGridCollectionViewSourceFilter">
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+
+               <xcdg:DataGridItemProperty Name="ShipCountry"
+                                          Title="Country" />
+
+               <xcdg:DataGridItemProperty Name="ShipCity"
+                                          Title="City" />
+
+               <!-- Provide a callback function that will customize the DistinctValues 
+                    and display alphabetical grouping. -->
+               <xcdg:DataGridItemProperty Name="ShipName"
+                                          Title="Name"
+                                          QueryDistinctValue="ShipNameQueryDistinctValue" />
+
+               <xcdg:DataGridItemProperty Name="ShipAddress"
+                                          Title="Address"
+                                          CalculateDistinctValues="True" />
+
+               <!-- Disable the AutoFilterControl to force the usage of Month ComboBox for filtering. -->
+               <xcdg:DataGridItemProperty Name="OrderDate"
+                                          Title="Order Date"
+                                          CalculateDistinctValues="False" />
+
+               <!-- Provide a callback function that will customize the DistinctValues 
+                    and display the list of months. We specify a custom sort comparer 
+                    to display the months in chronological order. -->
+               <xcdg:DataGridItemProperty Name="ShippedDate"
+                                          Title="Shipped Date"
+                                          DistinctValuesSortComparer="{StaticResource monthNamesDistinctValuesSortComparer}"
+                                          QueryDistinctValue="OnShippedDateQueryDistinctValue" />
+
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+         </xcdg:DataGridCollectionViewSource>
+
+         <!-- Context menu displayed on DataRows that provides auto-filtering according 
+              to the values of the corresponding data item.-->
+         <Style TargetType="{x:Type xcdg:DataRow}">
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <EventSetter Event="ContextMenuOpening"
+                         Handler="DataRow_ContextMenuOpening" />
+         </Style>
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <!-- This is the configuration Panel at the Top. -->
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition MaxWidth="280"
+                                 Width="Auto" />
+               <ColumnDefinition MaxWidth="280"
+                                 Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Auto-filter Actions"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      Grid.Column="0">
+               <StackPanel>
+                  <!-- ComboBoxes for automatic filtering -->
+                  <Grid Grid.Column="2"
+                        HorizontalAlignment="Right">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="135" />
+                        <ColumnDefinition />
+                     </Grid.ColumnDefinitions>
+
+                     <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="30" />
+                        <RowDefinition MinHeight="30" />
+                        <RowDefinition MinHeight="30" />
+                     </Grid.RowDefinitions>
+
+                     <!--ShipCountry combo box-->
+                     <TextBlock Text="Country"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Margin="5,2,5,2"
+                                VerticalAlignment="Center" />
+
+                     <xcdg:AutoFilterControl x:Name="shipCountryAutoFilterControl"
+                                             Grid.Column="1"
+                                             Grid.Row="0"
+                                             AutoFilterColumn="{Binding ElementName=grid, Path=Columns[ShipCountry]}"
+                                             AutoFilterContext="{Binding ElementName=grid, Path=(xcdg:DataGridControl.DataGridContext)}"
+                                             Focusable="False"
+                                             Width="Auto">
+                        <xcdg:AutoFilterControl.Template>
+                           <ControlTemplate TargetType="{x:Type xcdg:AutoFilterControl}">
+
+                              <ComboBox x:Name="PART_DistinctValuesHost"
+                                        Grid.Column="1"
+                                        ItemTemplate="{Binding Source={StaticResource countryComboBoxDataTemplate}}"
+                                        Initialized="OnShipCountryComboBoxInitialized"
+                                        Margin="5,2,5,2" />
+
+                           </ControlTemplate>
+                        </xcdg:AutoFilterControl.Template>
+                     </xcdg:AutoFilterControl>
+
+                     <Button x:Name="clearShipCountryButton"
+                             Command="xcdg:AutoFilterControl.ClearAutoFilterValues"
+                             CommandTarget="{Binding ElementName=shipCountryAutoFilterControl}"
+                             Content="Clear"
+                             Grid.Column="2"
+                             Grid.Row="0"
+                             Initialized="OnClearShipCountryButtonInitialized"
+                             Margin="5,2,0,2" />
+
+                     <!--ShipCity combo box-->
+                     <TextBlock Grid.Column="0"
+                                Grid.Row="1"
+                                Margin="5,2,5,2"
+                                Text="City"
+                                VerticalAlignment="Center" />
+
+                     <xcdg:AutoFilterControl x:Name="shipCityAutoFilterControl"
+                                             Grid.Column="1"
+                                             Grid.Row="1"
+                                             AutoFilterColumn="{Binding ElementName=grid, Path=Columns[ShipCity]}"
+                                             AutoFilterContext="{Binding ElementName=grid, Path=(xcdg:DataGridControl.DataGridContext)}"
+                                             Focusable="False"
+                                             IsEnabled="{Binding ElementName=shipCountryAutoFilterControl, 
+                                                                Path=AutoFilterContext.AutoFilterValues[ShipCountry].Count, 
+                                                                Converter={StaticResource greaterThanZeroConverter},
+                                                                ConverterParameter=true}"
+                                             Width="Auto">
+                        <xcdg:AutoFilterControl.Template>
+                           <ControlTemplate TargetType="{x:Type xcdg:AutoFilterControl}">
+
+                              <!-- We only want the City to be selectable when a Country is already selected -->
+                              <ComboBox x:Name="PART_DistinctValuesHost"
+                                        Grid.Column="1"
+                                        Initialized="OnShipCityComboBoxInitialized"
+                                        Margin="5,2,5,2"
+                                        SelectionChanged="OnShipCitySelectionChanged">
+                                 <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                       <TextBlock Text="{Binding}"
+                                                  Padding="2,0,0,0" />
+                                    </DataTemplate>
+                                 </ComboBox.ItemTemplate>
+                              </ComboBox>
+
+                           </ControlTemplate>
+                        </xcdg:AutoFilterControl.Template>
+                     </xcdg:AutoFilterControl>
+
+                     <Button Command="xcdg:AutoFilterControl.ClearAutoFilterValues"
+                             CommandTarget="{Binding ElementName=shipCityAutoFilterControl}"
+                             Content="Clear"
+                             Grid.Column="2"
+                             Grid.Row="1"
+                             Margin="5,2,0,2" />
+
+                     <!--OrderDate Month Combo Box-->
+                     <TextBlock Grid.Column="0"
+                                Grid.Row="2"
+                                Text="Month"
+                                Margin="5,2,5,2"
+                                VerticalAlignment="Center" />
+
+                     <ComboBox  ItemsSource="{Binding Source={x:Static globalization:DateTimeFormatInfo.InvariantInfo}, Path=MonthNames}"
+                                Grid.Column="1"
+                                Grid.Row="2"
+                                Initialized="OnOrderMonthComboBoxInitialized"
+                                Margin="5,2,5,2"
+                                SelectionChanged="OnOrderMonthComboBoxSelectionChanged">
+                        <ComboBox.ItemTemplate>
+                           <DataTemplate>
+                              <TextBlock Text="{Binding}"
+                                         Padding="2,0,0,0" />
+                           </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                     </ComboBox>
+
+                     <Button Click="OnClearOrderMonthButtonClick"
+                             Content="Clear"
+                             Grid.Column="2"
+                             Grid.Row="2"
+                             IsEnabled="False"
+                             Initialized="OnClearMonthButtonInitialized"
+                             Margin="5,2,0,2" />
+
+                  </Grid>
+               </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Custom Filtering Setups"
+                      MaxWidth="280"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      Grid.Column="1">
+               <Grid>
+                  <Grid.RowDefinitions>
+                     <RowDefinition />
+                     <RowDefinition />
+                     <RowDefinition />
+                     <RowDefinition />
+                     <RowDefinition />
+                     <RowDefinition />
+                     <RowDefinition />
+                  </Grid.RowDefinitions>
+
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="Auto" />
+                     <ColumnDefinition Width="6" />
+                     <ColumnDefinition />
+                  </Grid.ColumnDefinitions>
+
+                  <TextBlock Text="Below is a list of columns with their filtering setup."
+                             TextWrapping="Wrap"
+                             Margin="0,0,0,4"
+                             Grid.Row="0"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3" />
+
+                  <TextBlock Text="Country: "
+                             Grid.Row="1"
+                             Grid.Column="0"/>
+                  <TextBlock Text="Custom auto-filter control"
+                             TextWrapping="Wrap"
+                             Grid.Row="1"
+                             Grid.Column="2" />
+
+                  <TextBlock Text="City: "
+                             Grid.Row="2"
+                             Grid.Column="0" />
+                  <TextBlock Text="Custom auto-filter control"
+                             TextWrapping="Wrap"
+                             Grid.Row="2"
+                             Grid.Column="2" />
+
+                  <TextBlock Text="Name: "
+                             Grid.Row="3"
+                             Grid.Column="0" />
+                  <TextBlock Text="Custom distinct values"
+                             Grid.Row="3"
+                             Grid.Column="2" />
+
+                  <TextBlock Text="Address: "
+                             Grid.Row="4"
+                             Grid.Column="0" />
+                  <TextBlock Text="Default distinct values"
+                             TextWrapping="Wrap"
+                             Grid.Row="4"
+                             Grid.Column="2" />
+
+                  <TextBlock Text="Order Date:"
+                             Grid.Row="5"
+                             Grid.Column="0" />
+                  <TextBlock Text="Collection view filtering (predicate delegate)"
+                             TextWrapping="Wrap"
+                             Grid.Row="5"
+                             Grid.Column="2" />
+
+                  <TextBlock Text="Shipped Date: "
+                             Grid.Row="6"
+                             Grid.Column="0"/>
+                  <TextBlock Text="Custom distinct values with sort comparer"
+                             TextWrapping="Wrap"
+                             Grid.Row="6"
+                             Grid.Column="2" />
+               </Grid>
+            </GroupBox>
+         </Grid>
+      </ContentControl>
+
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvs_orders}, Path=View}"
+                            ReadOnly="True"
+                            SelectionMode="Single">
+
+         <xcdg:DataGridControl.ContextMenu>
+
+            <!-- Context menu displayed on DataRows that provides auto-filtering according 
+                 to the values of the corresponding data item.-->
+            <ContextMenu Width="Auto" />
+
+         </xcdg:DataGridControl.ContextMenu>
+
+         <xcdg:DataGridControl.Columns>
+            <!-- Use a custom AutoFilterControl to only allow SelectionMode.Single in the AutoFilterControl
+                 in order to ease the synchronization with the Country ComboBox at the top of the Grid -->
+            <xcdg:Column FieldName="ShipCountry"
+                         IsMainColumn="True"
+                         AutoFilterControlStyle="{StaticResource singleSelectionModeAutoFilterControl}"
+                         GroupValueTemplate="{StaticResource countryCellContentTemplate}"
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}"/>
+
+            <!-- Use a custom AutoFilterControl to only allow SelectionMode.Single in the AutoFilterControl
+                 in order to ease the synchronization with the City ComboBox at the top of the Grid -->
+            <xcdg:Column FieldName="ShipCity"
+                         AutoFilterControlStyle="{StaticResource singleSelectionModeAutoFilterControl}" />
+
+            <xcdg:Column FieldName="ShipName"
+                         Title="Name"
+                         ShowInColumnChooser="False" />
+
+            <xcdg:Column FieldName="ShipAddress"
+                         MinWidth="150" />
+
+            <xcdg:Column FieldName="OrderDate"
+                         Title="Order Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+            <!-- Use a custom template for the AutoFilterControl since it will display
+                 data that differs from the DataType of the Column. -->
+            <xcdg:Column FieldName="ShippedDate"
+                         Title="Shipped Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}"
+                         AutoFilterControlStyle="{StaticResource textBlockDistinctValueItemTemplate}" />
+
+         </xcdg:DataGridControl.Columns>
+
+         <xcdg:DataGridControl.View>
+
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"/>
+         </xcdg:DataGridControl.View>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

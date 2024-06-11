@@ -1,0 +1,282 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Spanned Cells Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainPage.xaml]
+
+     This Page contains the UI declarations of the Spanned Cells sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.SpannedCells.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.SpannedCells"
+      xmlns:s="clr-namespace:System;assembly=mscorlib"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="CustomerTemplates.xaml" />
+            <ResourceDictionary Source="EmployeeTemplates.xaml" />
+            <ResourceDictionary Source="CountryTemplates.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <local:NameConverter x:Key="nameConverter" />
+         <local:CustomerConverter x:Key="customerConverter" />
+
+         <xcdg:DataGridCollectionViewSource x:Key="cvsOrders"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Orders}"
+                                            AutoCreateItemProperties="False">
+
+            <!--Defining foreign key descriptions will make sure sorting on the corresponding columns will be according to the displayed values,
+                not according to the foreign key values-->
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+               <xcdg:DataGridItemProperty Name="OrderID" />
+               <xcdg:DataGridItemProperty Name="EmployeeID">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current},Path=Employees}"
+                                                          ValuePath="EmployeeID"
+                                                          ForeignKeyConverter="{StaticResource employeeForeignKeyConverter}" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+               <xcdg:DataGridItemProperty Name="CustomerID">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current},Path=Customers}"
+                                                          ValuePath="CustomerID"
+                                                          ForeignKeyConverter="{StaticResource customerForeignKeyConverter}" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+               <xcdg:DataGridItemProperty Name="ShipCity" />
+               <xcdg:DataGridItemProperty Name="ShipCountry" />
+               <xcdg:DataGridItemProperty Name="ShipName" />
+               <xcdg:DataGridItemProperty Name="ShipVia">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current},Path=Shippers}"
+                                                          ValuePath="ShipperID"
+                                                          DisplayMemberPath="CompanyName" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+               <xcdg:DataGridItemProperty Name="ShippedDate" />
+               <xcdg:DataGridItemProperty Name="ShipPostalCode" />
+               <xcdg:DataGridItemProperty Name="ShipRegion" />
+               <xcdg:DataGridItemProperty Name="Freight" />
+               <xcdg:DataGridItemProperty Name="OrderDate" />
+               <xcdg:DataGridItemProperty Name="RequiredDate" />
+               <xcdg:DataGridItemProperty Name="ShipAddress" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+               <compModel:SortDescription PropertyName="ShipCountry"
+                                          Direction="Descending" />
+               <compModel:SortDescription PropertyName="EmployeeID"
+                                          Direction="Descending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+         </xcdg:DataGridCollectionViewSource>
+
+         <xcdg:CurrencyConverter x:Key="currencyConverter" />
+         <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+         <local:IntegralConverter x:Key="integralConverter" />
+
+         <!--Style used in code behind to add a border around a SpannedCell-->
+         <Style x:Key="spannedCellContainerStyle"
+                TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush"
+                    Value="LightGray" />
+            <Setter Property="BorderThickness"
+                    Value="1" />
+            <Setter Property="Padding">
+               <Setter.Value>
+                  <Thickness>7,0,7,0</Thickness>
+               </Setter.Value>
+            </Setter>
+         </Style>
+
+         <!-- A cell content template that will be used for cell that contain integral value
+              (mainly adding thousand separator). -->
+         <DataTemplate x:Key="integralCellContentTemplate">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Converter={StaticResource integralConverter}}" />
+         </DataTemplate>
+
+         <!-- A cell content template that will be used for cell that contain currency value. -->
+         <DataTemplate x:Key="currencyCellContentTemplate">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Converter={StaticResource currencyConverter}}" />
+         </DataTemplate>
+
+         <!-- A data template that will be used to represent DateTime cells in the short date format. -->
+         <DataTemplate x:Key="shortDateCellDataTemplate">
+            <TextBlock TextWrapping="Wrap" Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+         </DataTemplate>
+
+         <!-- These ForeignKeyConfigurations are optional; the Foreign-Keys feature would work very well without them. They are there because we want to specify an 
+              ItemsSource having an empty entry (which is not in the foreign table). This empty entry allows a end-user to empty a field or clear a FilterCell.
+              Also because a DisplayMember value is not defined, because of the complex CellContentTemplate used, a ForeignKeyValueConverter must be defined so the
+              search feature correctly find matching values in these ForeignKey columns.  -->
+         <xcdg:ForeignKeyConfiguration x:Key="employeesForeignKeyConfiguration"
+                                       ItemsSource="{Binding Source={x:Static Application.Current},Path=EmployeesWithEmptyEntry}"
+                                       ValuePath="EmployeeID"
+                                       ForeignKeyValueConverter="{StaticResource nameConverter}" />
+
+         <xcdg:ForeignKeyConfiguration x:Key="customersForeignKeyConfiguration"
+                                       ItemsSource="{Binding Source={x:Static Application.Current},Path=CustomersWithEmptyEntry}"
+                                       ValuePath="CustomerID"
+                                       ForeignKeyValueConverter="{StaticResource customerConverter}" />
+
+         <xcdg:ForeignKeyConfiguration x:Key="shipViaForeignKeyConfiguration"
+                                       ItemsSource="{Binding Source={x:Static Application.Current},Path=ShippersWithEmptyEntry}"
+                                       ValuePath="ShipperID"
+                                       DisplayMemberPath="CompanyName" />
+
+         <!-- 174940 : TextWrapping not applied correctly on Spanned Cells -->
+         <Style TargetType="{x:Type xcdg:DataCell}">
+            <Style.Triggers>
+               <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=FieldName}" Value="Text">
+                  <Setter Property="ContentTemplate">
+                     <Setter.Value>
+                        <DataTemplate>
+                           <TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" />
+                        </DataTemplate>
+                     </Setter.Value>
+                  </Setter>
+               </DataTrigger>
+            </Style.Triggers>
+         </Style>
+
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <local:ConfigurationPanel />
+      </ContentControl>
+
+      <!-- Add a Xceed DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsOrders}}"
+                            SpannedCellConflictResolutionMode="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=ConflictResolutionMode}"
+                            SpannedCellSelector="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=SpannedCellSelector}"
+                            SpannedCellConfigurationSelector="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=SpannedCellConfigurationSelector}"
+                            AutoCreateForeignKeyConfigurations="True"
+                            AutoScrollCurrentItem="None">
+
+         <xcdg:DataGridControl.View>
+            <xcdg:TableView Theme="{DynamicResource defaultTheme}"
+                            AllowCellSpanning="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=AllowCellSpanning}"
+                            UseDefaultHeadersFooters="False">
+               <xcdg:TableView.FixedHeaders>
+                  <DataTemplate>
+                     <xcdg:HierarchicalGroupByControl />
+                  </DataTemplate>
+                  <DataTemplate>
+                     <xcdg:ColumnManagerRow />
+                  </DataTemplate>
+               </xcdg:TableView.FixedHeaders>
+            </xcdg:TableView>
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.ItemContainerStyle>
+
+            <!-- We force the height of the DataRow to be 32 (MaxHeight of the Image in the employeeDataTemplate)
+                 to avoid resize when the columns using the ComboBox as CellEditor are virtualized -->
+            <Style TargetType="xcdg:DataRow">
+               <Setter Property="MinHeight"
+                       Value="50" />
+            </Style>
+
+         </xcdg:DataGridControl.ItemContainerStyle>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="OrderID"
+                         Title="ID"
+                         ReadOnly="True"
+                         Width="55"
+                         DraggableStatus="FirstUndraggable"
+                         CellContentTemplate="{StaticResource integralCellContentTemplate}" />
+
+            <xcdg:Column FieldName="EmployeeID"
+                         Title="Employee"
+                         Width="140"
+                         CellContentTemplate="{StaticResource employeeDataTemplate}"
+                         CellSpanningDirection="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=EmployeeSpanningDirection}"
+                         ForeignKeyConfiguration="{StaticResource employeesForeignKeyConfiguration}" />
+
+            <xcdg:Column FieldName="CustomerID"
+                         Title="Customer"
+                         Width="240"
+                         CellContentTemplate="{StaticResource customerDataTemplate}"
+                         CellSpanningDirection="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=CustomerSpanningDirection}"
+                         ForeignKeyConfiguration="{StaticResource customersForeignKeyConfiguration}" />
+
+            <xcdg:Column FieldName="OrderDate"
+                         Title="Order Date"
+                         Width="100"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+            <xcdg:Column FieldName="ShipVia"
+                         Title="Shipper"
+                         Width="110"
+                         TextWrapping="Wrap"
+                         CellSpanningDirection="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=ShipViaSpanningDirection}"
+                         ForeignKeyConfiguration="{StaticResource shipViaForeignKeyConfiguration}">
+               <xcdg:Column.CellContentTemplate>
+                  <DataTemplate>
+                     <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                  </DataTemplate>
+               </xcdg:Column.CellContentTemplate>
+            </xcdg:Column>
+
+            <xcdg:Column FieldName="ShipCity"
+                         TextWrapping="Wrap"
+                         Title="City"
+                         Width="110"
+                         CellSpanningDirection="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=CitySpanningDirection}" />
+
+            <xcdg:Column FieldName="ShipCountry"
+                         Title="Country"
+                         Width="115"
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}"
+                         CellSpanningDirection="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=CountrySpanningDirection}"
+                         GroupValueTemplate="{StaticResource countryCellContentTemplate}" />
+
+            <xcdg:Column FieldName="Freight"
+                         Width="70"
+                         CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+
+            <xcdg:Column FieldName="ShipName"
+                         TextWrapping="Wrap"
+                         Title="Ship to"
+                         Width="192" />
+
+            <xcdg:Column FieldName="ShipAddress"
+                         TextWrapping="Wrap"
+                         Title="Address"
+                         Width="250" />
+
+            <xcdg:Column FieldName="ShipPostalCode"
+                         TextWrapping="Wrap"
+                         Title="Postal Code" />
+
+            <xcdg:Column FieldName="ShipRegion"
+                         TextWrapping="Wrap"
+                         Title="Region" />
+
+            <xcdg:Column FieldName="RequiredDate"
+                         Title="Required Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+            <xcdg:Column FieldName="ShippedDate"
+                         Title="Shipped Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

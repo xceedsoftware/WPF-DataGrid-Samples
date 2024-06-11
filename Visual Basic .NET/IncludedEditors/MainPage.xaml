@@ -1,0 +1,199 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Included Editors Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainPage.xaml]
+
+     This Page contains the UI declarations of the Included Editors sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.IncludedEditors.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.IncludedEditors">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+
+            <!-- The Xceed DataGrid will choose a default editor for each cell 
+                 appropriate for its underlying data field type. This will be sufficient
+                 in many cases. -->
+            <!-- In this sample, we demonstrate how to customize each type of editor and
+                 how to provide entirely new cell editors. The following merged 
+                 dictionaries contains these customizations. -->
+            <!-- These customizations are consistent with the WPF philosophy (Style and 
+                 Template usage), giving a great deal of power over how you represent 
+                 your data. -->
+            <ResourceDictionary Source="MaskedTextBoxEditors.xaml" />
+            <ResourceDictionary Source="NumericTextBoxEditors.xaml" />
+            <ResourceDictionary Source="DateTimeEditors.xaml" />
+            <ResourceDictionary Source="ComboBoxEditors.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <xcdg:DataGridCollectionViewSource x:Key="cvsRandomData"
+                                            Source="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=local:MainPage},Path=RandomData}" />
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+
+         <StackPanel Orientation="Horizontal"
+                     VerticalAlignment="Top">
+            <GroupBox Header="Visible Columns"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}">
+               <StackPanel HorizontalAlignment="Stretch"
+                           Orientation="Horizontal"
+                           Margin="0,0,6,0">
+                  <StackPanel Orientation="Vertical">
+                     <CheckBox Margin="{StaticResource configItemMargin}"
+                               Content="Masked columns"
+                               IsChecked="{Binding Source={x:Static local:MainPageParams.Singleton},Path=MaskedTextColumnsVisible}" />
+
+                     <CheckBox Margin="{StaticResource configItemMargin}"
+                               Content="DateTime columns"
+                               IsChecked="{Binding Source={x:Static local:MainPageParams.Singleton},Path=DateTimeColumnsVisible}" />
+
+                     <CheckBox Margin="{StaticResource configItemMargin}"
+                               Content="Numeric columns"
+                               IsChecked="{Binding Source={x:Static local:MainPageParams.Singleton},Path=NumericColumnsVisible}" />
+                  </StackPanel>
+
+                  <StackPanel Orientation="Vertical"
+                              Margin="10,0,0,0">
+                     <CheckBox Margin="{StaticResource configItemMargin}"
+                               Content="ComboBox column"
+                               IsChecked="{Binding Source={x:Static local:MainPageParams.Singleton},Path=ComboBoxColumnsVisible}" />
+
+                     <CheckBox Margin="{StaticResource configItemMargin}"
+                               Content="CheckBox column"
+                               IsChecked="{Binding Source={x:Static local:MainPageParams.Singleton},Path=CheckBoxColumnsVisible}" />
+
+                     <CheckBox Margin="{StaticResource configItemMargin}"
+                               Content="FreeText column"
+                               IsChecked="{Binding Source={x:Static local:MainPageParams.Singleton},Path=FreeTextColumnsVisible}" />
+                  </StackPanel>
+               </StackPanel>
+            </GroupBox>
+         </StackPanel>
+      </ContentControl>
+
+      <!-- Add an Xceed DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsRandomData}}"
+                            EditTriggers="BeginEditCommand,ActivationGesture,ClickOnCurrentCell"
+                            CellEditorDisplayConditions="MouseOverCell"
+                            ItemScrollingBehavior="Immediate">
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme for the DataGridControl. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <!-- Using the default CellEditor for a Boolean value: Xceed.Wpf.Controls.CheckBox. -->
+            <xcdg:Column FieldName="Included"
+                         Title="CheckBox"
+                         Width="75"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=CheckBoxColumnsVisible}" />
+
+            <!-- Using the default CellEditor for a String value: Xceed.Wpf.Controls.AutoSelectTextBox. -->
+            <xcdg:Column FieldName="Name"
+                         Title="Free Text"
+                         Width="125"
+                         IsMainColumn="True"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=FreeTextColumnsVisible}" />
+
+            <xcdg:Column FieldName="Category"
+                         Title="ComboBox"
+                         Width="125"
+                         CellContentTemplate="{StaticResource categoryCellDataTemplate}"
+                         CellEditor="{StaticResource categoryEditor}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=ComboBoxColumnsVisible}" />
+
+            <xcdg:Column FieldName="IPAddress"
+                         Title="IP Address Mask"
+                         Width="125"
+                         CellEditor="{StaticResource ipAddressEditor}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=MaskedTextColumnsVisible}" />
+
+            <!-- Using the default CellEditor for a DateTime value: Xceed.Wpf.Controls.DatePicker. -->
+            <xcdg:Column FieldName="DateTime1"
+                         Title="DatePicker"
+                         Width="125"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=DateTimeColumnsVisible}" />
+
+            <xcdg:Column FieldName="PhoneNumber"
+                         Title="Phone Mask"
+                         Width="125"
+                         CellEditor="{StaticResource phoneNumberEditor}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=MaskedTextColumnsVisible}" />
+
+            <xcdg:Column FieldName="Price"
+                         Title="Price (00.00)"
+                         Width="125"
+                         CellEditor="{StaticResource priceEditor}"
+                         CellContentTemplate="{StaticResource priceCellDataTemplate}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=MaskedTextColumnsVisible}" />
+
+            <xcdg:Column FieldName="Quantity"
+                         Title="Integer (Min=0)"
+                         Width="100"
+                         CellEditor="{StaticResource numericRangeEditor}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=NumericColumnsVisible}" />
+
+            <xcdg:Column FieldName="Scientific"
+                         Title="Double Exponential"
+                         Width="225"
+                         CellEditor="{StaticResource exponentEditor}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=NumericColumnsVisible}" />
+
+            <xcdg:Column FieldName="DateTime2"
+                         Title="Short Date"
+                         Width="100"
+                         CellEditor="{StaticResource shortDateEditor}"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=DateTimeColumnsVisible}" />
+
+            <xcdg:Column FieldName="DateTime3"
+                         Title="Abbreviated Date"
+                         Width="125"
+                         CellEditor="{StaticResource invariantAbbreviatedDateTimeEditor}"
+                         CellContentTemplate="{StaticResource invariantAbbreviatedDateCellDataTemplate}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=DateTimeColumnsVisible}" />
+
+            <xcdg:Column FieldName="DateTime4"
+                         Title="Short Time"
+                         Width="100"
+                         CellEditor="{StaticResource shortTimeEditor}"
+                         CellContentTemplate="{StaticResource shortTimeCellDataTemplate}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=DateTimeColumnsVisible}" />
+
+            <xcdg:Column FieldName="DateTime5"
+                         Title="Short Date and Short Time"
+                         Width="150"
+                         CellEditor="{StaticResource shortDateAndShortTimeEditor}"
+                         CellContentTemplate="{StaticResource shortDateAndShortTimeCellDataTemplate}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=DateTimeColumnsVisible}" />
+
+            <xcdg:Column FieldName="DateTime6"
+                         Title="Short Date and Long Time"
+                         Width="150"
+                         CellEditor="{StaticResource shortDateAndLongTimeEditor}"
+                         CellContentTemplate="{StaticResource shortDateAndLongTimeCellDataTemplate}"
+                         Visible="{Binding Source={x:Static local:MainPageParams.Singleton},Path=DateTimeColumnsVisible}" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

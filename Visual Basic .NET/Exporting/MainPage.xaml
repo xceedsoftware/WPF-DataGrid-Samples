@@ -1,0 +1,124 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Exporting Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Exporting sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.Exporting.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Exporting">
+   <Page.Resources>
+      <xcdg:CurrencyConverter x:Key="currencyConverter" />
+
+      <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+
+      <xcdg:DataGridCollectionViewSource x:Key="cvsProducts"
+                                         Source="{Binding Source={x:Static Application.Current},Path=Products}"
+                                         AutoCreateDetailDescriptions="False">
+         <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+            <xcdg:DataGridGroupDescription PropertyName="ReorderLevel" />
+         </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+
+         <!-- The detail grids associated to this DetailDescription will be exported if 
+              the ShowDetailsLevel property value is greater than 0. -->
+         <xcdg:DataGridCollectionViewSource.DetailDescriptions>
+            <xcdg:DataRelationDetailDescription RelationName="ProductsOrderDetails"
+                                                Title="Orders details"/>
+         </xcdg:DataGridCollectionViewSource.DetailDescriptions>
+
+         <!-- All these StatFunctions will be exported if the ShowStatsLevel property
+              value is greater than -1. -->
+         <xcdg:DataGridCollectionViewSource.StatFunctions>
+            <xcdg:AverageFunction ResultPropertyName="AverageOfUnitPrice"
+                                     SourcePropertyName="UnitPrice" />
+
+            <xcdg:SumFunction ResultPropertyName="SumOfUnitsInStock"
+                                 SourcePropertyName="UnitsInStock" />
+
+            <xcdg:SumFunction ResultPropertyName="SumOfUnitsOnOrder"
+                                 SourcePropertyName="UnitsOnOrder" />
+         </xcdg:DataGridCollectionViewSource.StatFunctions>
+      </xcdg:DataGridCollectionViewSource>
+
+      <!-- These Templates are used with the UnitPrice and ReorderDate columns for the 
+           DataGrid only (visual grid). The exporters have their own, independent, 
+           number and date formats properties. -->
+      <DataTemplate x:Key="currencyCellContentTemplate">
+         <TextBlock Text="{Binding Converter={StaticResource currencyConverter}}" />
+      </DataTemplate>
+
+      <DataTemplate x:Key="shortDateCellDataTemplate">
+         <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+      </DataTemplate>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <local:ConfigurationPanel x:Name="configurationPanel" />
+      </ContentControl>
+
+      <!-- The read-only main DataGridControl. -->
+      <!-- The exporting itself is done in this MainPage's code-behind. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            AutoCreateDetailConfigurations="True"
+                            CellEditorDisplayConditions="None"
+                            ItemsSource="{Binding Source={StaticResource cvsProducts}}"
+                            EditTriggers="None"
+                            ReadOnly="True"
+                            ItemScrollingBehavior="Immediate">
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"/>
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="ProductID"
+                         Visible="False" 
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="QuantityPerUnit"
+                         Visible="False"/>
+            <xcdg:Column FieldName="Discontinued"
+                         Visible="False" />
+            <xcdg:Column FieldName="Photo"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="SupplierID"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="CategoryID"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="ProductName"
+                         Title="Name"
+                         Width="200"
+                         IsMainColumn="True" />
+            <xcdg:Column FieldName="ReorderLevel"
+                         Title="Reorder Level" />
+            <xcdg:Column FieldName="UnitPrice"
+                         Title="Unit Price"
+                         CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+            <xcdg:Column FieldName="UnitsInStock"
+                         Title="Units in Stock" />
+            <xcdg:Column FieldName="UnitsOnOrder"
+                         Title="Units on Order" />
+            <xcdg:Column FieldName="ReorderDate"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}"/>
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

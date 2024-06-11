@@ -1,0 +1,55 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Included Editors Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ComboBoxEditors.xaml]
+
+  This ResourceDictionary contains templates and CellEditors providing ComboBox
+  editors for a DataGrid.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.IncludedEditors">
+   <DataTemplate x:Key="categoryCellDataTemplate">
+      <TextBlock Text="{Binding}"
+                 MinHeight="22"/>
+   </DataTemplate>
+
+   <!-- This is a very straightforward ComboBox editor used for the Category Column. -->
+   <xcdg:CellEditor x:Key="categoryEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <ComboBox BorderThickness="0"
+                      VerticalContentAlignment="Top"
+                      MinHeight="22"
+                      ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=local:MainPage},Path=Departments}"
+                      SelectedValue="{xcdg:CellEditorBinding}"
+                      FocusVisualStyle="{x:Null}">
+               <ComboBox.Resources>
+                  <Style TargetType="Popup">
+                     <Setter Property="TextElement.Foreground"
+                             Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                  </Style>
+               </ComboBox.Resources>
+            </ComboBox>
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the ComboBox CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:KeyActivationGesture SystemKey="Down"
+                                    Modifiers="Alt" />
+         <xcdg:KeyActivationGesture Key="Up"
+                                    Modifiers="Alt" />
+         <xcdg:KeyActivationGesture Key="F4" />
+         <xcdg:KeyActivationGesture Key="Space" />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+</ResourceDictionary>

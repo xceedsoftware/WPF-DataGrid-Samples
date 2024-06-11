@@ -1,0 +1,65 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Tableflow™ view Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [OrdersDetailConfigurations.xaml]
+
+  This ResourceDictionary contains a DetailConfiguration used customize
+  the "Orders" detail grid and its Products child detail configuration.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Tableflow">
+
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="AuxiliaryResources.xaml" />
+   </ResourceDictionary.MergedDictionaries>
+
+   <!-- The orders detail configuration. -->
+   <xcdg:DetailConfiguration x:Key="ordersDetailConfiguration"
+                             RelationName="OrdersOrderDetails"
+                             Title="Order Details"
+                             AllowDetailToggle="{Binding Source={x:Static local:MainPageParams.Singleton},Path=AllowDetailToggle}"
+                             AutoCreateForeignKeyConfigurations="True">
+      <xcdg:DetailConfiguration.Columns>
+         <xcdg:Column FieldName="ProductID"
+                      Title="Product" />
+
+         <xcdg:Column FieldName="UnitPrice"
+                      Title="Unit Price"
+                      CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                      GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+
+         <xcdg:Column FieldName="Quantity"
+                      CellContentTemplate="{StaticResource integralCellContentTemplate}"
+                      GroupValueTemplate="{StaticResource integralCellContentTemplate}" />
+      </xcdg:DetailConfiguration.Columns>
+      <!-- The other columns will be automatically added upon loading after these 
+                    columns. They will have default appearance and behavior. -->
+
+      <xcdg:DetailConfiguration.Headers>
+         <DataTemplate>
+            <xcdg:InsertionRow InsertionMode="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=InsertionMode}" />
+         </DataTemplate>
+      </xcdg:DetailConfiguration.Headers>
+
+      <xcdg:DetailConfiguration.Footers>
+         <DataTemplate>
+            <xcdg:StatRow>
+               <xcdg:StatCell FieldName="UnitPrice"
+                              BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HorizontalGridLineBrush}"
+                              BorderThickness="0,1,0,0"
+                              ResultPropertyName="UnitPriceTotal" />
+            </xcdg:StatRow>
+         </DataTemplate>
+      </xcdg:DetailConfiguration.Footers>
+
+   </xcdg:DetailConfiguration>
+</ResourceDictionary>

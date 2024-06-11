@@ -1,0 +1,51 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Persist User Settings Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainWindow.xaml]
+
+     This is the main window for the Persist User Settings sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Window x:Class="Xceed.Wpf.DataGrid.Samples.PersistSettings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples"
+        Title="Xceed DataGrid for WPF - Persist User Settings Sample"
+        Icon="App.ico">
+
+   <Window.Resources>
+      <DataTemplate x:Key="viewItemTemplate"
+                    DataType="local:ViewItem">
+         <TextBlock Text="{Binding Description}" />
+      </DataTemplate>
+   </Window.Resources>
+   
+   <DockPanel>
+      <DockPanel.Background>
+         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+      </DockPanel.Background>
+
+      <StackPanel Orientation="Horizontal"
+                  DockPanel.Dock="Top"
+                  Margin="3">
+         <TextBlock Text="View : "
+                    Margin="0,3,4,0" />
+         <ComboBox x:Name="viewComboBox"
+                   Width="140"
+                   ItemsSource="{Binding Source={x:Static Application.Current}, Path=AvailableViews}"
+                   ItemTemplate="{StaticResource viewItemTemplate}"
+                   SelectionChanged="viewComboBox_SelectionChanged"
+                   SelectedIndex="0" />
+      </StackPanel>
+
+      <Frame x:Name="rootFrame"
+             Focusable="False"
+             Source="MainPage.xaml" />
+   </DockPanel>
+</Window>

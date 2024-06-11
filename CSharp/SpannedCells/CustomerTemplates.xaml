@@ -1,0 +1,43 @@
+﻿<!-- 
+   Xceed DataGrid for WPF - SAMPLE CODE - Spanned Cells Sample Application
+   Copyright (c) 2007-2024 Xceed Software Inc.
+
+   [CustomerTemplates.xaml]
+
+   This ResourceDictionary contains various DataTemplates used to customize
+   the way Customer informations are displayed and edited.
+
+   This file is part of the Xceed DataGrid for WPF product. The use
+   and distribution of this Sample Code is subject to the terms
+   and conditions referring to "Sample Code" that are specified in
+   the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.SpannedCells">
+
+   <!-- Using binding in WPF is a quick and easy way to display values in a UI. 
+        However, frequently the way the information is displayed is a bit too raw and 
+        you'll want to customize it. Converters are good way to do that. The Xceed
+        DataGridControl conforms entirely to this WPF structure. You can use Binding,
+        Converters and DataTemplates like everywhere else in the Framework. -->
+
+   <local:CustomerMultiConverter x:Key="customerMultiConverter" />
+   <local:CustomerForeignKeyConverter x:Key="customerForeignKeyConverter" />
+
+   <!-- A data template that will be used to represent a customer with his 
+        company name and contact name. -->
+   <DataTemplate x:Key="customerDataTemplate">
+      <TextBlock TextWrapping="Wrap">
+         <TextBlock.Text>
+            <MultiBinding Converter="{StaticResource customerMultiConverter}">
+               <Binding Path="CompanyName" />
+               <Binding Path="ContactName" />
+            </MultiBinding>
+         </TextBlock.Text>
+      </TextBlock>
+   </DataTemplate>
+
+</ResourceDictionary>

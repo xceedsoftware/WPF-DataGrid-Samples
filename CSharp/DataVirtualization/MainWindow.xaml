@@ -1,0 +1,226 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - DataVirtualization Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainWindow.xaml]
+
+  This Window contains the UI declarations of the DataVirtualization sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Window x:Class="Xceed.Wpf.DataGrid.Samples.DataVirtualization.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.DataVirtualization"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+        Title="MainWindow" Height="768" Width="1024">
+
+   <Window.Resources>
+
+
+      <local:BooleanInverterConverter x:Key="booleanInverterConverter" />
+      <local:EqualityConverter x:Key="equalityConverter" />
+      <local:BooleanVisibilityConverter x:Key="booleanVisibilityConverter"/>
+
+
+      <xcdg:DataGridVirtualizingCollectionViewSource x:Key="dgvcvs"
+                                                     AutoCreateItemProperties="False"
+                                                     AbortQueryItemCount="DataGridVirtualizingCollectionViewSource_AbortQueryItemCount"
+                                                     AbortQueryItems="DataGridVirtualizingCollectionViewSource_AbortQueryItems"
+                                                     AbortQueryGroups="DataGridVirtualizingCollectionViewSource_AbortQueryGroups"
+                                                     AbortQueryAutoFilterDistinctValues="DataGridVirtualizingCollectionViewSource_AbortQueryAutoFilterDistinctValues"
+                                                     QueryItemCount="DataGridVirtualizingCollectionViewSource_QueryItemCount"
+                                                     QueryItems="DataGridVirtualizingCollectionViewSource_QueryItems"
+                                                     QueryGroups="DataGridVirtualizingCollectionViewSource_QueryGroups"
+                                                     QueryAutoFilterDistinctValues="DataGridVirtualizingCollectionViewSource_QueryAutoFilterDistinctValues"
+                                                     CommitItems="DataGridVirtualizingCollectionViewSource_CommitItems"
+                                                     CommitMode="EditCommitted"
+                                                     MaxRealizedItemCount="1000"
+                                                     PageSize="200"
+                                                     DefaultCalculateDistinctValues="False"
+                                                     AutoFilterMode="And">
+         <xcdg:DataGridVirtualizingCollectionViewSource.ItemProperties>
+            <xcdg:DataGridItemProperty Name="PK" Title="PK" DataType="{x:Type s:Int32}" IsReadOnly="True" />
+            <xcdg:DataGridItemProperty Name="FirstName" Title="First Name" DataType="{x:Type s:String}" />
+            <xcdg:DataGridItemProperty Name="LastName" Title="Last Name" DataType="{x:Type s:String}" />
+            <xcdg:DataGridItemProperty Name="HireDate" Title="Hire Date" DataType="{x:Type s:DateTime}" />
+            <xcdg:DataGridItemProperty Name="Children" Title="Children" DataType="{x:Type s:Int32}" CalculateDistinctValues="True" />
+            <xcdg:DataGridItemProperty Name="Employed" Title="Is Employed" DataType="{x:Type s:Boolean}" CalculateDistinctValues="True" />
+         </xcdg:DataGridVirtualizingCollectionViewSource.ItemProperties>
+      </xcdg:DataGridVirtualizingCollectionViewSource>
+
+
+   </Window.Resources>
+
+   <DockPanel Margin="2">
+
+      <TextBlock DockPanel.Dock="Top" Margin="4,8,4,8" TextWrapping="Wrap">
+         This sample demonstrates an optimal way of handling data virtualization events using SQL commands. 
+         To get started, provide the required information about your SQL server including the name of a new or existing table. 
+         If specific credentials are required, please provide them below. 
+         If a new table needs to be created, you can determine the number of records to add to it. Note that the more records are created, the longer it will take. 
+         <LineBreak/>
+         <LineBreak/>
+         The resulting data will appear in the grid below.
+      </TextBlock>
+
+      <Grid DockPanel.Dock="Top" DataContext="{Binding Path=DatabaseInfo}" 
+            IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}, 
+                        Path=IsLaunched, Converter={StaticResource booleanInverterConverter}, Mode=OneWay}" >
+
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+         </Grid.ColumnDefinitions>
+
+         <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+         </Grid.RowDefinitions>
+
+         <!--CONNECTION GROUP BOX-->
+         <GroupBox Grid.Column="0" Grid.Row="0" Header="Connection" Margin="2" 
+                   IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}, 
+                               Path=CreatingData, Converter={StaticResource booleanInverterConverter}, Mode=OneWay}">
+
+            <Grid Margin="4" >
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="3*"/>
+               </Grid.ColumnDefinitions>
+
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+
+               <TextBlock Grid.Column="0" Grid.Row="0" Text="Server: " MinWidth="60" Margin="2" />
+               <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=ServerName}" Margin="2" />
+
+
+               <TextBlock Grid.Column="0" Grid.Row="1" Text="Database: " MinWidth="60" Margin="2" />
+               <TextBox Grid.Column="1" Grid.Row="1" IsEnabled="False" Margin="2" Text="{Binding Path=DatabaseName, Mode=OneWay}" />
+
+               <TextBlock Grid.Column="0" Grid.Row="2" Text="Table: " MinWidth="60" Margin="2" />
+               <TextBox Grid.Column="1" Grid.Row="2" Margin="2" Text="{Binding Path=TableName}" />
+
+            </Grid>
+
+         </GroupBox>
+
+         <!--CREDENTIALS GROUP BOX-->
+         <GroupBox Grid.Column="1" Grid.Row="0" Header="Credentials" Margin="2" 
+                   IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}, 
+                               Path=CreatingData, Converter={StaticResource booleanInverterConverter}, Mode=OneWay}">
+
+            <StackPanel Margin="4">
+               <CheckBox Content="Use Integrated Security" Margin="2" IsChecked="{Binding Path=UseIntegratedSecurity, Mode=TwoWay}" />
+
+               <StackPanel Margin="0,8,0,0" IsEnabled="{Binding Path=UseIntegratedSecurity, Mode=OneWay, Converter={StaticResource booleanInverterConverter}}">
+
+                  <Grid>
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                     </Grid.ColumnDefinitions>
+
+                     <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                     </Grid.RowDefinitions>
+
+                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Username: " MinWidth="60" Margin="2" />
+                     <TextBox Grid.Column="1" Grid.Row="0" Margin="2" Text="{Binding Path=Username, Mode=TwoWay}"/>
+
+                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Password: " MinWidth="60" Margin="2" />
+                     <PasswordBox Grid.Column="1" Grid.Row="1" Margin="2" x:Name="passwordBox"/>
+
+                  </Grid>
+
+               </StackPanel>
+
+               <!--CONNECT BUTTON-->
+               <Button x:Name="launchButton" Content="Connect" Margin="2,8,2,2" MinHeight="21" Click="launch_ButtonClick" />
+
+            </StackPanel>
+
+         </GroupBox>
+
+         <!--CREATION GROUP BOX-->
+         <GroupBox Grid.Column="2" Grid.Row="0" Header="Number of records to create" Margin="2" 
+                   Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}, 
+                                Path=IsLaunched, Converter={StaticResource booleanVisibilityConverter}, ConverterParameter=False, Mode=OneWay}">
+
+            <StackPanel Margin="4">
+               
+               <StackPanel IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}, 
+                                       Path=CreatingData, Converter={StaticResource booleanInverterConverter}, Mode=OneWay}">
+                  <RadioButton Content="1000 (Sit back and relax)" IsChecked="{Binding Path=RecordCount, Mode=TwoWay, Converter={StaticResource equalityConverter}, ConverterParameter=1000 }" />
+                  <RadioButton Content="10000 (Go grab a coffee)" IsChecked="{Binding Path=RecordCount, Mode=TwoWay, Converter={StaticResource equalityConverter}, ConverterParameter=10000 }" />
+                  <RadioButton Content="100000 (Go out to lunch)" IsChecked="{Binding Path=RecordCount, Mode=TwoWay, Converter={StaticResource equalityConverter}, ConverterParameter=100000 }" />
+                  <RadioButton Content="1000000 (Come back tomorrow)" IsChecked="{Binding Path=RecordCount, Mode=TwoWay, Converter={StaticResource equalityConverter}, ConverterParameter=1000000 }" />
+               </StackPanel>
+
+
+               <Grid>
+
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="3*"/>
+                  </Grid.ColumnDefinitions>
+
+                  <Button x:Name="createDataButton" Margin="0,21,2,2" Grid.Column="0" Content="Create Data" MinWidth="60" MinHeight="21" Click="CreateDatabase_ButtonClick" />
+                  <ProgressBar x:Name="progressBar" Margin="2,21,2,2" Grid.Column="1" MinHeight="21" SmallChange="1" LargeChange="1" Minimum="0" Maximum="{Binding Path=RecordCount, Mode=OneWay}"/>
+
+               </Grid>
+
+            </StackPanel>
+
+         </GroupBox>
+
+
+      </Grid>
+
+      <!--Add an Xceed DataGridControl-->
+      <xcdg:DataGridControl x:Name="grid"
+                            Margin="4"
+                            CellEditorDisplayConditions="MouseOverCell"
+                            EditTriggers="BeginEditCommand,ActivationGesture"
+                            ItemScrollingBehavior="Immediate"
+                            ItemsSource="{Binding Source={StaticResource dgvcvs}}"
+                            MaxSortLevels="2"
+                            MaxGroupLevels="2">
+         <xcdg:DataGridControl.Resources>
+            <!--When using DataVirtualization, it is highly recommended to set a specific height on the Datarows.-->
+            <Style TargetType="xcdg:DataRow">
+               <Setter Property="Height" Value="21" />
+            </Style>
+         </xcdg:DataGridControl.Resources>
+         <xcdg:DataGridControl.View>
+            <xcdg:TableView Theme="{DynamicResource defaultTheme}" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <!--We disable sorting and grouping for the following columns since it would make the sql queries not responsive enough.-->
+            <xcdg:Column FieldName="PK" AllowSort="False" AllowGroup="False" />
+            <xcdg:Column FieldName="FirstName" AllowSort="False" AllowGroup="False" />
+            <xcdg:Column FieldName="LastName" AllowSort="False" AllowGroup="False" />
+            <xcdg:Column FieldName="HireDate" AllowSort="False" AllowGroup="False" />
+
+            <xcdg:Column FieldName="Children" />
+            <xcdg:Column FieldName="Employed" />
+         </xcdg:DataGridControl.Columns>
+         
+      </xcdg:DataGridControl>
+   </DockPanel>
+
+</Window>

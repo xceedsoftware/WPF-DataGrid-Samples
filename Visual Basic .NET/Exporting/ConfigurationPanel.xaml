@@ -1,0 +1,326 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Exporting Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ConfigurationPanel.xaml]
+
+  This UserControl contains the UI allowing the end-user to modify the 
+  settings demonstrated in this sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.Exporting.ConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Exporting"
+             DataContext="{x:Static local:ConfigurationData.Singleton}">
+   <UserControl.Resources>
+      <local:GreaterThanConverter x:Key="greaterThanConverter" />
+   </UserControl.Resources>
+
+   <StackPanel Orientation="Horizontal">
+      <GroupBox Header="Export Settings"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel Grid.IsSharedSizeScope="True">
+            <!-- Exporters shared option settings -->
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition SharedSizeGroup="col0"
+                                    Width="Auto" />
+                  <ColumnDefinition SharedSizeGroup="col1"
+                                    Width="6" />
+                  <ColumnDefinition SharedSizeGroup="col2"
+                                    Width="Auto" />
+                  <ColumnDefinition SharedSizeGroup="col3"
+                                    Width="10" />
+                  <ColumnDefinition SharedSizeGroup="col4"
+                                    Width="Auto" />
+                  <ColumnDefinition SharedSizeGroup="col5"
+                                    Width="6" />
+                  <ColumnDefinition SharedSizeGroup="col6"
+                                    Width="Auto" />
+               </Grid.ColumnDefinitions>
+
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="4" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="4" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="4" />
+               </Grid.RowDefinitions>
+
+               <TextBlock Text="Export format:"
+                          DockPanel.Dock="Left"
+                          VerticalAlignment="Center"
+                          Grid.Column="0"
+                          Grid.Row="0" />
+
+               <ComboBox x:Name="exportFormatComboBox"
+                         SelectedIndex="0"
+                         Width="100"
+                         HorizontalAlignment="Left"
+                         Grid.Column="2"
+                         Grid.Row="0">
+                  <local:ExportFormat>Excel</local:ExportFormat>
+                  <local:ExportFormat>CSV</local:ExportFormat>
+               </ComboBox>
+
+               <CheckBox Name="includeColumnHeadersCheckBox"
+                         Content="Include column headers"
+                         IsChecked="{Binding IncludeColumnHeaders}"
+                         VerticalAlignment="Center"
+                         Grid.Row="2"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3" />
+
+               <CheckBox Content="Use field names instead of title"
+                         IsChecked="{Binding UseFieldNamesInHeader}"
+                         IsEnabled="{Binding ElementName=includeColumnHeadersCheckBox, Path=IsChecked}"
+                         Margin="15,0,0,0"
+                         VerticalAlignment="Center"
+                         Grid.Row="4"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3" />
+
+               <TextBlock Text="Export details up to level:"
+                          VerticalAlignment="Center"
+                          Margin="0,0,5,0"
+                          Grid.Row="2"
+                          Grid.Column="4" />
+               <xcdg:NumericTextBox x:Name="detailDepthTextBox"
+                                    AutoSelectBehavior="OnFocus"
+                                    MinValue="0"
+                                    Value="{Binding DetailDepth}"
+                                    ValueDataType="s:Int32"
+                                    NumberStyles="Integer"
+                                    HorizontalAlignment="Left"
+                                    Width="50"
+                                    Grid.Row="2"
+                                    Grid.Column="6" />
+
+               <CheckBox Content="Repeat parent data"
+                         IsChecked="{Binding RepeatParentData}"
+                         IsEnabled="{Binding ElementName=detailDepthTextBox, Path=Value, Converter={StaticResource greaterThanConverter}}"
+                         VerticalAlignment="Center"
+                         Margin="15,0,0,0"
+                         Grid.Row="4"
+                         Grid.Column="4"
+                         Grid.ColumnSpan="3" />
+            </Grid>
+
+            <Grid>
+               <!-- Excel exporter option settings -->
+               <Grid Name="excelOptionsPanel">
+                  <Grid.Style>
+                     <Style TargetType="Grid">
+                        <Style.Triggers>
+                           <DataTrigger Binding="{Binding ElementName=exportFormatComboBox, Path=SelectedValue}"
+                                        Value="CSV">
+                              <Setter Property="Visibility"
+                                      Value="Hidden" />
+                           </DataTrigger>
+                        </Style.Triggers>
+                     </Style>
+                  </Grid.Style>
+
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition SharedSizeGroup="col0" />
+                     <ColumnDefinition SharedSizeGroup="col1" />
+                     <ColumnDefinition SharedSizeGroup="col2" />
+                     <ColumnDefinition SharedSizeGroup="col3" />
+                     <ColumnDefinition SharedSizeGroup="col4" />
+                     <ColumnDefinition SharedSizeGroup="col5" />
+                     <ColumnDefinition SharedSizeGroup="col6" />
+                  </Grid.ColumnDefinitions>
+
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="4" />
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="4" />
+                  </Grid.RowDefinitions>
+
+                  <CheckBox Content="Non-scrolling header row"
+                            IsChecked="{Binding IsHeaderFixed}"
+                            IsEnabled="{Binding ElementName=includeColumnHeadersCheckBox, Path=IsChecked}"
+                            VerticalAlignment="Center"
+                            Margin="15,0,0,0"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3" />
+
+                  <TextBlock Text="Export stats up to group level:"
+                             ToolTip="Indicates on which group level(s) the StatFunction results will be displayed. Specify -1 to avoid exporting StatFunctions."
+                             VerticalAlignment="Center"
+                             Grid.Row="0"
+                             Grid.Column="4" />
+                  <xcdg:NumericTextBox x:Name="statFunctionDepthTextBox"
+                                       ToolTip="Indicates on which group level(s) the StatFunction results will be displayed. Specify -1 to avoid exporting StatFunctions."
+                                       AutoSelectBehavior="OnFocus"
+                                       MinValue="-1"
+                                       Value="{Binding StatFunctionDepth}"
+                                       ValueDataType="s:Int32"
+                                       NumberStyles="Integer"
+                                       HorizontalAlignment="Left"
+                                       Width="50"
+                                       Grid.Row="0"
+                                       Grid.Column="6" />
+
+                  <CheckBox Name="exportStatFunctionsAsFormulasCheckBox"
+                            Content="Export StatFunctions as formulas"
+                            IsChecked="{Binding ExportStatFunctionsAsFormulas}"
+                            IsEnabled="{Binding ElementName=statFunctionDepthTextBox, Path=Value, Converter={StaticResource greaterThanConverter}, ConverterParameter=-1}"
+                            Margin="15,0,0,0"
+                            VerticalAlignment="Center"
+                            Grid.Row="2"
+                            Grid.Column="4"
+                            Grid.ColumnSpan="3" />
+               </Grid>
+
+               <!-- CSV exporter option settings -->
+               <Grid Name="csvOptionsPanel">
+                  <Grid.Style>
+                     <Style TargetType="Grid">
+                        <Style.Triggers>
+                           <DataTrigger Binding="{Binding ElementName=exportFormatComboBox, Path=SelectedValue}"
+                                        Value="Excel">
+                              <Setter Property="Visibility"
+                                      Value="Hidden" />
+                           </DataTrigger>
+                        </Style.Triggers>
+                     </Style>
+                  </Grid.Style>
+
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition SharedSizeGroup="col0" />
+                     <ColumnDefinition SharedSizeGroup="col1" />
+                     <ColumnDefinition SharedSizeGroup="col2" />
+                     <ColumnDefinition SharedSizeGroup="col3" />
+                     <ColumnDefinition SharedSizeGroup="col4" />
+                     <ColumnDefinition SharedSizeGroup="col5" />
+                     <ColumnDefinition SharedSizeGroup="col6" />
+                  </Grid.ColumnDefinitions>
+
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="4" />
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="4" />
+                  </Grid.RowDefinitions>
+
+                  <TextBlock Text="Field separator:"
+                             VerticalAlignment="Center"
+                             Grid.Column="0"
+                             Grid.Row="0" />
+                  <ComboBox x:Name="separatorComboBox"
+                            IsEditable="False"
+                            IsReadOnly="True"
+                            VerticalAlignment="Center"
+                            DisplayMemberPath="Description"
+                            SelectedValuePath="Separator"
+                            SelectedValue="{Binding Path=Separator, Mode=OneWayToSource}"
+                            Grid.Column="2"
+                            Grid.Row="0">
+                     <local:SeparatorItem Description=","
+                                          Separator="," />
+                     <local:SeparatorItem Description=";"
+                                          Separator=";" />
+                     <local:SeparatorItem Description="Tab"
+                                          Separator="&#0009;" />
+                  </ComboBox>
+
+                  <TextBlock Text="Text qualifier:"
+                             VerticalAlignment="Center"
+                             Margin="0,0,4,0"
+                             Grid.Column="0"
+                             Grid.Row="2" />
+                  <ComboBox Name="textQualifierComboBox"
+                            IsEditable="False"
+                            IsReadOnly="True"
+                            SelectedValue="{Binding Path=TextQualifier, Mode=OneWayToSource}"
+                            VerticalAlignment="Center"
+                            Grid.Column="2"
+                            Grid.Row="2">
+                     <s:Char>"</s:Char>
+                     <s:Char>'</s:Char>
+                  </ComboBox>
+
+                  <TextBlock Text="Date/time format:"
+                             VerticalAlignment="Center"
+                             Margin="0,0,4,0"
+                             Grid.Column="4"
+                             Grid.Row="0" />
+                  <ComboBox Name="dateTimeFormatComboBox"
+                            IsEditable="False"
+                            IsReadOnly="True"
+                            DisplayMemberPath="Description"
+                            SelectedValuePath="Format"
+                            SelectedValue="{Binding Path=DateTimeFormat, Mode=OneWayToSource}"
+                            Width="100"
+                            VerticalAlignment="Center"
+                            Grid.Column="6"
+                            Grid.Row="0">
+                     <local:FormatItem Description="Short date"
+                                       Format="d" />
+                     <local:FormatItem Description="Long date"
+                                       Format="D" />
+                     <local:FormatItem Description="Long date and short time"
+                                       Format="f" />
+                     <local:FormatItem Description="Long date and long time"
+                                       Format="F" />
+                     <local:FormatItem Description="Short date and short time"
+                                       Format="g" />
+                     <local:FormatItem Description="Short date and long time"
+                                       Format="G" />
+                     <local:FormatItem Description="Month and day"
+                                       Format="m" />
+                     <local:FormatItem Description="Year and month"
+                                       Format="y" />
+                     <local:FormatItem Description="Custom (YYYY-MM-DD)"
+                                       Format="yyyy-MM-dd" />
+                  </ComboBox>
+
+                  <TextBlock Text="Number format:"
+                             VerticalAlignment="Center"
+                             Margin="0,0,4,0"
+                             Grid.Column="4"
+                             Grid.Row="2" />
+                  <ComboBox Name="numberFormatComboBox"
+                            IsEditable="False"
+                            IsReadOnly="True"
+                            DisplayMemberPath="Description"
+                            SelectedValuePath="Format"
+                            SelectedValue="{Binding Path=NumberFormat, Mode=OneWayToSource}"
+                            Width="100"
+                            VerticalAlignment="Center"
+                            Grid.Column="6"
+                            Grid.Row="2">
+                     <local:FormatItem Description="General"
+                                       Format="g" />
+                     <local:FormatItem Description="Fixed-point"
+                                       Format="f" />
+                     <local:FormatItem Description="Scientific (exponential)"
+                                       Format="e" />
+                     <local:FormatItem Description="Custom (6 decimals)"
+                                       Format="0.000000" />
+                  </ComboBox>
+               </Grid>
+            </Grid>
+
+            <Button Margin="{StaticResource configItemMargin}"
+                    Content="Export"
+                    Click="export_Click"
+                    Width="110"
+                    HorizontalAlignment="Right" />
+         </StackPanel>
+      </GroupBox>
+   </StackPanel>
+</UserControl>

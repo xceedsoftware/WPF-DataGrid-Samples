@@ -1,0 +1,51 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Master/Detail Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [SubEmployeesDetailConfigurations.xaml]
+
+  This ResourceDictionary contains two DetailConfigurations used customize
+  the "Subordinate employees" detail grids.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.MasterDetail">
+   <local:BooleanToVisibilityConverter x:Key="visibilityConverter" />
+   <xcdg:ThicknessConverter x:Key="thicknessConverter" />
+
+   <!-- The sub employees detail configuration visible even when empty (when
+        there are no subordinate employees). -->
+   <xcdg:DetailConfiguration x:Key="subEmployeesDetailConfiguration"
+                             RelationName="SubEmployees"
+                             Title="Subordinate employees"
+                             AutoCreateDetailConfigurations="False"
+                             AllowDetailToggle="False"
+                             IsDeleteCommandEnabled="False">
+
+      <xcdg:DetailConfiguration.ItemContainerStyle>
+         <Style TargetType="{x:Type xcdg:DataRow}">
+            <Setter Property="ReadOnly"
+                    Value="True" />
+
+            <!-- We force the height of the DataRow to be 45 (height of the Photo 
+                 column) to avoid resize when the Photo column is virtualized. -->
+            <Setter Property="MinHeight"
+                    Value="45" />
+         </Style>
+      </xcdg:DetailConfiguration.ItemContainerStyle>
+
+      <xcdg:DetailConfiguration.Columns>
+         <xcdg:Column FieldName="Photo"
+                      Width="45" />
+         <!-- The other columns will be automatically added upon loading after the 
+              Photo column. They will have default appearance and behavior. -->
+      </xcdg:DetailConfiguration.Columns>
+   </xcdg:DetailConfiguration>
+</ResourceDictionary>

@@ -1,0 +1,237 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Spanned Cells Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ConfigurationPanel.xaml]
+
+  This UserControl contains the UI allowing the end-user to modify the 
+  settings demonstrated in this sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.SpannedCells.ConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.SpannedCells"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             DataContext="{x:Static local:ConfigurationData.Singleton}">
+   <UserControl.Resources>
+
+      <ObjectDataProvider x:Key="cellSpanningDirectionDataSource"
+                          ObjectType="s:Enum"
+                          MethodName="GetValues">
+         <ObjectDataProvider.MethodParameters>
+            <x:Type Type="xcdg:CellSpanningDirection" />
+         </ObjectDataProvider.MethodParameters>
+      </ObjectDataProvider>
+
+      <ObjectDataProvider x:Key="spannedCellConflictResolutionModeDataSource"
+                          ObjectType="s:Enum"
+                          MethodName="GetValues">
+         <ObjectDataProvider.MethodParameters>
+            <x:Type Type="xcdg:SpannedCellConflictResolutionMode" />
+         </ObjectDataProvider.MethodParameters>
+      </ObjectDataProvider>
+
+      <ObjectDataProvider x:Key="horizontalAlignmentDataSource"
+                          ObjectType="s:Enum"
+                          MethodName="GetValues">
+         <ObjectDataProvider.MethodParameters>
+            <x:Type Type="HorizontalAlignment" />
+         </ObjectDataProvider.MethodParameters>
+      </ObjectDataProvider>
+
+      <ObjectDataProvider x:Key="verticalAlignmentDataSource"
+                          ObjectType="s:Enum"
+                          MethodName="GetValues">
+         <ObjectDataProvider.MethodParameters>
+            <x:Type Type="VerticalAlignment" />
+         </ObjectDataProvider.MethodParameters>
+      </ObjectDataProvider>
+
+   </UserControl.Resources>
+
+   <Grid>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="Auto" />
+         <ColumnDefinition Width="Auto" />
+         <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <Grid Grid.Column="0">
+         <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+         </Grid.RowDefinitions>
+
+         <GroupBox Header="Spanned Cells"
+                   Grid.Row="0"
+                   Margin="{StaticResource groupBoxMargin}"
+                   Padding="{StaticResource groupBoxPadding}">
+            <StackPanel>
+               <CheckBox Content="Show spanned cells"
+                         IsChecked="{Binding AllowCellSpanning}"
+                         Margin="{StaticResource configItemMargin}" />
+
+               <Grid>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="5" />
+                     <ColumnDefinition Width="Auto" />
+                     <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+
+                  <TextBlock Text="Conflict resolution:"
+                             Margin="0,5,5,5"
+                             Grid.Column="1" />
+
+                  <ComboBox ItemsSource="{Binding Source={StaticResource spannedCellConflictResolutionModeDataSource}}"
+                            SelectedItem="{Binding ConflictResolutionMode}"
+                            MinWidth="90"
+                            Grid.Column="2" />
+               </Grid>
+            </StackPanel>
+         </GroupBox>
+
+         <GroupBox Header="Spanned Cells Style"
+                   Grid.Row="1"
+                   Margin="{StaticResource groupBoxMargin}"
+                   Padding="{StaticResource groupBoxPadding}">
+            <CheckBox Content="Add borders"
+                      IsChecked="{Binding AddBorders}"
+                      Margin="{StaticResource configItemMargin}" />
+
+         </GroupBox>
+      </Grid>
+
+      <GroupBox Header="Spanned Cells Configuration"
+                Grid.Column="1"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+            <CheckBox Content="Use custom configuration"
+                      IsChecked="{Binding UseCustomConfiguration}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="5" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+
+               <TextBlock Text="Horizontal alignment:"
+                          Margin="0,5,5,5"
+                          Grid.Column="1"
+                          Grid.Row="0" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource horizontalAlignmentDataSource}}"
+                         IsEnabled="{Binding UseCustomConfiguration}"
+                         SelectedItem="{Binding HorizontalContentAlignment}"
+                         MinWidth="70"
+                         Grid.Column="2"
+                         Grid.Row="0" />
+
+               <TextBlock Text="Vertical alignment:"
+                          Margin="0,5,5,5"
+                          Grid.Column="1"
+                          Grid.Row="1" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource verticalAlignmentDataSource}}"
+                         IsEnabled="{Binding UseCustomConfiguration}"
+                         SelectedItem="{Binding VerticalContentAlignment}"
+                         MinWidth="70"
+                         Grid.Column="2"
+                         Grid.Row="1" />
+            </Grid>
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Spanning Direction"
+                Grid.Column="2"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+
+               <TextBlock Text="Employee:"
+                          Margin="0,5,5,5"
+                          Grid.Column="0"
+                          Grid.Row="0" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource cellSpanningDirectionDataSource}}"
+                         SelectedItem="{Binding EmployeeSpanningDirection}"
+                         MinWidth="75"
+                         Grid.Column="1"
+                         Grid.Row="0" />
+
+               <TextBlock Text="Customer:"
+                          Margin="0,5,5,5"
+                          Grid.Column="0"
+                          Grid.Row="1" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource cellSpanningDirectionDataSource}}"
+                         SelectedItem="{Binding CustomerSpanningDirection}"
+                         MinWidth="75"
+                         Grid.Column="1"
+                         Grid.Row="1" />
+
+               <TextBlock Text="Shipper:"
+                          Margin="0,5,5,5"
+                          Grid.Column="0"
+                          Grid.Row="2" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource cellSpanningDirectionDataSource}}"
+                         SelectedItem="{Binding ShipViaSpanningDirection}"
+                         MinWidth="75"
+                         Grid.Column="1"
+                         Grid.Row="2" />
+
+               <TextBlock Text="City:"
+                          Margin="0,5,5,5"
+                          Grid.Column="0"
+                          Grid.Row="3" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource cellSpanningDirectionDataSource}}"
+                         SelectedItem="{Binding CitySpanningDirection}"
+                         MinWidth="75"
+                         Grid.Column="1"
+                         Grid.Row="3" />
+
+               <TextBlock Text="Country:"
+                          Margin="0,5,5,5"
+                          Grid.Column="0"
+                          Grid.Row="4" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource cellSpanningDirectionDataSource}}"
+                         SelectedItem="{Binding CountrySpanningDirection}"
+                         MinWidth="75"
+                         Grid.Column="1"
+                         Grid.Row="4" />
+            </Grid>
+         </StackPanel>
+      </GroupBox>
+   </Grid>
+</UserControl>

@@ -1,0 +1,33 @@
+﻿<!-- 
+   Xceed DataGrid for WPF - SAMPLE CODE - Master/Detail Sample Application
+   Copyright (c) 2007-2024 Xceed Software Inc.
+
+   [App.xaml]
+
+   This is the Application class of the Master/Detail sample.
+
+   This file is part of the Xceed DataGrid for WPF product. The use
+   and distribution of this Sample Code is subject to the terms
+   and conditions referring to "Sample Code" that are specified in
+   the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Application x:Class="Xceed.Wpf.DataGrid.Samples.MasterDetail.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             StartupUri="MainWindow.xaml">
+   <Application.Resources>
+      <Style x:Key="parametersHostStyle"
+             TargetType="ContentControl">
+         <Setter Property="Margin"
+                 Value="3"/>
+         <Setter Property="Focusable"
+                 Value="False"/>
+      </Style>
+
+      <Thickness x:Key="groupBoxMargin">2</Thickness>
+      <Thickness x:Key="groupBoxPadding">3,8,3,3</Thickness>
+      <Thickness x:Key="configItemMargin">0,0,0,4</Thickness>
+   </Application.Resources>
+</Application>

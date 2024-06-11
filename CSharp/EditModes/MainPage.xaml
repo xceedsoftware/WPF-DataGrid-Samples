@@ -1,0 +1,169 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Edit Modes Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Edit Modes sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.EditModes.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.EditModes"
+      xmlns:s="clr-namespace:System;assembly=mscorlib">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <xcdg:DataGridCollectionViewSource x:Key="cvsSongs"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Songs}">
+         </xcdg:DataGridCollectionViewSource>
+
+         <!-- This simple Cell Template makes sure that the Cell's height will never
+              be less than its Cell Editor Height. That way, if the Editor is displayed
+              on MouseOver, there will be no "wobbling" of the Row. This is a purely 
+              cosmetic step. -->
+         <DataTemplate x:Key="categoryCellDataTemplate">
+            <TextBlock Text="{Binding}"
+                       MinHeight="22"/>
+         </DataTemplate>
+
+         <!-- This is a very straightforward ComboBox editor used for the Category Column. -->
+         <xcdg:CellEditor x:Key="categoryEditor">
+            <xcdg:CellEditor.EditTemplate>
+               <DataTemplate>
+                  <!-- We prefer a BorderThickness of 0 but some ComboBox templates may 
+                       ignore this preference (in Classic Theme for instance). -->
+                  <!-- Notice the MinHeight set to the same value as the Cell previously. -->
+                  <!-- The important glue mechanism is CellEditorBinding that takes care 
+                       of creating the Binding with the Cell's value. -->
+                  <ComboBox BorderThickness="0"
+                            MinHeight="22"
+                            VerticalContentAlignment="Top"
+                            SelectedValue="{xcdg:CellEditorBinding}"
+                            FocusVisualStyle="{x:Null}">
+                     <ComboBox.Resources>
+                        <Style TargetType="Popup">
+                           <Setter Property="TextElement.Foreground"
+                                   Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                        </Style>
+                     </ComboBox.Resources>
+                     <s:String>Classical</s:String>
+                     <s:String>Folk</s:String>
+                     <s:String>Cabaret</s:String>
+                     <s:String>Pop</s:String>
+                     <s:String>Jazz</s:String>
+                  </ComboBox>
+               </DataTemplate>
+            </xcdg:CellEditor.EditTemplate>
+
+            <!-- Declare the wanted key gesture that will activate the ComboBox CellEditor. -->
+            <xcdg:CellEditor.ActivationGestures>
+               <xcdg:KeyActivationGesture SystemKey="Down"
+                                          Modifiers="Alt" />
+               <xcdg:KeyActivationGesture SystemKey="Up"
+                                          Modifiers="Alt" />
+               <xcdg:KeyActivationGesture Key="F4" />
+               <xcdg:KeyActivationGesture Key="Space" />
+            </xcdg:CellEditor.ActivationGestures>
+         </xcdg:CellEditor>
+
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition MaxWidth="330" />
+               <ColumnDefinition MaxWidth="330" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Cell Editor Display Conditions"
+                      Grid.Column="0"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}">
+               <!-- The ItemsSource will be set in code. -->
+               <ItemsControl x:Name="cellEditorDisplayConditionsItemsControl"
+                             ItemsPanel="{StaticResource groupBoxItemsPanelTemplate}"
+                             ItemTemplate="{StaticResource cellEditorDisplayConditionsItemTemplate}"
+                             ItemsSource="{Binding Source={StaticResource cellEditorDisplayConditionsList} }"
+                             CheckBox.Checked="CellEditorDisplayConditionsChanged"
+                             CheckBox.Unchecked="CellEditorDisplayConditionsChanged"
+                             Focusable="False" />
+            </GroupBox>
+
+            <GroupBox Header="Edit Triggers"
+                      Grid.Column="1"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}">
+               <!-- The ItemsSource will be set in code. -->
+               <ItemsControl x:Name="editTriggersItemsControl"
+                             ItemsPanel="{StaticResource groupBoxItemsPanelTemplate}"
+                             ItemTemplate="{StaticResource editTriggersItemTemplate}"
+                             ItemsSource="{Binding Source={StaticResource editTriggersList} }"
+                             CheckBox.Checked="EditTriggersChanged"
+                             CheckBox.Unchecked="EditTriggersChanged"
+                             Focusable="False" />
+            </GroupBox>
+         </Grid>
+      </ContentControl>
+
+      <!-- The Main DataGridControl is bound to a list of Songs. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsSongs}}"
+                            ItemScrollingBehavior="Immediate">
+
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="Included"
+                         Width="80"
+                         GroupValueTemplate="{StaticResource includedGroupValueTemplate}" />
+            <xcdg:Column FieldName="SongName"
+                         IsMainColumn="True"
+                         Width="200"
+                         Title="Song" />
+            <xcdg:Column FieldName="Artist"
+                         Width="150" />
+            <!-- This column will use the DatePicker editor by default. You don't have
+                 to specify anything. Xceed DataGridControl will always select an 
+                 appropriate CellEditor according to the DataType. -->
+            <xcdg:Column FieldName="LastPlayed"
+                         Title="Last Played"
+                         Width="200"
+                         CellEditor="{StaticResource lastPlayedEditor}"
+                         CellContentTemplate="{StaticResource lastPlayedCellDataTemplate}" />
+            <!-- Of course, you can also specify a particular editor, custom or not. -->
+            <xcdg:Column FieldName="Category"
+                         Width="100"
+                         CellEditor="{StaticResource categoryEditor}"
+                         CellContentTemplate="{StaticResource categoryCellDataTemplate}" />
+            <xcdg:Column FieldName="Country"
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource countryCellContentTemplate}" />
+            <xcdg:Column FieldName="Rating" />
+            <!-- Invisible columns -->
+            <xcdg:Column FieldName="SongID"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

@@ -1,0 +1,166 @@
+﻿<!--
+Xceed DataGrid for WPF - SAMPLE CODE - TreeGridflow View Sample Application
+Copyright (c) 2007-2024 Xceed Software Inc.
+
+[MainPage.xaml]
+
+This Page contains the UI declarations of the TreeGridflowView sample.
+
+This file is part of the Xceed DataGrid for WPF product. The use 
+and distribution of this Sample Code is subject to the terms 
+and conditions referring to "Sample Code" that are specified in 
+the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.TreeGridflowView.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.TreeGridflowView">
+
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <!-- In order to activate the AutoFiltering correctly, we must explicitly define all the 
+              DataGridItemProperties we want to display in the grid and set their CalculateDistinctValues
+              properties. By default, all DataGridItemProperty objects that do not have their CalculateDistinctValues
+              property explicitly set will use the value of the DataGridCollectionViewSource's DefaultCalculateDistinctValues
+              property. -->
+         <xcdg:DataGridCollectionViewSource x:Key="cvsEmployees"
+                                            Source="{Binding}"
+                                            AutoCreateItemProperties="False">
+
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+               <xcdg:DataGridItemProperty Name="Photo" />
+               <xcdg:DataGridItemProperty Name="FirstName"
+                                          Title="First Name" />
+               <xcdg:DataGridItemProperty Name="LastName"
+                                          Title="Last Name" />
+               <xcdg:DataGridItemProperty Name="Title" />
+               <xcdg:DataGridItemProperty Name="BirthDate"
+                                          Title="Birth Date" />
+               <xcdg:DataGridItemProperty Name="HireDate"
+                                          Title="Hire Date" />
+               <xcdg:DataGridItemProperty Name="Country" />
+               <xcdg:DataGridItemProperty Name="Region" />
+               <xcdg:DataGridItemProperty Name="City" />
+               <xcdg:DataGridItemProperty Name="Address" />
+               <xcdg:DataGridItemProperty Name="PostalCode"
+                                          Title="Postal Code" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+
+            <!-- Define child detail descriptions for this detail description. -->
+            <xcdg:DataGridCollectionViewSource.DetailDescriptions>
+               <local:EmployeesDetailDescription>
+
+                  <!-- Define child detail descriptions for this detail description. -->
+                  <local:EmployeesDetailDescription.DetailDescriptions>
+                     <local:EmployeesDetailDescription />
+                  </local:EmployeesDetailDescription.DetailDescriptions>
+
+               </local:EmployeesDetailDescription>
+            </xcdg:DataGridCollectionViewSource.DetailDescriptions>
+
+         </xcdg:DataGridCollectionViewSource>
+
+         <!-- This DataTemplate containing a ColumnManagerRow will be added in the 
+              FixedHeaders if the corresponding CheckBox is checked in the 
+              ConfigurationPanel. This is done in code-behind. -->
+         <DataTemplate x:Key="columnManagerRowTemplate">
+            <xcdg:ColumnManagerRow />
+         </DataTemplate>
+
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <local:ConfigurationPanel />
+      </ContentControl>
+
+      <!-- Add a Xceed DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsEmployees}}"
+                            FlowDirection="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=FlowDirection}"
+                            ReadOnly="True"
+                            ItemsSourceChangeCompleted="DataGrid_ItemsSourceChangeCompleted">
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="Photo"
+                         IsMainColumn="True"
+                         Width="200" />
+
+            <xcdg:Column FieldName="FirstName" />
+
+            <xcdg:Column FieldName="LastName" />
+
+            <xcdg:Column FieldName="Title" />
+
+            <xcdg:Column FieldName="HireDate"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+            <xcdg:Column FieldName="BirthDate"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+            <xcdg:Column FieldName="Country" 
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}" />
+
+            <!-- The other columns will be added after these ones and will have default 
+                 appearance and behavior when they are automatically added upon loading. -->
+         </xcdg:DataGridControl.Columns>
+
+         <xcdg:DataGridControl.DetailConfigurations>
+            <xcdg:DetailConfiguration RelationName="SubEmployees"
+                                      AutoCreateDetailConfigurations="False">
+
+               <xcdg:DetailConfiguration.Columns>
+                  <xcdg:Column FieldName="HireDate"
+                               CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+                  <xcdg:Column FieldName="BirthDate"
+                               CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+                  <xcdg:Column FieldName="Country" 
+                               CellContentTemplate="{StaticResource countryCellContentTemplate}" />
+               </xcdg:DetailConfiguration.Columns>
+
+               <xcdg:DetailConfiguration.DetailConfigurations>
+                  <xcdg:DetailConfiguration RelationName="SubEmployees"
+                                            AutoCreateDetailConfigurations="False">
+
+                     <xcdg:DetailConfiguration.Columns>
+                        <xcdg:Column FieldName="HireDate"
+                                     CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+                        <xcdg:Column FieldName="BirthDate"
+                                     CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+                        <xcdg:Column FieldName="Country" 
+                                     CellContentTemplate="{StaticResource countryCellContentTemplate}" />
+
+                     </xcdg:DetailConfiguration.Columns>
+
+                  </xcdg:DetailConfiguration>
+               </xcdg:DetailConfiguration.DetailConfigurations>
+
+            </xcdg:DetailConfiguration>
+         </xcdg:DataGridControl.DetailConfigurations>
+
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TreeGridflowView Theme="{DynamicResource defaultTheme}"
+                                   UseDefaultHeadersFooters="False"
+                                   AllowFixedColumnSplitterDrag="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=AllowFixedColumnSplitterDrag}"
+                                   ShowFixedColumnSplitter="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=ShowFixedColumnSplitter}" />
+         </xcdg:DataGridControl.View>
+      </xcdg:DataGridControl>
+
+   </DockPanel>
+</Page>

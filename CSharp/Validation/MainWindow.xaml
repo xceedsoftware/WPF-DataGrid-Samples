@@ -1,0 +1,26 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Validation Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainWindow.xaml]
+
+     This is the main window for the Validation sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Window x:Class="Xceed.Wpf.DataGrid.Samples.Validation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Xceed DataGrid for WPF - Validation Sample"
+        Icon="App.ico">
+   <Frame Source="MainPage.xaml"
+          Focusable="False">
+      <Frame.Background>
+         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}" />
+      </Frame.Background>
+   </Frame>
+</Window>

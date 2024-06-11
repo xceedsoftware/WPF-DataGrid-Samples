@@ -1,0 +1,246 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Validation Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainPage.xaml]
+
+     This Page contains the UI declarations of the Validation sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.Validation.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Validation">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <xcdg:DataGridCollectionViewSource x:Key="cvsComposers"
+                                            Source="{Binding Source={x:Static local:MainPage.ComposersBindingListComplete}}" />
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <!-- All the elements under this are the parameters used to modifiy the behavior of the sample. -->
+         <Grid MaxHeight="168">
+            <GroupBox Header="Validation Rules"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      HorizontalAlignment="Left"
+                      Width="450">
+               <Grid>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="Auto" />
+                     <ColumnDefinition />
+                  </Grid.ColumnDefinitions>
+
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="5" />
+                     <RowDefinition />
+                  </Grid.RowDefinitions>
+
+                  <TextBlock Text="Choose the update trigger:"
+                             VerticalAlignment="Center"
+                             Margin="0,0,5,0"
+                             Grid.Column="0"
+                             Grid.Row="0" />
+
+                  <ComboBox x:Name="updateTriggerComboBox"
+                            ItemsSource="{Binding Source={StaticResource updateTriggerArray}}"
+                            ItemTemplate="{StaticResource updateTriggerItemTemplate}"
+                            SelectedIndex="0"
+                            HorizontalContentAlignment="Stretch"
+                            HorizontalAlignment="Left"
+                            Width="150"
+                            Grid.Column="1"
+                            Grid.Row="0" />
+
+                  <Border Background="White"
+                          BorderBrush="Black"
+                          BorderThickness="1"
+                          CornerRadius="4"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          Grid.Row="2">
+                     <ScrollViewer>
+                        <!-- Texts that describe which validations are effective. -->
+                        <StackPanel Margin="3,2,0,2">
+                           <TextBlock Style="{StaticResource firstTitleTextBlock}">Cell editor must be able to provide a value</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The 'Last Update' date must be parsable.</TextBlock>
+
+                           <TextBlock Style="{StaticResource titleTextBlock}">Cell validation rule</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">Composition count must be less than 50 when in the Modern period.</TextBlock>
+
+                           <TextBlock Style="{StaticResource titleTextBlock}">Binding DataErrorValidationRule (IDataErrorInfo)</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">First name should be set if possible.</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The period should not be left at Undetermined.</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The composer's age should be less than 100.</TextBlock>
+
+                           <TextBlock Style="{StaticResource titleTextBlock}">Binding ExceptionValidationRule</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The birth year must be greater than 0.</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The death year must be greater than 0.</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The composer's last name is required.</TextBlock>
+
+                           <TextBlock Style="{StaticResource titleTextBlock}">Binding birth/death validation rule</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The birth year must not be greater than this year.</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The death year must not be greater than this year.</TextBlock>
+
+                           <TextBlock Style="{StaticResource titleTextBlock}">IEditableObject's EndEdit exception support</TextBlock>
+                           <TextBlock Style="{StaticResource validationRuleTextBlock}">The composer's birth year should be less than its death year.</TextBlock>
+                        </StackPanel>
+                     </ScrollViewer>
+                  </Border>
+               </Grid>
+            </GroupBox>
+         </Grid>
+      </ContentControl>
+
+      <Grid>
+         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+         </Grid.RowDefinitions>
+
+         <!-- Add an Xceed DataGridControl to edit data. -->
+         <xcdg:DataGridControl x:Name="grid"
+                               Grid.Row="0"
+                               ItemsSource="{Binding Source={StaticResource cvsComposers}}"
+                               CellEditorDisplayConditions="MouseOverCell"
+                               EditTriggers="BeginEditCommand,ActivationGesture"
+                               UpdateSourceTrigger="{Binding ElementName=updateTriggerComboBox, Path=SelectedValue.DataGridUpdateSourceTrigger}"
+                               ItemScrollingBehavior="Immediate">
+
+            <xcdg:DataGridControl.View>
+               <!-- In this sample, you can define this resource to specify the default 
+                    theme for the DataGridControl. This is not mandatory, so we
+                    use a DynamicResource to silently ignore its absence. -->
+               <xcdg:CardView Theme="{DynamicResource defaultAeroTheme}"
+                              UseDefaultHeadersFooters="False" />
+            </xcdg:DataGridControl.View>
+
+            <xcdg:DataGridControl.Columns>
+               <xcdg:Column FieldName="LastName" />
+               <xcdg:Column FieldName="FirstName" />
+
+               <xcdg:Column FieldName="Period"
+                            CellContentTemplate="{StaticResource periodDataTemplate}">
+                  <xcdg:Column.ForeignKeyConfiguration>
+                     <xcdg:ForeignKeyConfiguration ValuePath="."
+                                                   ItemsSource="{Binding Source={StaticResource periods}}" />
+                  </xcdg:Column.ForeignKeyConfiguration>
+                  <xcdg:Column.CellValidationRules>
+                     <local:PeriodVSCompositionCountCellValidationRule />
+                  </xcdg:Column.CellValidationRules>
+               </xcdg:Column>
+
+               <xcdg:Column FieldName="BirthYear">
+                  <xcdg:Column.DisplayMemberBindingInfo>
+                     <xcdg:DataGridBindingInfo Path="BirthYear">
+                        <xcdg:DataGridBindingInfo.ValidationRules>
+                           <local:YearValidationRule />
+                        </xcdg:DataGridBindingInfo.ValidationRules>
+                     </xcdg:DataGridBindingInfo>
+                  </xcdg:Column.DisplayMemberBindingInfo>
+               </xcdg:Column>
+
+               <xcdg:Column FieldName="DeathYear">
+                  <xcdg:Column.DisplayMemberBindingInfo>
+                     <xcdg:DataGridBindingInfo Path="DeathYear">
+                        <xcdg:DataGridBindingInfo.ValidationRules>
+                           <local:YearValidationRule />
+                        </xcdg:DataGridBindingInfo.ValidationRules>
+                     </xcdg:DataGridBindingInfo>
+                  </xcdg:Column.DisplayMemberBindingInfo>
+               </xcdg:Column>
+
+               <xcdg:Column FieldName="CompositionCount">
+                  <xcdg:Column.CellValidationRules>
+                     <local:PeriodVSCompositionCountCellValidationRule />
+                  </xcdg:Column.CellValidationRules>
+               </xcdg:Column>
+
+               <xcdg:Column FieldName="LastUpdate"
+                            CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+            </xcdg:DataGridControl.Columns>
+         </xcdg:DataGridControl>
+
+         <Border Grid.Row="1"
+                 Background="#44000000"
+                 Margin="0,16,0,0"
+                 Padding="8"
+                 BorderThickness="1,1,1,0"
+                 BorderBrush="Black"
+                 CornerRadius="8,8,0,0"
+                 HorizontalAlignment="Left"
+                 TextElement.Foreground="White">
+
+            <TextBlock VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Text="The bottom grid is read-only and shows the source as it is.  It is updated as soon as changes are committed to the source by using the grid above it."
+                       Width="380"
+                       TextWrapping="Wrap" />
+         </Border>
+
+         <!-- Add a read-only Xceed DataGridControl to peak at the source's data. -->
+         <xcdg:DataGridControl Grid.Row="2"
+                               ItemsSource="{Binding Source={StaticResource cvsComposers}}"
+                               ReadOnly="True"
+                               ItemScrollingBehavior="Immediate"
+                               NavigationBehavior="RowOnly">
+
+            <xcdg:DataGridControl.Columns>
+               <xcdg:Column FieldName="LastName" />
+               <xcdg:Column FieldName="FirstName" />
+
+               <xcdg:Column FieldName="Period"
+                            CellContentTemplate="{StaticResource periodDataTemplate}">
+                  <xcdg:Column.CellValidationRules>
+                     <local:PeriodVSCompositionCountCellValidationRule />
+                  </xcdg:Column.CellValidationRules>
+               </xcdg:Column>
+
+               <xcdg:Column FieldName="BirthYear" />
+
+               <xcdg:Column FieldName="DeathYear" />
+
+               <xcdg:Column FieldName="CompositionCount" />
+
+               <xcdg:Column FieldName="LastUpdate"
+                            CellContentTemplate="{StaticResource shortDateCellDataTemplate}"
+                            Width="*" />
+            </xcdg:DataGridControl.Columns>
+
+            <xcdg:DataGridControl.View>
+               <xcdg:TableflowView Theme="{DynamicResource defaultAeroTheme}"
+                                   UseDefaultHeadersFooters="False"
+                                   ShowFixedColumnSplitter="False"
+                                   AllowColumnChooser="False">
+                  <xcdg:TableflowView.FixedHeaders>
+                     <DataTemplate>
+                        <xcdg:ColumnManagerRow AllowColumnReorder="False"
+                                               AllowColumnResize="False"
+                                               AllowAutoFilter="False"
+                                               AllowSort="False"
+                                               AllowDrop="False" />
+                     </DataTemplate>
+                  </xcdg:TableflowView.FixedHeaders>
+               </xcdg:TableflowView>
+            </xcdg:DataGridControl.View>
+         </xcdg:DataGridControl>
+      </Grid>
+
+   </DockPanel>
+</Page>

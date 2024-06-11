@@ -1,0 +1,199 @@
+﻿<!--
+Xceed DataGrid for WPF - SAMPLE CODE - Selection™ View Sample Application
+Copyright (c) 2007-2024 Xceed Software Inc.
+
+[MainPage.xaml]
+
+This Page contains the UI declarations of the Selection sample.
+
+This file is part of the Xceed DataGrid for WPF product. The use 
+and distribution of this Sample Code is subject to the terms 
+and conditions referring to "Sample Code" that are specified in 
+the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.Selection.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Selection"
+      xmlns:s="clr-namespace:System;assembly=mscorlib"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase">
+
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <!-- In order to activate the AutoFiltering correctly, we must explicitly define all the DataGridItemProperties
+              we want to display in the grid and set their CalculateDistinctValues properties. By default, all
+              DataGridItemProperty objects that do not have their CalculateDistinctValues property explicitly set will
+              use the value of the DataGridCollectionViewSource's DefaultCalculateDistinctValues property. -->
+         <xcdg:DataGridCollectionViewSource x:Key="cvsOrders"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Orders}"
+                                            AutoFilterMode="And"
+                                            AutoCreateItemProperties="False"
+                                            DefaultCalculateDistinctValues="False">
+
+            <!--Defining foreign key descriptions will make sure sorting on the corresponding columns will be according to the displayed values,
+                not according to the foreign key values-->
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+               <xcdg:DataGridItemProperty Name="OrderID" />
+               <xcdg:DataGridItemProperty Name="EmployeeID"
+                                          CalculateDistinctValues="True">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current},Path=Employees}"
+                                                          ValuePath="EmployeeID"
+                                                          ForeignKeyConverter="{StaticResource employeeForeignKeyConverter}" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+               <xcdg:DataGridItemProperty Name="CustomerID"
+                                          CalculateDistinctValues="True">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current},Path=Customers}"
+                                                          ValuePath="CustomerID"
+                                                          ForeignKeyConverter="{StaticResource customerForeignKeyConverter}" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+               <xcdg:DataGridItemProperty Name="ShipCity"
+                                          CalculateDistinctValues="True" />
+               <xcdg:DataGridItemProperty Name="ShipCountry"
+                                          CalculateDistinctValues="True" />
+               <xcdg:DataGridItemProperty Name="ShipName"
+                                          CalculateDistinctValues="True" />
+               <xcdg:DataGridItemProperty Name="ShipVia"
+                                          CalculateDistinctValues="True">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current},Path=Shippers}"
+                                                          ValuePath="ShipperID"
+                                                          DisplayMemberPath="CompanyName" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+               <xcdg:DataGridItemProperty Name="ShippedDate" />
+               <xcdg:DataGridItemProperty Name="ShipPostalCode"
+                                          CalculateDistinctValues="True" />
+               <xcdg:DataGridItemProperty Name="ShipRegion"
+                                          CalculateDistinctValues="True" />
+               <xcdg:DataGridItemProperty Name="Freight" />
+               <xcdg:DataGridItemProperty Name="OrderDate" />
+               <xcdg:DataGridItemProperty Name="RequiredDate" />
+               <xcdg:DataGridItemProperty Name="ShipAddress" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+
+            <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="ShipCountry" />
+               <xcdg:DataGridGroupDescription PropertyName="ShipCity" />
+            </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+               <compModel:SortDescription PropertyName="OrderID"
+                                          Direction="Ascending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+
+         </xcdg:DataGridCollectionViewSource>
+
+         <xcdg:ForeignKeyConfiguration x:Key="employeesForeignKeyConfiguration"
+                                       ItemsSource="{Binding Source={x:Static Application.Current},Path=Employees}"
+                                       ValuePath="EmployeeID"
+                                       ForeignKeyValueConverter="{StaticResource nameConverter}" />
+
+         <xcdg:ForeignKeyConfiguration x:Key="customersForeignKeyConfiguration"
+                                       ItemsSource="{Binding Source={x:Static Application.Current},Path=Customers}"
+                                       ValuePath="CustomerID"
+                                       ForeignKeyValueConverter="{StaticResource customerConverter}" />
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <local:ConfigurationPanel />
+      </ContentControl>
+
+      <!-- Add a Xceed DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsOrders}}"
+                            EditTriggers="BeginEditCommand,ActivationGesture,ClickOnCurrentCell"
+                            NavigationBehavior="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=NavigationBehavior}"
+                            FlowDirection="LeftToRight"
+                            IsDeleteCommandEnabled="True"
+                            AutoCreateForeignKeyConfigurations="True"
+                            IsGroupSelectionEnabled="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=IsGroupSelectionEnabled}"
+                            SelectionMode="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=SelectionMode}"
+                            SelectionUnit="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=SelectionUnit}">
+
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="OrderID"
+                         Title="ID"
+                         VisiblePosition="0"
+                         ReadOnly="True"
+                         Width="50" />
+
+            <xcdg:Column FieldName="EmployeeID"
+                         Title="Employee"
+                         Width="160"
+                         CellContentTemplate="{StaticResource employeeDataTemplate}"
+                         ForeignKeyConfiguration="{StaticResource employeesForeignKeyConfiguration}" />
+
+            <xcdg:Column FieldName="CustomerID"
+                         Title="Customer"
+                         Width="240"
+                         CellContentTemplate="{StaticResource customerDataTemplate}"
+                         ForeignKeyConfiguration="{StaticResource customersForeignKeyConfiguration}" />
+
+            <xcdg:Column FieldName="OrderDate"
+                         Title="Order Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+            <xcdg:Column FieldName="ShipVia"
+                         Title="Shipper" />
+
+            <xcdg:Column FieldName="Freight"
+                         Width="70"
+                         CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+
+            <xcdg:Column FieldName="ShipCity"
+                         Title="City" />
+
+            <xcdg:Column FieldName="ShipCountry"
+                         Title="Country"
+                         GroupValueTemplate="{StaticResource countryCellContentTemplate}"
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}" />
+
+            <xcdg:Column FieldName="ShipName"
+                         Title="Ship To"
+                         Width="192" />
+
+            <xcdg:Column FieldName="ShipAddress"
+                         Title="Address"
+                         Width="250" />
+
+            <xcdg:Column FieldName="ShipPostalCode"
+                         Title="Postal Code" />
+
+            <xcdg:Column FieldName="ShipRegion"
+                         Title="Region" />
+
+            <xcdg:Column FieldName="RequiredDate"
+                         Title="Required Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+            <xcdg:Column FieldName="ShippedDate"
+                         Title="Shipped Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+
+   </DockPanel>
+</Page>

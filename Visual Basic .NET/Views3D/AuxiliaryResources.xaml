@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+   <!-- Disabled Brushes are used for the Disabled look of each control -->
+   <SolidColorBrush x:Key="DisabledForegroundBrush"
+                    Color="#888" />
+   
+   <!-- ButtonOnlyComboBoxStyle -->
+   <Style TargetType="{x:Type ComboBox}"
+          x:Key="ButtonOnlyComboBoxStyle">
+      <Setter Property="SnapsToDevicePixels"
+              Value="true" />
+
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ComboBox}">
+               <Grid TextElement.Foreground="White">
+                  <!-- The ToggleButton is databound to the ComboBox itself to toggle IsDropDownOpen -->
+                  <ToggleButton Content="{TemplateBinding Tag}"
+                                x:Name="ToggleButton"
+                                Focusable="false"
+                                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                ClickMode="Press"
+                                HorizontalAlignment="Stretch"
+                                Width="Auto" />
+
+                  <!-- The Popup shows the list of items in the ComboBox. IsOpen is databound to IsDropDownOpen which is toggled via the ComboBoxToggleButton -->
+                  <Popup IsOpen="{TemplateBinding IsDropDownOpen}"
+                         Placement="Bottom"
+                         x:Name="Popup"
+                         Focusable="False"
+                         PopupAnimation="Slide"
+                         VerticalOffset="1.5">
+                     <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                           MinWidth="{TemplateBinding ActualWidth}"
+                           x:Name="DropDown"
+                           SnapsToDevicePixels="True">
+                        <Border x:Name="DropDownBorder"
+                                BorderThickness="1"
+                                CornerRadius="0" />
+                        <!-- CN TODO Style="{StaticResource XceedScrollViewer}"-->
+                        <ScrollViewer Margin="4,6,4,6"
+                                      SnapsToDevicePixels="True"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Auto"
+                                      CanContentScroll="True">
+
+                           <!-- The StackPanel is used to display the children by setting IsItemsHost to be True -->
+                           <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                           KeyboardNavigation.DirectionalNavigation="Contained" />
+                        </ScrollViewer>
+                     </Grid>
+                  </Popup>
+               </Grid>
+
+               <ControlTemplate.Triggers>
+                  <!-- This forces the DropDown to have a minimum size if it is empty -->
+                  <Trigger Property="HasItems"
+                           Value="false">
+                     <Setter Property="MinHeight"
+                             Value="95"
+                             TargetName="DropDownBorder" />
+                  </Trigger>
+                  <Trigger Property="IsEnabled"
+                           Value="false">
+                     <Setter Property="Foreground"
+                             Value="{StaticResource DisabledForegroundBrush}" />
+                  </Trigger>
+                  <Trigger Property="IsGrouping"
+                           Value="true">
+                     <Setter Property="ScrollViewer.CanContentScroll"
+                             Value="false" />
+                  </Trigger>
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,126 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Card View Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ConfigurationPanel.xaml]
+
+  This UserControl contains the UI allowing the end-user to modify the 
+  settings demonstrated in this sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.CardView.ConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.CardView"
+             DataContext="{x:Static local:ConfigurationData.Singleton}">
+   <UserControl.Resources>
+      <xcdg:InverseBooleanConverter x:Key="inverseBooleanConverter" />
+   </UserControl.Resources>
+
+   <Grid>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="Auto" />
+         <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+         <RowDefinition Height="Auto" />
+         <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <GroupBox Header="Show/Hide Elements"
+                Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+            <!-- These check boxes are used to chose which elements are shown. -->
+            <CheckBox x:Name="chkShowGridHeaders"
+                      Content="Grid headers"
+                      IsChecked="{Binding ShowGridHeaders}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Insertion row"
+                      IsChecked="{Binding ShowInsertionRow}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Hide empty cells"
+                      IsChecked="{Binding HideEmptyCells}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Allow card resize"
+                      IsChecked="{Binding AllowCardResize}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Deferred scrolling"
+                      IsChecked="{Binding DeferredScrollingEnabled}"
+                      ToolTip="Shows a tooltip when scrolling amongst the data items."
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Scroll tip"
+                      IsChecked="{Binding ShowScrollTip}"
+                      ToolTip="Shows a tooltip when scrolling amongst the data items."
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Column chooser"
+                      IsChecked="{Binding AllowColumnChooser}"
+                      IsEnabled="{Binding ElementName=chkShowGridHeaders, Path=IsChecked}"
+                      ToolTip="A context menu will be shown when right-clicking in the grid's header section, allowing you to show or hide the columns in the grid."
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Show Sort Index"
+                      IsChecked="{Binding ShowSortIndex}"
+                      ToolTip="Index of the sortedColumn will be shown next to its Sorting glyph."
+                      Margin="{StaticResource configItemMargin}" />
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Flow Direction"
+                Grid.Column="1"
+                Grid.Row="0"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+            <!-- These radio buttons are used to choose the flow direction. -->
+            <RadioButton Content="Left to right"
+                         IsChecked="{Binding FlowDirectionLeftToRight}"
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Right to left"
+                         IsChecked="{Binding FlowDirectionRightToLeft}"
+                         Margin="{StaticResource configItemMargin}" />
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Filtering"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}"
+                Grid.Column="1"
+                Grid.Row="1">
+         <StackPanel>
+            <!-- These radio buttons are used to choose the filtering UI. -->
+            <RadioButton Content="None"
+                         IsChecked="{Binding FilteringMethodNone}"
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Automatic filtering"
+                         IsChecked="{Binding FilteringMethodAuto}"
+                         IsEnabled="{Binding ElementName=chkShowGridHeaders, Path=IsChecked}"
+                         ToolTip="Drop-down lists will be available in the column headers to filter the data items."
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Filter row"
+                         IsChecked="{Binding FilteringMethodFilterRow}"
+                         ToolTip="A specialized filter row will be available in the fixed headers to allow end users to filter the items in the corresponding column with custom filtering criteria."
+                         Margin="{StaticResource configItemMargin}" />
+         </StackPanel>
+      </GroupBox>
+   </Grid>
+</UserControl>

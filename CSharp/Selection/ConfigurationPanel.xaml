@@ -1,0 +1,130 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Table View Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ConfigurationPanel.xaml]
+
+  This UserControl contains the UI allowing the end-user to modify the 
+  settings demonstrated in this sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.Selection.ConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Selection"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             DataContext="{x:Static local:ConfigurationData.Singleton}">
+
+   <Grid>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="Auto" />
+         <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <GroupBox Header="Selection"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}"
+                HorizontalAlignment="Left">
+         <StackPanel>
+            <Grid>
+
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition />
+               </Grid.ColumnDefinitions>
+
+               <TextBlock Text="Mode:"
+                          Margin="0,5,5,5"
+                          Grid.Row="0"
+                          Grid.Column="0" />
+
+               <ComboBox x:Name="SelectionModeCombo"
+                         HorizontalAlignment="Left"
+                         ItemsSource="{Binding SelectionModeList}"
+                         DisplayMemberPath="Value"
+                         SelectedValuePath="Key"
+                         Width="80"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         HorizontalContentAlignment="Stretch"
+                         SelectedValue="{Binding SelectionMode}">
+               </ComboBox>
+
+               <TextBlock Text="Unit:"
+                          Margin="0,5,5,5"
+                          Grid.Row="1"
+                          Grid.Column="0" />
+
+               <ComboBox x:Name="SelectionUnitCombo"
+                         HorizontalAlignment="Left"
+                         ItemsSource="{Binding SelectionUnitList}"
+                         DisplayMemberPath="Value"
+                         SelectedValuePath="Key"
+                         Margin="0,2,0,0"
+                         Width="80"
+                         Grid.Row="1"
+                         Grid.Column="1"
+                         HorizontalContentAlignment="Stretch"
+                         SelectedValue="{Binding SelectionUnit}">
+               </ComboBox>
+
+               <CheckBox Content="Group selection"
+                         IsChecked="{Binding IsGroupSelectionEnabled}"
+                         IsEnabled="{Binding EnableIsGroupSelectionEnabled}"
+                         Margin="0,4,0,4"
+                         ToolTip="Indicates if we can select group content by clicking on the header"
+                         Grid.Row="2"
+                         Grid.ColumnSpan="2" />
+
+               <CheckBox Content="Drag selection"
+                         IsChecked="{Binding EnableDragSelection}"
+                         Margin="{StaticResource configItemMargin}"
+                         ToolTip="Indicates if we can select continous items by dragging the mouse. (eg. Excel like selection)"
+                         Grid.Row="3"
+                         Grid.ColumnSpan="2" />
+
+            </Grid>
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Navigation Behavior"
+                Grid.Column="1"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+            <!-- These radio buttons are used to choose the navigation behavior of the grid. -->
+            <RadioButton Content="Cells only"
+                         IsChecked="{Binding NavigationBehaviorCellOnly}"
+                         ToolTip="Navigation is cell based."
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Rows only"
+                         IsChecked="{Binding NavigationBehaviorRowOnly}"
+                         ToolTip="Navigation is row based. Cells will never receive the focus."
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Mixed mode"
+                         IsChecked="{Binding NavigationBehaviorRowOrCell}"
+                         ToolTip="Navigation is row based unless a cell in a row is clicked."
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="No navigation"
+                         IsChecked="{Binding NavigationBehaviorNone}"
+                         ToolTip="Navigation is not permitted in the grid. Elements cannot receive the focus."
+                         Margin="{StaticResource configItemMargin}" />
+         </StackPanel>
+      </GroupBox>
+   </Grid>
+</UserControl>

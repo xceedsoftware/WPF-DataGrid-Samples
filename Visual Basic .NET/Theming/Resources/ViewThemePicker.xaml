@@ -1,0 +1,2929 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcmd="http://schemas.xceed.com/wpf/xaml/datagrid/materialdesigncontrols">
+
+   <Style	TargetType="{x:Type GroupBox}" 
+            x:Key="GroupBoxChangeUI">
+
+      <Setter Property="BorderBrush"
+              Value="#D0D0BF"/>
+      <Setter Property="BorderThickness"
+              Value="1"/>
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="{x:Type GroupBox}">
+
+               <Grid	SnapsToDevicePixels="True" 
+                     Width="65" 
+                     HorizontalAlignment="Left" 
+                     VerticalAlignment="Top">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="4"/>
+                     <ColumnDefinition Width="*" />
+                     <ColumnDefinition Width="4"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="4"/>
+                     <RowDefinition Height="20" />
+                     <RowDefinition Height="*"/>
+                     <RowDefinition Height="4"/>
+                  </Grid.RowDefinitions>
+                  <Border CornerRadius="10,10,10,10"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3" 
+                          Grid.RowSpan="4" 
+                          x:Name="borderOutside">
+                     <Border.Background>
+                        <LinearGradientBrush EndPoint="0.4,-0.004"
+                                             StartPoint="0.381,1">
+                           <GradientStop Color="#7F000000"
+                                         Offset="1"/>
+                           <GradientStop Color="#FF000000"
+                                         Offset="0"/>
+                        </LinearGradientBrush>
+                     </Border.Background>
+                  </Border>
+
+                  <Border CornerRadius="10,10,10,10" 
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"  
+                          Grid.RowSpan="4" 
+                          Opacity="0.8" 
+                          BorderThickness="1,1,1,1" 
+                          Background="#FF212121" 
+                          Margin="3,3,3,3" 
+                          Width="Auto" 
+                          Height="Auto" 
+                          x:Name="borderInside"/>
+
+                  <ContentPresenter Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="1"
+                                    Margin="{TemplateBinding Padding}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    Grid.RowSpan="2"
+                                    TextElement.Foreground="#FFFFFFFF"/>
+                  <Path	Height="19.99999968481589"
+                        Width="57.00000037336312"
+                        Stretch="Fill"
+                        Opacity="1"
+                        Data="M 56.99999237060547,15.042842864990234 C57.02165985107422,21.77513885498047 0.0023298263549804688,21.589073181152344 0.0008544921875,14.856817245483398 0.0008544921875,14.856817245483398 0,10.696489334106445 0,10.696489334106445 -0.0014362335205078125,3.972060203552246 4.140825271606445,-0.022577285766601562 11.08824348449707,0.00009632110595703125 11.08824348449707,0.00009632110595703125 45.86176681518555,0.11365222930908203 45.86176681518555,0.11365222930908203 52.809112548828125,0.13632583618164062 56.96508026123047,4.157932281494141 56.986671447753906,10.882553100585938 56.986671447753906,10.882553100585938 56.99999237060547,15.042842864990234 56.99999237060547,15.042842864990234 z"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,0"
+                        VerticalAlignment="Top"
+                        Grid.Column="1"
+                        Grid.Row="1">
+                     <Path.Fill>
+                        <RadialGradientBrush
+                           Center="0.5,0.5"
+                           GradientOrigin="0.154,0.388"
+                           RadiusX="0.5"
+                           RadiusY="0.5">
+                           <RadialGradientBrush.RelativeTransform>
+                              <TransformGroup>
+                                 <ScaleTransform CenterX="0.5"
+                                                 CenterY="0.5"
+                                                 ScaleX="1.171"
+                                                 ScaleY="3.305"/>
+                                 <SkewTransform AngleX="0"
+                                                AngleY="0"
+                                                CenterX="0.5"
+                                                CenterY="0.5"/>
+                                 <RotateTransform Angle="7.83"
+                                                  CenterX="0.5"
+                                                  CenterY="0.5"/>
+                                 <TranslateTransform X="-0.092"
+                                                     Y="0.058"/>
+                              </TransformGroup>
+                           </RadialGradientBrush.RelativeTransform>
+                           <GradientStop
+                              Color="#FF7c7c7c"
+                              Offset="0" />
+                           <GradientStop
+                              Color="#FF4f4f4f"
+                              Offset="0.17777800559997559" />
+                           <GradientStop
+                              Color="#FF4f4f4f"
+                              Offset="0.7611110210418701" />
+                           <GradientStop
+                              Color="#FF333333"
+                              Offset="0.9722219705581665" />
+                        </RadialGradientBrush>
+                     </Path.Fill>
+                  </Path>
+
+                  <Border x:Name="Header"
+                          Padding="0,0,0,0"
+                          Grid.Row="1"
+                          Grid.RowSpan="1"
+                          Grid.Column="1" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          TextElement.Foreground="{TemplateBinding Foreground}">
+                     <ContentPresenter ContentSource="Header" 
+                                       RecognizesAccessKey="True" 
+                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"	/>
+                  </Border>
+
+                  <Border x:Name="disableVeil"
+                          CornerRadius="10,10,10,10"
+                          Background="#FF333333"
+                          Visibility="Hidden"
+                          Opacity="0.7"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.RowSpan="2"/>
+               </Grid>
+
+               <ControlTemplate.Triggers>
+                  <Trigger Property="IsEnabled"
+                           Value="False">
+                     <Setter TargetName="disableVeil"
+                             Property="Visibility"
+                             Value="Visible"/>
+                  </Trigger>
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+
+   <!-- RadioButtonCouleurs -->
+   <Style TargetType="{x:Type RadioButton}"
+          x:Key="RadioButtonCouleurs">
+      <Setter Property="SnapsToDevicePixels"
+              Value="True"/>
+      <Setter Property="Focusable"
+              Value="False"/>
+      <Setter Property="Background">
+         <Setter.Value>
+
+            <!-- NormalBrush is used as the Background for SimpleButton, SimpleRepeatButton -->
+            <LinearGradientBrush EndPoint="0,1"
+                                 StartPoint="0,0">
+               <GradientStop Color="#FFA07106"
+                             Offset="0"/>
+               <GradientStop Color="#FFF9BE3A"
+                             Offset="1"/>
+               <GradientStop Color="#FFDA9700"
+                             Offset="0.671"/>
+            </LinearGradientBrush>
+
+         </Setter.Value>
+      </Setter>
+      <Setter Property="BorderBrush">
+         <Setter.Value>
+            <LinearGradientBrush EndPoint="0,1"
+                                 StartPoint="0,0">
+               <GradientStop Color="#CC000000"
+                             Offset="1"/>
+               <GradientStop Color="#BE101010"
+                             Offset="0.815"/>
+               <GradientStop Color="#3BB4B4B4"
+                             Offset="0"/>
+            </LinearGradientBrush>
+         </Setter.Value>
+      </Setter>
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="{x:Type RadioButton}">
+
+               <!-- BulletDecorator is used to provide baseline alignment between the checkmark and the Content -->
+               <BulletDecorator Background="Transparent"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                  <BulletDecorator.Bullet>
+                     <Grid Width="26"
+                           Height="24"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top">
+
+                        <Border Margin="0,0,0,0"
+                                Width="20"
+                                Height="20"
+                                Background="#4C000000"
+                                CornerRadius="15,15,15,15"
+                                BorderBrush="#FF000000"
+                                BorderThickness="1,1,1,1"
+                                x:Name="border"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                        <ContentPresenter Margin="2.625,0,0,0"
+                                          x:Name="IMAGE"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Width="15"
+                                          Height="15"/>
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M4.1140706,-1.1131968 C7.6725113,-3.7091382 10.734278,-0.41539673 10.734278,-0.41539673 10.734278,-0.41539673 11.562265,0.58132243 6.2660427,2.5771113 0.96982059,4.5729001 1.6315318,8.0651958 1.6315318,8.0651958 1.6315318,8.0651958 0.55562993,1.4827446 4.1140706,-1.1131968 z"
+                              Width="14.053"
+                              Height="12.747"
+                              Grid.ColumnSpan="1"
+                              RenderTransformOrigin="0.5,0.5"
+                              Margin="-26.768,-3.077,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"  >
+                           <Path.RenderTransform>
+                              <TransformGroup>
+                                 <ScaleTransform ScaleX="1"
+                                                 ScaleY="1"/>
+                                 <SkewTransform AngleX="0"
+                                                AngleY="0"/>
+                                 <RotateTransform Angle="180"/>
+                                 <TranslateTransform X="31.197000000000003"
+                                                     Y="11.076999999999956"/>
+                              </TransformGroup>
+                           </Path.RenderTransform>
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.309,0.386">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="0.774"
+                                                       ScaleY="1.245"/>
+                                       <SkewTransform AngleX="-5.031"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5"/>
+                                       <RotateTransform Angle="34.471"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5"/>
+                                       <TranslateTransform X="-0.372"
+                                                           Y="-0.317"/>
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+                                 <GradientStop Color="#CC000000"
+                                               Offset="0"/>
+                                 <GradientStop Color="#19000000"
+                                               Offset="1"/>
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M5.5264455,-5.0053735 C9.6789087,-5.0968124 10.39782,0.79245231 10.39782,0.79245231 10.39782,0.79245231 6.2462241,-0.12185523 3.9667957,2.0726003 1.6873672,4.2670559 1.3617636,11.049826 0.54769485,10.592636 -0.26637378,10.135446 -0.42923277,9.6751348 -0.42953064,4.322928 -0.4298285,-1.0292789 2.8400027,-5.0056271 5.5264455,-5.0053735 z"
+                              HorizontalAlignment="Left"
+                              Margin="1.25,3.249,0,7.982"
+                              Width="16.624"
+                              Grid.ColumnSpan="1" >
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.384,0.496">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="1.495"
+                                                       ScaleY="1.701"/>
+                                       <SkewTransform AngleX="0"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5"/>
+                                       <RotateTransform Angle="0"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5"/>
+                                       <TranslateTransform X="-0.432"
+                                                           Y="-0.379"/>
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+                                 <GradientStop Color="#19FFFFFF"
+                                               Offset="1"/>
+                                 <GradientStop Color="#7FFFFFFF"
+                                               Offset="0"/>
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+                        <Viewbox Margin="8.25,2.25,-0.25,-2.25"
+                                 VerticalAlignment="Stretch"
+                                 Height="Auto">
+                           <Canvas HorizontalAlignment="Stretch"
+                                   Margin="0,0,0,0"
+                                   x:Name="CheckMark"
+                                   VerticalAlignment="Stretch"
+                                   Width="24"
+                                   Opacity="1"
+                                   Height="24">
+                              <Path
+                                 Canvas.Left="0.1"
+                                 Height="23.312"
+                                 Width="23.652"
+                                 Stretch="Fill"
+                                 Opacity="1"
+                                 Data="M0.10439524,14.145516 C0.10439524,14.145516 4.375,9.5 4.375,9.5 4.375,9.5 5.5839109,11.360891 6.604455,13.055446 7.625,14.75 8.25,17.375 8.25,17.375 8.25,17.375 10.333333,11.666667 14.333333,7.333333 19.005066,2.27229 22.3125,0.1875 22.3125,0.1875 22.3125,0.1875 23.811989,8.4372139 23.75,8.5 23.719387,8.5310068 19.186649,9.9585476 16,13.5 12.733985,17.129656 8.5,23.5  8.5,23.5 8.5,23.5 6.125,19.625 4.5,18 2.875,16.375 0.10439524,14.145516 0.10439524,14.145516 z"
+                                 StrokeThickness="1">
+                                 <Path.Fill>
+                                    <RadialGradientBrush
+                                       Center="0.668918918918919,0.4392857142857143"
+                                       GradientOrigin="0.668918918918919,0.4392857142857143"
+                                       RadiusX="1.2664363990878151"
+                                       RadiusY="0.7590819609420151">
+                                       <GradientStop
+                                          Color="#FFffcc00"
+                                          Offset="0" />
+                                       <GradientStop
+                                          Color="#FFea8c00"
+                                          Offset="0.9111109972000122" />
+                                       <GradientStop
+                                          Color="#FFffcc00"
+                                          Offset="0.9777780175209045" />
+                                       <GradientStop
+                                          Color="#FFffcc00"
+                                          Offset="0.9833329916000366" />
+                                    </RadialGradientBrush>
+                                 </Path.Fill>
+                                 <Path.Stroke>
+                                    <LinearGradientBrush
+                                       StartPoint="0,0.587272273965226"
+                                       EndPoint="1,0.587272273965226">
+                                       <GradientStop
+                                          Color="#FFf06000"
+                                          Offset="0" />
+                                       <GradientStop
+                                          Color="#FFffad33"
+                                          Offset="0.7444440126419067" />
+                                       <GradientStop
+                                          Color="#FFf06000"
+                                          Offset="0.949999988079071" />
+                                       <GradientStop
+                                          Color="#FFf06000"
+                                          Offset="0.9722219705581665" />
+                                    </LinearGradientBrush>
+                                 </Path.Stroke>
+                              </Path>
+                              <Path
+                                 Height="19.978"
+                                 Width="21.299"
+                                 Stretch="Fill"
+                                 Opacity="1"
+                                 Data="M8.6812678,18.5 C8.6812678,18.5 12.128425,13.61236 14.0625,10.4375 15.674172,7.7918775 21.375,2.724985 21.375,2.724985 21.375,2.724985 21.9375,7.2375116 21.9375,7.2375116 21.9375,7.2375116 17.725958,9.357767 15.25,11.625 12.774042,13.892233 8.7745764,20.291404 8.7745764,20.291404 8.7745764,20.291404 2.8498764,13.528727 2.8498764,13.528727 2.8498764,13.528727 4.6498898,11.553767 4.6498898,11.553767 4.6498898,11.553767 8.6812678,18.5  8.6812678,18.5 z M8.6125134,17 C8.6125134,17 4.8207686,10.073278 4.8207686,10.073278 4.8207686,10.073278 1.6745477,13.591402 1.6745477,13.591402 1.6745477,13.591402 8.8742645,21.291664 8.8742645,21.291664 8.8742645,21.291664 14.174105,14.69228 16.074189,12.192134 17.974274,9.6919882 22.974497,7.7917546 22.974497,7.7917546 22.974497,7.7917546 21.6875,1.3125 21.6875,1.3125 21.6875,1.3125 15.974185,5.8917668 13.5625,9.4375 11.556235,12.387173 8.6125134,17  8.6125134,17 z"
+                                 Canvas.Left="1.451"
+                                 Canvas.Top="1.521">
+                                 <Path.Fill>
+                                    <LinearGradientBrush
+                                       StartPoint="0.4870794918470639,0.1816460800372799"
+                                       EndPoint="0.4870794918470639,1.5531156619111461">
+                                       <GradientStop
+                                          Color="#7fffffff"
+                                          Offset="0" />
+                                       <GradientStop
+                                          Color="#00ffffff"
+                                          Offset="0.9888889789581299" />
+                                    </LinearGradientBrush>
+                                 </Path.Fill>
+                              </Path>
+                              <Path
+                                 Height="16.376"
+                                 Width="21.5"
+                                 Stretch="Fill"
+                                 Opacity="1"
+                                 Data="M5.349984,18.25 C5.349984,18.25 0.99431285,14.05 0.99431285,14.05 0.99431285,14.05 4.3941163,10.450027 4.3941163,10.450027 4.3941163,10.450027 8.1942079,17.250012 8.1942079,17.250012 8.1942079,17.250012 10.781875,12.262289 13.794126,8.5500007 17.041318,4.5481722 20.550462,1.9000192 21.149991,1.9000192 21.894008,3.3500193 22.161008,5.5132209 22.493999,8.1499968 21.882451,8.7180678 18.850341,10.09629 15.694099,12.35002 11.97068,15.008744 12.594143,14.050573  10.494174,16.350572 8.3942041,18.65057 5.349984,18.25 5.349984,18.25 z"
+                                 Canvas.Left="1.25"
+                                 Canvas.Top="1.65">
+                                 <Path.Fill>
+                                    <RadialGradientBrush
+                                       Center="0.6495195395046645,0.6950372147233519"
+                                       GradientOrigin="0.6495195395046645,0.6950372147233519"
+                                       RadiusX="0.32265512619845904"
+                                       RadiusY="2.656755419647326">
+                                       <GradientStop
+                                          Color="#19ffffff"
+                                          Offset="0" />
+                                       <GradientStop
+                                          Color="#7Cffffff"
+                                          Offset="0.9611110091209412" />
+                                       <GradientStop
+                                          Color="#7fffffff"
+                                          Offset="0.9833329916000366" />
+                                    </RadialGradientBrush>
+                                 </Path.Fill>
+                              </Path>
+                           </Canvas>
+                        </Viewbox>
+                     </Grid>
+                  </BulletDecorator.Bullet>
+               </BulletDecorator>
+
+               <ControlTemplate.Triggers>
+                  <Trigger Property="IsChecked"
+                           Value="false">
+                     <Setter Property="Visibility"
+                             Value="Collapsed"
+                             TargetName="CheckMark"/>
+                  </Trigger>
+                  <Trigger Property="IsMouseOver"
+                           Value="true">
+                     <Setter Property="BorderBrush"
+                             TargetName="border">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="0.9,0.888"
+                                                StartPoint="0.225,0.138">
+                              <GradientStop Color="#FF000000"
+                                            Offset="0"/>
+                              <GradientStop Color="#FF5A5A5A"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="IsPressed"
+                           Value="true">
+                     <Setter Property="BorderBrush"
+                             TargetName="border">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="0.55,0.05"
+                                                StartPoint="0.588,1.013">
+                              <GradientStop Color="#FF000000"
+                                            Offset="0"/>
+                              <GradientStop Color="#FF3D3D3D"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="IsEnabled"
+                           Value="false">
+                     <Setter Property="Foreground"
+                             Value="#80000000"/>
+                  </Trigger>
+
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <Style x:Key="rdTokenBorder"
+          TargetType="Border">
+      <Setter Property="CornerRadius"
+              Value="15"/>
+      <Setter Property="HorizontalAlignment"
+              Value="Stretch"/>
+      <Setter Property="VerticalAlignment"
+              Value="Stretch"/>
+   </Style>
+
+   <DataTemplate x:Key="rdAeroNormalColorContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                    EndPoint="0.5,-0.24">
+               <GradientStop Color="#FF74CFFF"
+                                Offset="1" />
+               <GradientStop Color="#FF0DAAFF"
+                                Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLunaNormalColorContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FF619fe7"
+                             Offset="1" />
+               <GradientStop Color="#FF3084e0"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLunaHomesteadContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1"
+                                 EndPoint="0.5,0">
+               <GradientStop Color="#FFaab883"
+                             Offset="1" />
+               <GradientStop Color="#FF8c9f5b"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLunaMetallicContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFb1b3c8"
+                             Offset="1" />
+               <GradientStop Color="#FF7c80a3"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdRoyaleNormalColorContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1"
+                                 EndPoint="0.5,0">
+               <GradientStop Color="#FF2257d5"
+                             Offset="1" />
+               <GradientStop Color="#FF1b44a5"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdClassicSystemColorContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+               <GradientStop Color="#FFFFFFFF" Offset="1" />
+               <GradientStop Color="#FF000000" Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="MaterialDesignLight">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFFFFFFF"
+                             Offset="1" />
+               <GradientStop Color="#FFDBDBDB"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+   <DataTemplate x:Key="MaterialDesignDark">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFA1A1A1"
+                             Offset="1" />
+               <GradientStop Color="#FF4F4F4F"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDesignLight">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFFFFFFF"
+                             Offset="1" />
+               <GradientStop Color="#FFDBDBDB"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+   <DataTemplate x:Key="FluentDesignDark">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFA1A1A1"
+                             Offset="1" />
+               <GradientStop Color="#FF4F4F4F"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdSystemContent">
+      <Border Style="{StaticResource rdTokenBorder}" CornerRadius="1" BorderThickness="0">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1"
+                                 EndPoint="0.5,0">
+               <GradientStop Color="#FFC0C0C0"
+                             Offset="1" />
+               <GradientStop Color="#FFA0A0A0"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdMetroLightContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFFFFFFF"
+                             Offset="1" />
+               <GradientStop Color="#FFDBDBDB"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdMetroDarkContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFA1A1A1"
+                             Offset="1" />
+               <GradientStop Color="#FF4F4F4F"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdOffice2007BlueContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFA6CDFF"
+                             Offset="1" />
+               <GradientStop Color="#FF9BBEE6"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdOffice2007BlackContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFA1A1A1"
+                             Offset="1" />
+               <GradientStop Color="#FF4F4F4F"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdOffice2007SilverContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFEDF0F7"
+                             Offset="1" />
+               <GradientStop Color="#FFB3B6C5"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdWMP11Content">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0,0.5"
+                                 EndPoint="1,0.5">
+               <GradientStop Color="#FF00BFFF"
+                             Offset="1" />
+               <GradientStop Color="#FF162443"
+                             Offset="0.24"/>
+               <GradientStop Color="#FF000000"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLiveExplorerContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,1.24"
+                                 EndPoint="0.5,-0.24">
+               <GradientStop Color="#FFFBDA00"
+                             Offset="0.995" />
+               <GradientStop Color="#FFFF6F0D"
+                             Offset="0.01" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdGlassContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0,0.5"
+                                 EndPoint="1,0.5">
+
+               <GradientStop Color="#FF00CFC9"
+                             Offset="0.5" />
+
+               <GradientStop Color="#FF0061BA"
+                             Offset="0" />
+
+               <GradientStop Color="#FF70CB00"
+                             Offset="1"/>
+
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdWindows7Content">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush EndPoint="0.866,0.824"
+                                 StartPoint="0.152,0.169">
+               <GradientStop Color="#FF86E9F9"
+                             Offset="0.25" />
+               <GradientStop Color="#FF013C98"
+                             Offset="0.996" />
+               <GradientStop Color="#FF015EC8"
+                             Offset="0.75" />
+               <GradientStop Color="#FF04A2F7"
+                             Offset="0.5" />
+               <GradientStop Color="#FFC9F4FB"
+                             Offset="0" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdWindows10Content">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush EndPoint="0.866,0.824"
+                             StartPoint="0,1">
+               <GradientStop Color="#1979ca"
+                        Offset="0" />
+               <GradientStop Color="#dadbdc"
+                        Offset="1.2" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdAero2NormalColorContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush EndPoint="0.866,0.824"
+                               StartPoint="0,1">
+               <GradientStop Color="#bee6fd"
+                          Offset="0" />
+               <GradientStop Color="#32386a"
+                          Offset="1.2" />
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdZuneContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,0"
+                                 EndPoint="0.5,1">
+               <GradientStop Color="#FFFF5C0A"
+                             Offset="0.626" />
+
+               <GradientStop Color="#FFA03F05"
+                             Offset="0" />
+
+               <GradientStop Color="#FFE55700"
+                             Offset="0.616"/>
+
+               <GradientStop Color="#FFFFA160"
+                             Offset="1"/>
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdChameleonContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+
+               <GradientStop Color="#FFFF0000"
+                             Offset="0.722"/>
+
+               <GradientStop Color="#FFE9FF00"
+                             Offset="0.417"/>
+
+               <GradientStop Color="#FF21FF00"
+                             Offset="0.278"/>
+
+               <GradientStop Color="#FF00D6FF"
+                             Offset="0.139"/>
+               <GradientStop Color="#FF0002FF"
+                             Offset="0"/>
+
+               <GradientStop Color="#FFFF00C2"
+                             Offset="0.866"/>
+
+               <GradientStop Color="#FFFF9F00"
+                             Offset="0.551"/>
+
+               <GradientStop Color="#FFA6005F"
+                             Offset="1"/>
+
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdElementalBlackContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,0"
+                                 EndPoint="0.5,1">
+
+               <GradientStop Offset="1"
+                             Color="#FF000000"/>
+
+               <GradientStop Color="#FF4F4F4F"
+                             Offset="0"/>
+
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdElementalBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,0"
+                                 EndPoint="0.5,1">
+
+               <GradientStop Color="#FF9EC9FF"
+                             Offset="0"/>
+
+               <GradientStop Color="#FF5EA3FA"
+                             Offset="1"/>
+
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdElementalSilverContent">
+      <Border Style="{StaticResource rdTokenBorder}">
+         <Border.Background>
+            <LinearGradientBrush StartPoint="0.5,0"
+                                 EndPoint="0.5,1">
+
+               <GradientStop Color="#FFE3E3E3"
+                             Offset="0"/>
+
+               <GradientStop Color="#FF676767"
+                             Offset="1"/>
+
+            </LinearGradientBrush>
+         </Border.Background>
+      </Border>
+   </DataTemplate>
+
+   <Viewbox x:Key="rdCardViewContent"
+            HorizontalAlignment="Stretch"
+            Margin="0,0,0,0"
+            VerticalAlignment="Stretch"
+            Width="32">
+      <Canvas Height="28"
+              Width="36"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top">
+         <Path Canvas.Left="0.69793701171875"
+               Canvas.Top="1.1019287109375"
+               Height="25.600006103515625"
+               Width="34.39996337890625"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.69793701171875,6.982757568359375 C0.69793701171875,3.67523193359375 3.32763671875,1.1019287109375 6.70751953125,1.1019287109375 6.70751953125,1.1019287109375 29.08837890625,1.1019287109375 29.08837890625,1.1019287109375 32.46826171875,1.1019287109375 35.097900390625,3.67523193359375 35.097900390625,6.982757568359375 35.097900390625,6.982757568359375 35.097900390625,20.821136474609375 35.097900390625,20.821136474609375 35.097900390625,24.128662109375 32.46826171875,26.701934814453125 29.08837890625,26.701934814453125 29.08837890625,26.701934814453125 6.70751953125,26.701934814453125 6.70751953125,26.701934814453125 3.32763671875,26.701934814453125 0.69793701171875,24.128662109375 0.69793701171875,20.821136474609375 0.69793701171875,20.821136474609375 0.69793701171875,6.982757568359375 0.69793701171875,6.982757568359375 z"
+               Stroke="#93c9e3"
+               StrokeThickness="1">
+            <Path.Fill>
+               <LinearGradientBrush StartPoint="0.8924431653859325,0.9374997764826354"
+                                    EndPoint="0.23026246919406892,0.1797318030043118">
+                  <GradientStop Color="#FFe3f7ff"
+                                Offset="0" />
+                  <GradientStop Color="#FFffffff"
+                                Offset="0.9888889789581299" />
+               </LinearGradientBrush>
+            </Path.Fill>
+         </Path>
+
+         <Path Canvas.Left="0.69793701171875"
+               Canvas.Top="1.1019287109375"
+               Height="7.20001220703125"
+               Width="34.39996337890625"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.69793701171875,8.30194091796875 C0.69793701171875,8.30194091796875 0.69793701171875,6.982757568359375 0.69793701171875,6.982757568359375 0.69793701171875,3.67523193359375 3.32763671875,1.1019287109375 6.70751953125,1.1019287109375 6.70751953125,1.1019287109375 29.08837890625,1.1019287109375 29.08837890625,1.1019287109375 32.46826171875,1.1019287109375 35.097900390625,3.67523193359375 35.097900390625,6.982757568359375 35.097900390625,6.982757568359375 35.097900390625,8.30194091796875 35.097900390625,8.30194091796875 35.097900390625,8.30194091796875 0.69793701171875,8.30194091796875 0.69793701171875,8.30194091796875 z"
+               Stroke="#93c9e3"
+               StrokeThickness="1">
+            <Path.Fill>
+               <LinearGradientBrush StartPoint="0.49709461701285823,1"
+                                    EndPoint="0.49709461701285823,0.08333403975755521">
+                  <GradientStop Color="#FFbcebfe"
+                                Offset="0" />
+                  <GradientStop Color="#FFbcebfe"
+                                Offset="0.5888890027999878" />
+                  <GradientStop Color="#FFe3f7ff"
+                                Offset="0.6111109852790833" />
+                  <GradientStop Color="#FFe3f7ff"
+                                Offset="0.9833329916000366" />
+               </LinearGradientBrush>
+            </Path.Fill>
+         </Path>
+      </Canvas>
+   </Viewbox>
+
+   <Viewbox x:Key="rdTableViewContent"
+            RenderTransformOrigin="0.5,0.5"
+            HorizontalAlignment="Stretch"
+            Margin="0,0,0,0"
+            VerticalAlignment="Stretch"
+            Width="32"
+            Height="24" >
+      <Viewbox.RenderTransform>
+         <TransformGroup>
+            <ScaleTransform ScaleX="1"
+                            ScaleY="1"/>
+            <SkewTransform AngleX="0"
+                           AngleY="0"/>
+            <RotateTransform Angle="0"/>
+            <TranslateTransform X="0"
+                                Y="0"/>
+         </TransformGroup>
+      </Viewbox.RenderTransform>
+      <Canvas Height="28"
+              Width="38"
+              Margin="0,0,0,0"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Left">
+         <Path Canvas.Left="0"
+               Canvas.Top="0"
+               Height="Auto"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.697967529296875,0.701934814453125 C0.697967529296875,0.701934814453125 36.0897216796875,0.701934814453125 36.0897216796875,0.701934814453125 36.0897216796875,0.701934814453125 36.0897216796875,7.041778564453125 36.0897216796875,7.041778564453125 36.0897216796875,7.041778564453125 0.697967529296875,7.041778564453125 0.697967529296875,7.041778564453125 0.697967529296875,7.041778564453125 0.697967529296875,0.701934814453125 0.697967529296875,0.701934814453125 z"
+               Fill="#ffffff" />
+         <Path Canvas.Left="0"
+               Canvas.Top="4.834"
+               Height="7.33984375"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.697967529296875,4.833984375 C0.697967529296875,4.833984375 36.0897216796875,4.833984375 36.0897216796875,4.833984375 36.0897216796875,4.833984375 36.0897216796875,12.173828125 36.0897216796875,12.173828125 36.0897216796875,12.173828125 0.697967529296875,12.173828125 0.697967529296875,12.173828125 0.697967529296875,12.173828125 0.697967529296875,4.833984375 0.697967529296875,4.833984375 z"
+               Fill="#ffe8c6"
+               HorizontalAlignment="Left" />
+         <Path Canvas.Left="0"
+               Canvas.Top="9.966"
+               Height="7.33984375"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.697967529296875,9.96600341796875 C0.697967529296875,9.96600341796875 36.0897216796875,9.96600341796875 36.0897216796875,9.96600341796875 36.0897216796875,9.96600341796875 36.0897216796875,17.30584716796875 36.0897216796875,17.30584716796875 36.0897216796875,17.30584716796875 0.697967529296875,17.30584716796875 0.697967529296875,17.30584716796875 0.697967529296875,17.30584716796875 0.697967529296875,9.96600341796875 0.697967529296875,9.96600341796875 z"
+               Fill="#ffffff" />
+         <Path Canvas.Left="0"
+               Canvas.Top="15.298"
+               Height="7.33984375"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.697967529296875,15.29803466796875 C0.697967529296875,15.29803466796875 36.0897216796875,15.29803466796875 36.0897216796875,15.29803466796875 36.0897216796875,15.29803466796875 36.0897216796875,22.63787841796875 36.0897216796875,22.63787841796875 36.0897216796875,22.63787841796875 0.697967529296875,22.63787841796875 0.697967529296875,22.63787841796875 0.697967529296875,22.63787841796875 0.697967529296875,15.29803466796875 0.697967529296875,15.29803466796875 z"
+               Fill="#ffe8c6" />
+         <Path Canvas.Left="0"
+               Canvas.Top="19.63"
+               Height="4.33984375"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.697967529296875,19.63006591796875 C0.697967529296875,19.63006591796875 36.0897216796875,19.63006591796875 36.0897216796875,19.63006591796875 36.0897216796875,19.63006591796875 36.0897216796875,23.96990966796875 36.0897216796875,23.96990966796875 36.0897216796875,23.96990966796875 0.697967529296875,23.96990966796875 0.697967529296875,23.96990966796875 0.697967529296875,23.96990966796875 0.697967529296875,19.63006591796875 0.697967529296875,19.63006591796875 z"
+               Fill="#ffffff" />
+         <Path Canvas.Left="0"
+               Canvas.Top="23.837"
+               Height="3.865"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.697967529296875,23.962158203125 C0.697967529296875,23.962158203125 36.0897216796875,23.962158203125 36.0897216796875,23.962158203125 36.0897216796875,23.962158203125 36.0897216796875,25.701934814453125 36.0897216796875,25.701934814453125 36.0897216796875,25.701934814453125 0.697967529296875,25.701934814453125 0.697967529296875,25.701934814453125 0.697967529296875,25.701934814453125 0.697967529296875,23.962158203125 0.697967529296875,23.962158203125 z"
+               Fill="#ffe8c6" />
+         <Path Canvas.Left="4.698"
+               Height="27.725"
+               Width="1.302"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 4.697967529296875,1.1019287109375 C4.697967529296875,1.1019287109375 4.697967529296875,26.701934814453125 4.697967529296875,26.701934814453125 "
+               Stroke="#cccccc"
+               StrokeThickness="1"
+               Canvas.Top="0.5" />
+         <Path Canvas.Left="27.898"
+               Canvas.Top="0.477"
+               Height="27.35"
+               Width="1"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 27.89794921875,1.1019287109375 C27.89794921875,1.1019287109375 27.89794921875,26.701934814453125 27.89794921875,26.701934814453125 "
+               Stroke="#cccccc"
+               StrokeThickness="1" />
+         <Path Canvas.Left="0"
+               Canvas.Top="0"
+               Height="Auto"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M -0.302032470703125,-0.28253173828125 C-0.302032470703125,-0.28253173828125 37.48150634765625,-0.28253173828125 37.48150634765625,-0.28253173828125 37.48150634765625,-0.28253173828125 37.48150634765625,27.1019287109375 37.48150634765625,27.1019287109375 37.48150634765625,27.1019287109375 -0.302032470703125,27.1019287109375 -0.302032470703125,27.1019287109375 -0.302032470703125,27.1019287109375 -0.302032470703125,-0.28253173828125 -0.302032470703125,-0.28253173828125 z"
+               Stroke="#999999"
+               StrokeThickness="1"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top" />
+      </Canvas>
+   </Viewbox>
+
+   <Viewbox x:Key="rdCompactCardViewContent"
+            Margin="0,0,0,0" 
+            Width="32" 
+            Height="Auto"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+      <Canvas Width="38"  
+              Height="28">
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="Auto"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0,0 C0,0 36.800048828125,0 36.800048828125,0 36.800048828125,0 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,0 0,0 z"
+               Stroke="#999999"
+               StrokeThickness="1"
+               Fill="#ffffff" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="2.399993896484375"
+               Width="32.80000114440918"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,10.400016784667969 C2.0000476837158203,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,10.400016784667969 2.0000476837158203,10.400016784667969 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.5"
+               Canvas.Top="23.625" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="2.4000015258789062"
+               Width="32.80000114440918"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,14.400009155273438 C2.0000476837158203,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,14.400009155273438 2.0000476837158203,14.400009155273438 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.5"
+               Canvas.Top="19.25" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="2.4000015258789062"
+               Width="32.80000114440918"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,18.400009155273438 C2.0000476837158203,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,18.400009155273438 2.0000476837158203,18.400009155273438 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.625"
+               Canvas.Top="15.125" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Height="Auto"
+               Width="Auto"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,22.400009155273438 C2.0000476837158203,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,22.400009155273438 2.0000476837158203,22.400009155273438 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.625"
+               Canvas.Top="10.5" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Height="7.20001220703125"
+               Width="36"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.8000898361206055,1.60003662109375 C0.8000898361206055,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,1.60003662109375 0.8000898361206055,1.60003662109375 z"
+               Canvas.Left="1"
+               Canvas.Top="1">
+            <Path.Fill>
+               <LinearGradientBrush StartPoint="0.0000011643664930032525,0.9999936421820032"
+                                    EndPoint="-0.0000011643664930032525,0.08695269783410334">
+                  <GradientStop Color="#FF7b9ade"
+                                Offset="0" />
+                  <GradientStop Color="#FFa5c3f7"
+                                Offset="0.9777780175209045" />
+               </LinearGradientBrush>
+            </Path.Fill>
+         </Path>
+      </Canvas>
+   </Viewbox>
+
+   <Viewbox x:Key="rdCardFlowView3DContent"
+            Margin="0,0,0,0"
+            Width="32"
+            Height="Auto"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+      <Canvas Width="38"
+              Height="28">
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="Auto"
+               Width="38"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0,0 C0,0 36.800048828125,0 36.800048828125,0 36.800048828125,0 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,0 0,0 z"
+               Stroke="#999999"
+               StrokeThickness="1"
+               Fill="#ffffff" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="2.399993896484375"
+               Width="32.80000114440918"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,10.400016784667969 C2.0000476837158203,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,10.400016784667969 2.0000476837158203,10.400016784667969 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.5"
+               Canvas.Top="23.625" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="2.4000015258789062"
+               Width="32.80000114440918"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,14.400009155273438 C2.0000476837158203,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,14.400009155273438 2.0000476837158203,14.400009155273438 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.5"
+               Canvas.Top="19.25" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"
+               Height="2.4000015258789062"
+               Width="32.80000114440918"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,18.400009155273438 C2.0000476837158203,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,18.400009155273438 2.0000476837158203,18.400009155273438 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.625"
+               Canvas.Top="15.125" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Height="Auto"
+               Width="Auto"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 2.0000476837158203,22.400009155273438 C2.0000476837158203,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,22.400009155273438 2.0000476837158203,22.400009155273438 z"
+               Fill="#e8e8e8"
+               Canvas.Left="2.625"
+               Canvas.Top="10.5" />
+         <Path Margin="0,0,0,0"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Height="7.20001220703125"
+               Width="36"
+               Stretch="Fill"
+               Opacity="1"
+               Data="M 0.8000898361206055,1.60003662109375 C0.8000898361206055,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,1.60003662109375 0.8000898361206055,1.60003662109375 z"
+               Canvas.Left="1"
+               Canvas.Top="1">
+            <Path.Fill>
+               <LinearGradientBrush StartPoint="0.0000011643664930032525,0.9999936421820032"
+                                    EndPoint="-0.0000011643664930032525,0.08695269783410334">
+                  <GradientStop Color="#FF7b9ade"
+                                Offset="0" />
+                  <GradientStop Color="#FFa5c3f7"
+                                Offset="0.9777780175209045" />
+               </LinearGradientBrush>
+            </Path.Fill>
+         </Path>
+      </Canvas>
+   </Viewbox>
+
+   <DataTemplate x:Key="AmberContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFffc107" />
+   </DataTemplate>
+   <DataTemplate x:Key="BlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF2196f3" />
+   </DataTemplate>
+   <DataTemplate x:Key="BlueGrayContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF607d8b" />
+   </DataTemplate>
+   <DataTemplate x:Key="CyanContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF00bcd4" />
+   </DataTemplate>
+   <DataTemplate x:Key="DarkRedContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFC72035" />
+   </DataTemplate>
+   <DataTemplate x:Key="DeepOrangeContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFff5722" />
+   </DataTemplate>
+   <DataTemplate x:Key="DeepPurpleContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF673ab7" />
+   </DataTemplate>
+   <DataTemplate x:Key="GrayContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF9e9e9e" />
+   </DataTemplate>
+   <DataTemplate x:Key="GreenContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF4caf50" />
+   </DataTemplate>
+   <DataTemplate x:Key="IndigoContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF3f51b5" />
+   </DataTemplate>
+   <DataTemplate x:Key="LightBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF03a9f4" />
+   </DataTemplate>
+   <DataTemplate x:Key="LightGreenContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF8bc34a" />
+   </DataTemplate>
+   <DataTemplate x:Key="LimeContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFcddc39" />
+   </DataTemplate>
+   <DataTemplate x:Key="OrangeContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFff9800" />
+   </DataTemplate>
+   <DataTemplate x:Key="PinkContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFe91e63" />
+   </DataTemplate>
+   <DataTemplate x:Key="PurpleContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF9c27b0" />
+   </DataTemplate>
+   <DataTemplate x:Key="RedContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFf44336" />
+   </DataTemplate>
+   <DataTemplate x:Key="TealContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF009688" />
+   </DataTemplate>
+   <DataTemplate x:Key="YellowContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFffeb3b" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdGoldAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFF4B300" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLightGreenAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF78BA00" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdBlueAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF2673EC" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdMediumVioletRedAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFAE113D" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdBrownAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF632F00" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdDarkRedAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFB01E00" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdPaleVioletRedAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFC1004F" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdDarkVioletAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF7200AC" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdDarkSlateBlueAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF4617B4" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdRoyalBlueAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF006AC1" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdTealAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF008287" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdGreenAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF199900" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLimeAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF00C13F" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLightSalmonAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFFF981D" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdRedAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFFF2E12" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdDeepPinkAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFFF1D77" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdPurpleAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFAA40FF" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdDeepSkyBlueAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF1FAEFF" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdDarkTurquoiseAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF56C5FF" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdTurquoiseAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF00D8CC" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdYellowGreenAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF91D100" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdDarkYellowAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFE1B700" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdPinkAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFFF76BC" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdLightSeaGreenAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF00A4A4" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="rdOrangeAccentContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFFF7D23" />
+   </DataTemplate>
+
+   <!--#region FluentColors-->
+   <DataTemplate x:Key="FluentBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF0078D4" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentBrownGrayContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#7A7574" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentCamouflageContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#7E735F" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentCoolBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#2D7D9A" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDarkGrayContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#4A5459" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDarkLilyContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#744DA9" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDarkMintContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#018574" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDarkOrangeContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#CA5010" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDarkPurpleContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#6B69D6" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDeckContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#767676" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentDesertContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#847545" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGoldContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF8C00" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGrayContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#7A7574" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGrayBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#69797E" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGreenContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#107C10" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGreenBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#038387" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGreenGrassContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#00CC6A" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGreenLiddyContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#647C64" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGreenMeadowContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#498205" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentGreenSportContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#10893E" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#0099BC" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightGoldContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FFB900" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightLilyContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#8764B8" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightMintContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#00B294" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightMossContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#567C73" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightOrangeContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#F7630C" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightOrchidContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#C239B3" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightOxideContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#EF6950" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightPinkContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#EA005E" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightPlumContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#E3008C" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightPurpleContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#8E8CD8" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightRedContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#E74856" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentLightVioletContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#B146C2" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentMetalicBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#515C6B" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentMossContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#486860" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentOrchidContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#9A0089" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentOxideContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#DA3B01" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentPinkContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#C30052" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentPlumContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#BF0077" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentRedContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#E81123" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentRedBrickContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#D13438" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentRedModContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#FF4343" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentSageContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#525E54" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentSeaBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#0063B1" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentSeaFoamContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#00B7C3" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentSteelBlueContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#68768A" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentStormContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#4C4A48" />
+   </DataTemplate>
+
+   <DataTemplate x:Key="FluentVioletContent">
+      <Border Style="{StaticResource rdTokenBorder}"
+              Background="#881798" />
+   </DataTemplate>
+   <!--#endregion-->
+
+   <!-- RadioButtonTemplate -->
+   <Style TargetType="{x:Type RadioButton}"
+          x:Key="RadioButtonTemplate">
+      <Setter Property="SnapsToDevicePixels"
+              Value="True"/>
+      <Setter Property="Focusable"
+              Value="False"/>
+      <Setter Property="Background">
+         <Setter.Value>
+
+            <!-- NormalBrush is used as the Background for SimpleButton, SimpleRepeatButton -->
+            <LinearGradientBrush EndPoint="0,1"
+                                 StartPoint="0,0">
+               <GradientStop Color="#FFA07106"
+                             Offset="0"/>
+               <GradientStop Color="#FFF9BE3A"
+                             Offset="1"/>
+               <GradientStop Color="#FFDA9700"
+                             Offset="0.671"/>
+            </LinearGradientBrush>
+
+         </Setter.Value>
+      </Setter>
+      <Setter Property="BorderBrush">
+         <Setter.Value>
+
+            <LinearGradientBrush EndPoint="0,1"
+                                 StartPoint="0,0">
+               <GradientStop Color="#CC000000"
+                             Offset="1"/>
+               <GradientStop Color="#BE101010"
+                             Offset="0.815"/>
+               <GradientStop Color="#3BB4B4B4"
+                             Offset="0"/>
+            </LinearGradientBrush>
+
+         </Setter.Value>
+      </Setter>
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="{x:Type RadioButton}">
+
+               <!-- BulletDecorator is used to provide baseline alignment between the checkmark and the Content -->
+               <BulletDecorator Background="Transparent"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top">
+                  <BulletDecorator.Bullet>
+                     <Grid Width="Auto"
+                           Height="30"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                           <ColumnDefinition Width="20"/>
+                           <ColumnDefinition Width="20"/>
+                           <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                           <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Margin="0,0,0,0"
+                                Width="Auto"
+                                Height="Auto"
+                                Grid.ColumnSpan="2"
+                                Background="#4C000000"
+                                CornerRadius="6,6,6,6"
+                                BorderBrush="#FF000000"
+                                BorderThickness="1,1,1,1"
+                                x:Name="border"/>
+                        <ContentPresenter Margin="2,2,2,2"
+                                          x:Name="IMAGE"
+                                          Grid.ColumnSpan="2"/>
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M5.6768533,-0.76163773 C13.814936,-0.65304219 30.01543,-0.70291921 30.01543,-0.70291921 30.01543,-0.70291921 16.843185,0.59407495 9.4072393,5.4837315 1.971294,10.373388 0.16527376,18.256713 0.16527376,18.256713 0.16527376,18.256713 0.059193802,7.3801543 0.059193802,4.2866498 0.059193802,1.1931452 2.6089356,-0.80257638 5.6768533,-0.76163773 z"
+                              Width="Auto"
+                              Height="Auto"
+                              Grid.ColumnSpan="2"
+                              RenderTransformOrigin="0.5,0.5"
+                              Margin="4.5,6,0.25,0.176" >
+                           <Path.RenderTransform>
+                              <TransformGroup>
+                                 <ScaleTransform ScaleX="1"
+                                                 ScaleY="1"/>
+                                 <SkewTransform AngleX="0"
+                                                AngleY="0"/>
+                                 <RotateTransform Angle="180"/>
+                                 <TranslateTransform X="0"
+                                                     Y="0"/>
+                              </TransformGroup>
+                           </Path.RenderTransform>
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.354,0.428">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="0.592"
+                                                       ScaleY="0.592"/>
+                                       <SkewTransform AngleX="0"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5"/>
+                                       <RotateTransform Angle="0"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5"/>
+                                       <TranslateTransform X="-0.456"
+                                                           Y="-0.38"/>
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+                                 <GradientStop Color="#CC000000"
+                                               Offset="0"/>
+                                 <GradientStop Color="#19000000"
+                                               Offset="1"/>
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M5.6768533,-0.76163773 C13.814936,-0.65304219 30.01543,-0.70291921 30.01543,-0.70291921 30.01543,-0.70291921 16.843185,0.59407495 9.4072393,5.4837315 1.971294,10.373388 0.16527376,18.256713 0.16527376,18.256713 0.16527376,18.256713 0.059193802,7.3801543 0.059193802,4.2866498 0.059193802,1.1931452 2.6089356,-0.80257638 5.6768533,-0.76163773 z"
+                              HorizontalAlignment="Left"
+                              Margin="0.125,0.176,0,6"
+                              VerticalAlignment="Stretch"
+                              Width="35.25"
+                              Height="Auto"
+                              Grid.ColumnSpan="2" >
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.384,0.496">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="1.669"
+                                                       ScaleY="1.901"/>
+                                       <SkewTransform AngleX="0"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5"/>
+                                       <RotateTransform Angle="0"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5"/>
+                                       <TranslateTransform X="-0.396"
+                                                           Y="-0.33"/>
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+                                 <GradientStop Color="#19FFFFFF"
+                                               Offset="1"/>
+                                 <GradientStop Color="#7FFFFFFF"
+                                               Offset="0"/>
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+                        <Canvas x:Name="CheckMark"
+                                Width="Auto"
+                                Opacity="1"
+                                Height="Auto"
+                                Margin="2.5,3.5,-6.5,2.5"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2">
+                           <Path
+                              Canvas.Left="0.1"
+                              Height="23.312"
+                              Width="23.652"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M0.10439524,14.145516 C0.10439524,14.145516 4.375,9.5 4.375,9.5 4.375,9.5 5.5839109,11.360891 6.604455,13.055446 7.625,14.75 8.25,17.375 8.25,17.375 8.25,17.375 10.333333,11.666667 14.333333,7.333333 19.005066,2.27229 22.3125,0.1875 22.3125,0.1875 22.3125,0.1875 23.811989,8.4372139 23.75,8.5 23.719387,8.5310068 19.186649,9.9585476 16,13.5 12.733985,17.129656 8.5,23.5  8.5,23.5 8.5,23.5 6.125,19.625 4.5,18 2.875,16.375 0.10439524,14.145516 0.10439524,14.145516 z"
+                              StrokeThickness="1">
+                              <Path.Fill>
+                                 <RadialGradientBrush
+                                    Center="0.668918918918919,0.4392857142857143"
+                                    GradientOrigin="0.668918918918919,0.4392857142857143"
+                                    RadiusX="1.2664363990878151"
+                                    RadiusY="0.7590819609420151">
+                                    <GradientStop
+                                       Color="#FFffcc00"
+                                       Offset="0" />
+                                    <GradientStop
+                                       Color="#FFea8c00"
+                                       Offset="0.9111109972000122" />
+                                    <GradientStop
+                                       Color="#FFffcc00"
+                                       Offset="0.9777780175209045" />
+                                    <GradientStop
+                                       Color="#FFffcc00"
+                                       Offset="0.9833329916000366" />
+                                 </RadialGradientBrush>
+                              </Path.Fill>
+                              <Path.Stroke>
+                                 <LinearGradientBrush
+                                    StartPoint="0,0.587272273965226"
+                                    EndPoint="1,0.587272273965226">
+                                    <GradientStop
+                                       Color="#FFf06000"
+                                       Offset="0" />
+                                    <GradientStop
+                                       Color="#FFffad33"
+                                       Offset="0.7444440126419067" />
+                                    <GradientStop
+                                       Color="#FFf06000"
+                                       Offset="0.949999988079071" />
+                                    <GradientStop
+                                       Color="#FFf06000"
+                                       Offset="0.9722219705581665" />
+                                 </LinearGradientBrush>
+                              </Path.Stroke>
+                           </Path>
+                           <Path
+                              Height="19.978"
+                              Width="21.299"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M8.6812678,18.5 C8.6812678,18.5 12.128425,13.61236 14.0625,10.4375 15.674172,7.7918775 21.375,2.724985 21.375,2.724985 21.375,2.724985 21.9375,7.2375116 21.9375,7.2375116 21.9375,7.2375116 17.725958,9.357767 15.25,11.625 12.774042,13.892233 8.7745764,20.291404 8.7745764,20.291404 8.7745764,20.291404 2.8498764,13.528727 2.8498764,13.528727 2.8498764,13.528727 4.6498898,11.553767 4.6498898,11.553767 4.6498898,11.553767 8.6812678,18.5  8.6812678,18.5 z M8.6125134,17 C8.6125134,17 4.8207686,10.073278 4.8207686,10.073278 4.8207686,10.073278 1.6745477,13.591402 1.6745477,13.591402 1.6745477,13.591402 8.8742645,21.291664 8.8742645,21.291664 8.8742645,21.291664 14.174105,14.69228 16.074189,12.192134 17.974274,9.6919882 22.974497,7.7917546 22.974497,7.7917546 22.974497,7.7917546 21.6875,1.3125 21.6875,1.3125 21.6875,1.3125 15.974185,5.8917668 13.5625,9.4375 11.556235,12.387173 8.6125134,17  8.6125134,17 z"
+                              Canvas.Left="1.451"
+                              Canvas.Top="1.521">
+                              <Path.Fill>
+                                 <LinearGradientBrush
+                                    StartPoint="0.4870794918470639,0.1816460800372799"
+                                    EndPoint="0.4870794918470639,1.5531156619111461">
+                                    <GradientStop
+                                       Color="#7fffffff"
+                                       Offset="0" />
+                                    <GradientStop
+                                       Color="#00ffffff"
+                                       Offset="0.9888889789581299" />
+                                 </LinearGradientBrush>
+                              </Path.Fill>
+                           </Path>
+                           <Path
+                              Height="16.376"
+                              Width="21.5"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M5.349984,18.25 C5.349984,18.25 0.99431285,14.05 0.99431285,14.05 0.99431285,14.05 4.3941163,10.450027 4.3941163,10.450027 4.3941163,10.450027 8.1942079,17.250012 8.1942079,17.250012 8.1942079,17.250012 10.781875,12.262289 13.794126,8.5500007 17.041318,4.5481722 20.550462,1.9000192 21.149991,1.9000192 21.894008,3.3500193 22.161008,5.5132209 22.493999,8.1499968 21.882451,8.7180678 18.850341,10.09629 15.694099,12.35002 11.97068,15.008744 12.594143,14.050573  10.494174,16.350572 8.3942041,18.65057 5.349984,18.25 5.349984,18.25 z"
+                              Canvas.Left="1.25"
+                              Canvas.Top="1.65">
+                              <Path.Fill>
+                                 <RadialGradientBrush
+                                    Center="0.6495195395046645,0.6950372147233519"
+                                    GradientOrigin="0.6495195395046645,0.6950372147233519"
+                                    RadiusX="0.32265512619845904"
+                                    RadiusY="2.656755419647326">
+                                    <GradientStop
+                                       Color="#19ffffff"
+                                       Offset="0" />
+                                    <GradientStop
+                                       Color="#7Cffffff"
+                                       Offset="0.9611110091209412" />
+                                    <GradientStop
+                                       Color="#7fffffff"
+                                       Offset="0.9833329916000366" />
+                                 </RadialGradientBrush>
+                              </Path.Fill>
+                           </Path>
+                        </Canvas>
+
+                        <Border x:Name="disableVeil"
+                                Margin="0,0,0,0"
+                                CornerRadius="6,6,6,6"
+                                Background="#FF333333"
+                                Visibility="Hidden"
+                                Opacity="0.7"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"/>
+                     </Grid>
+                  </BulletDecorator.Bullet>
+               </BulletDecorator>
+
+               <ControlTemplate.Triggers>
+                  <Trigger Property="IsChecked"
+                           Value="false" >
+                     <Setter Property="Visibility"
+                             TargetName="CheckMark"
+                             Value="Collapsed"/>
+                  </Trigger>
+
+                  <MultiTrigger>
+                     <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver"
+                                   Value="True" />
+                        <Condition Property="IsEnabled"
+                                   Value="True" />
+                     </MultiTrigger.Conditions>
+
+                     <Setter Property="BorderBrush"
+                             TargetName="border">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="0.938,0.9"
+                                                StartPoint="0.031,0.033">
+                              <GradientStop Color="#FF000000"
+                                            Offset="0.002" />
+                              <GradientStop Color="#FF545454"
+                                            Offset="1" />
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </MultiTrigger>
+
+                  <Trigger Property="IsPressed"
+                           Value="true">
+                     <Setter Property="BorderBrush"
+                             TargetName="border">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="0.531,0.042"
+                                                StartPoint="0.513,0.958">
+                              <GradientStop Color="#FF000000"
+                                            Offset="0"/>
+                              <GradientStop Color="#FF2D2D2D"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="IsEnabled"
+                           Value="false">
+                     <Setter Property="Foreground"
+                             Value="#80000000"/>
+                  </Trigger>
+
+                  <MultiDataTrigger>
+                     <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType=GroupBox}, Path=IsEnabled}"
+                                   Value="True" />
+                        <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}"
+                                   Value="False" />
+                     </MultiDataTrigger.Conditions>
+
+                     <Setter TargetName="disableVeil"
+                             Property="Visibility"
+                             Value="Visible" />
+                  </MultiDataTrigger>
+
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <Style BasedOn="{x:Null}"
+          TargetType="{x:Type Button}"
+          x:Key="bPalette">
+
+      <Setter Property="FocusVisualStyle"
+              Value="{x:Null}"/>
+
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+               <ControlTemplate.Resources>
+                  <Storyboard x:Key="OverPalette">
+                     <ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                   Storyboard.TargetName="txtTemplate"
+                                                   Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)">
+                        <SplineColorKeyFrame KeyTime="00:00:00.2000000"
+                                             Value="#FFFFFFFF"/>
+                     </ColorAnimationUsingKeyFrames>
+                     <ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                   Storyboard.TargetName="txtTheme"
+                                                   Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)">
+                        <SplineColorKeyFrame KeyTime="00:00:00.2000000"
+                                             Value="#FFFFFFFF"/>
+                     </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+               </ControlTemplate.Resources>
+
+               <Grid HorizontalAlignment="Left"
+                     x:Name="grid"
+                     VerticalAlignment="Top">
+
+                  <Grid HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Width="175"
+                        Height="40"
+                        x:Name="LookPalette">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="*"/>
+                     </Grid.ColumnDefinitions>
+                     <Border CornerRadius="8,0,8,8"
+                             BorderThickness="1,1,2,3"
+                             Margin="3,3,0,0"
+                             Width="Auto"
+                             Height="Auto"
+                             Grid.ColumnSpan="2"
+                             x:Name="borderBlack">
+                        <Border.Background>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FF777777"
+                                            Offset="0"/>
+                              <GradientStop Color="#FF212121"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.BorderBrush>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FFB9B9B9"
+                                            Offset="0"/>
+                              <GradientStop Color="#FF575757"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Border.BorderBrush>
+                     </Border>
+                     <Border Margin="0,0,0,0"
+                             Grid.Column="0"
+                             CornerRadius="8,8,8,8"
+                             BorderThickness="2,1,2,3"
+                             x:Name="borderOrange">
+                        <Border.BorderBrush>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FFFBA900"
+                                            Offset="0"/>
+                              <GradientStop Color="#FFCC5300"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                           <LinearGradientBrush EndPoint="0.489,0.942"
+                                                StartPoint="0.489,0.075">
+                              <GradientStop Color="#FFF9BE3A"
+                                            Offset="1"/>
+                              <GradientStop Color="#FFE18200"
+                                            Offset="0.419"/>
+                              <GradientStop Color="#FFF9BE3A"
+                                            Offset="0"/>
+                           </LinearGradientBrush>
+                        </Border.Background>
+                     </Border>
+                     <Border CornerRadius="6,6,6,6"
+                             BorderThickness="0,0,0,0"
+                             BorderBrush="{x:Null}"
+                             Margin="2,2,3,0"
+                             VerticalAlignment="Top"
+                             Width="Auto"
+                             Height="18"
+                             Background="#4CFFFFFF"
+                             x:Name="borderGlass"/>
+                     <TextBlock HorizontalAlignment="Stretch"
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Center"
+                                Width="Auto"
+                                Height="Auto"
+                                Background="{x:Null}"
+                                FontFamily="Tahoma"
+                                FontSize="11"
+                                FontWeight="Normal"
+                                Text="Change UI Style"
+                                TextWrapping="Wrap"
+                                Focusable="False"
+                                x:Name="textBox"
+                                TextAlignment="Center"/>
+                     <TextBlock Width="Auto"
+                                Height="Auto"
+                                FontFamily="Tahoma"
+                                FontSize="10"
+                                FontWeight="Normal"
+                                Text="{Binding Source={x:Static Application.Current}, Path=ActualViewName}"
+                                TextWrapping="Wrap"
+                                Focusable="False"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,5,-12"
+                                x:Name="txtTemplate"
+                                VerticalAlignment="Center"
+                                FontStyle="Italic"
+                                Foreground="#FFC9C9C9"
+                                Grid.Column="1"/>
+                     <TextBlock Width="Auto"
+                                Height="Auto"
+                                FontFamily="Tahoma"
+                                FontSize="10"
+                                FontWeight="Normal"
+                                Text="{Binding Source={x:Static Application.Current}, Path=ActualThemeName}"
+                                TextWrapping="Wrap"
+                                FontStyle="Italic"
+                                Foreground="#FFC9C9C9"
+                                Focusable="False"
+                                HorizontalAlignment="Right"
+                                Margin="0,-12,5,0"
+                                x:Name="txtTheme"
+                                VerticalAlignment="Center"
+                                Grid.Column="1"/>
+                  </Grid>
+               </Grid>
+
+               <ControlTemplate.Triggers>
+                  <Trigger Property="IsFocused"
+                           Value="True">
+                     <Setter Property="BorderBrush"
+                             TargetName="borderOrange">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FFFBA900"
+                                            Offset="0"/>
+                              <GradientStop Color="#FFCC5300"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="IsDefaulted"
+                           Value="True">
+                     <Setter Property="BorderBrush"
+                             TargetName="borderOrange">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FFFBA900"
+                                            Offset="0"/>
+                              <GradientStop Color="#FFCC5300"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="Tag"
+                           Value="IsMouseOver">
+                     <Trigger.EnterActions>
+                        <BeginStoryboard x:Name="OverPalette_BeginStoryboard"
+                                         Storyboard="{StaticResource OverPalette}"/>
+                     </Trigger.EnterActions>
+                     <Trigger.ExitActions>
+                        <RemoveStoryboard BeginStoryboardName="OverPalette_BeginStoryboard"/>
+                     </Trigger.ExitActions>
+                     <Setter Property="BorderBrush"
+                             TargetName="borderOrange">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FFFBA900"
+                                            Offset="0"/>
+                              <GradientStop Color="#FFCC5300"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="IsPressed"
+                           Value="True">
+                     <Setter Property="BorderBrush"
+                             TargetName="borderOrange">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FFFBA900"
+                                            Offset="0"/>
+                              <GradientStop Color="#FFCC5300"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="IsEnabled"
+                           Value="False">
+                     <Setter Property="Background"
+                             TargetName="borderOrange">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="0.489,0.942"
+                                                StartPoint="0.489,0.075">
+                              <GradientStop Color="#FF888783"
+                                            Offset="1"/>
+                              <GradientStop Color="#FF4A4A4A"
+                                            Offset="0.419"/>
+                              <GradientStop Color="#FF7B7B7B"
+                                            Offset="0"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                     <Setter Property="BorderBrush"
+                             TargetName="borderOrange">
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="1,0.5"
+                                                StartPoint="0,0.5">
+                              <GradientStop Color="#FF7B7B7B"
+                                            Offset="0.005"/>
+                              <GradientStop Color="#FF343434"
+                                            Offset="1"/>
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <!-- More button style -->
+   <Style x:Key="btnMore"
+          TargetType="{x:Type Button}">
+      <Setter Property="Focusable"
+              Value="False"/>
+
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+               <Grid RenderTransformOrigin="0.5,0.5"
+                     Background="Transparent">
+                  <Grid.RenderTransform>
+                     <TransformGroup>
+                        <ScaleTransform ScaleX="1"
+                                        ScaleY="1"/>
+                        <SkewTransform AngleX="0"
+                                       AngleY="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform X="0"
+                                            Y="0"/>
+                     </TransformGroup>
+                  </Grid.RenderTransform>
+                  <Grid HorizontalAlignment="Right"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Width="15"
+                        Height="15">
+
+                     <Ellipse x:Name="bgBack"
+                              Stroke="#FF000000"
+                              Width="Auto"
+                              Height="Auto"
+                              HorizontalAlignment="Stretch"
+                              Margin="0,0,0,0" >
+
+                        <Ellipse.Fill>
+                           <LinearGradientBrush EndPoint="0.5,1"
+                                                StartPoint="0.5,0">
+
+                              <GradientStop Color="#FF0A0A0A"
+                                            Offset="1"/>
+
+                              <GradientStop Color="#FF646464"
+                                            Offset="0"/>
+
+                           </LinearGradientBrush>
+                        </Ellipse.Fill>
+                     </Ellipse>
+                     <Ellipse x:Name="innerBorder"
+                              Fill="{x:Null}"
+                              Stroke="#19FFFFFF"
+                              HorizontalAlignment="Stretch"
+                              Margin="1,1,1,1"
+                              Width="Auto"
+                              Height="Auto"/>
+
+                     <Path x:Name="glyph"
+                           Fill="#FFC4C4C4"
+                           Stretch="Fill"
+                           Stroke="{x:Null}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,0"
+                           VerticalAlignment="Center"
+                           Width="6.32"
+                           Height="7.038"
+                           Data="M1.7839703,4.2157112 L5.2005612,4.2347514 5.22276,5.7233264 8.30596,5.7330687 8.3013089,7.3335571 5.2772463,7.342982 5.2478647,8.792673 1.72452,8.7819326 1.686972,7.2998393 -1.2949506,7.2608173 -1.3599229,5.7140787 1.6999587,5.6771084 z"/>
+
+                     <Path x:Name="glassTop"
+                           Stretch="Fill"
+                           Stroke="#FF000000"
+                           StrokeThickness="0"
+                           Margin="0,0,0,5.981"
+                           Width="Auto"
+                           Height="Auto">
+
+                        <Path.Fill>
+                           <LinearGradientBrush EndPoint="0.5,1"
+                                                StartPoint="0.5,0">
+
+                              <GradientStop Color="#7FFFFFFF"
+                                            Offset="0"/>
+
+                              <GradientStop Color="#00FFFFFF"
+                                            Offset="1"/>
+
+                           </LinearGradientBrush>
+                        </Path.Fill>
+                        <Path.Data>
+                           <PathGeometry>
+                              <PathFigure IsClosed="True"
+                                          StartPoint="15,7.5">
+
+                                 <PolyBezierSegment IsSmoothJoin="True"
+                                                    Points="15,11.642136 11.767136,6.0001598 7.625,6.0001598 3.4828644,6.0001598 0,11.642136 0,7.5 0,3.3578644 3.3578644,0 7.5,0 11.642136,0 15,3.3578644 15,7.5"/>
+                              </PathFigure>
+                           </PathGeometry>
+                        </Path.Data>
+                     </Path>
+                  </Grid>
+                  <ContentPresenter x:Name="contentPresenter"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,25,0"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    RecognizesAccessKey="True"/>
+               </Grid>
+               <ControlTemplate.Triggers>
+                  <Trigger Property="IsFocused"
+                           Value="True"/>
+
+                  <Trigger Property="IsDefaulted"
+                           Value="True"/>
+
+                  <Trigger Property="IsMouseOver"
+                           Value="True">
+
+                     <Setter Property="Stroke"
+                             TargetName="innerBorder"
+                             Value="#3FFFFFFF"/>
+
+                     <Setter Property="Fill"
+                             TargetName="glyph"
+                             Value="#FFFFFFFF"/>
+                  </Trigger>
+
+                  <Trigger Property="IsPressed"
+                           Value="True">
+
+                     <Setter Property="Fill"
+                             TargetName="glyph"
+                             Value="#FFFFFFFF"/>
+
+                     <Setter Property="Stroke"
+                             TargetName="innerBorder"
+                             Value="#7F000000"/>
+                  </Trigger>
+
+                  <Trigger Property="IsEnabled"
+                           Value="False"/>
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <!-- Full Theme list Palette resources -->
+   <SolidColorBrush x:Key="groupBoxMiniHeaderBrush" Color="{DynamicResource Primary500}"/>
+
+   <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+
+   <LinearGradientBrush x:Key="groupBoxMiniBorderBrush"
+                        EndPoint="1,0.5"
+                        StartPoint="0,0.5">
+
+      <GradientStop Color="#FFE5E5E5"
+                    Offset="0"/>
+      <GradientStop Color="#FF6F6F6F"
+                    Offset="1"/>
+
+   </LinearGradientBrush>
+
+   <!-- The style of the GroupBox in the full theme list palette. -->
+   <Style x:Key="XceedGroupBoxPopUp" TargetType="{x:Type GroupBox}" >
+      <Setter Property="FontSize" Value="10"/>
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="BorderBrush">
+         <Setter.Value>
+            <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+               <GradientStop Color="#FFABABAB" Offset="0"/>
+               <GradientStop Color="#FF6D6B6B" Offset="1"/>
+            </LinearGradientBrush>
+
+         </Setter.Value>
+      </Setter>
+
+      <Setter Property="BorderThickness"
+              Value="1"/>
+
+      <Setter Property="Template">
+         <Setter.Value>
+
+            <ControlTemplate TargetType="{x:Type GroupBox}">
+
+               <Grid SnapsToDevicePixels="True">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="6"/>
+                     <ColumnDefinition Width="Auto"/>
+                     <ColumnDefinition Width="*"/>
+                     <ColumnDefinition Width="6"/>
+                  </Grid.ColumnDefinitions>
+
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="*"/>
+                     <RowDefinition Height="6"/>
+                  </Grid.RowDefinitions>
+
+                  <Border CornerRadius="4"
+                          Grid.Row="1"
+                          Grid.RowSpan="3"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="4"
+                          BorderThickness="{TemplateBinding BorderThickness}" />
+
+                  <Border x:Name="Header"
+                          Padding="3,0,3,0"
+                          Grid.Row="0"
+                          Grid.RowSpan="2"
+                          Grid.Column="1">
+
+                     <ContentPresenter ContentSource="Header"
+                                       TextElement.FontWeight="Bold"
+                                       TextBlock.FontSize="10"
+                                       RecognizesAccessKey="True"
+                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                       TextElement.Foreground="{StaticResource groupBoxMiniHeaderBrush}"
+                                       OpacityMask="#FF000000"/>
+                  </Border>
+
+                  <ContentPresenter Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    Margin="{TemplateBinding Padding}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                  <Border CornerRadius="0,0,6,6"
+                          Grid.Row="1"
+                          Grid.RowSpan="3"
+                          Grid.ColumnSpan="4"
+                          BorderBrush="{StaticResource groupBoxMiniBorderBrush}"
+                          BorderThickness="0,2,0,0">
+
+                     <Border.OpacityMask>
+                        <MultiBinding Converter="{StaticResource BorderGapMaskConverter}"
+                                      ConverterParameter="7">
+                           <Binding ElementName="Header"
+                                    Path="ActualWidth"/>
+
+                           <Binding RelativeSource="{RelativeSource Self}"
+                                    Path="ActualWidth"/>
+
+                           <Binding RelativeSource="{RelativeSource Self}"
+                                    Path="ActualHeight"/>
+
+                        </MultiBinding>
+                     </Border.OpacityMask>
+                  </Border>
+               </Grid>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <!-- The style of the small RadioButton in the full theme list palette. -->
+   <Style x:Key="rdButtonCouleursMini"
+          TargetType="{x:Type RadioButton}">
+
+      <!-- Even if the Tooltip property is set, we don't want it active in this
+           palette. It is already very clear and explicit what the RadioButtons
+           stand for in this palette. -->
+      <Setter Property="ToolTipService.IsEnabled"
+              Value="False"/>
+
+      <Setter Property="GroupName"
+              Value="AllThemes"/>
+
+      <Setter Property="BorderThickness"
+              Value="6,0,3,0"/>
+
+      <Setter Property="HorizontalAlignment"
+              Value="Left"/>
+
+      <Setter Property="SnapsToDevicePixels"
+              Value="True"/>
+
+      <Setter Property="FocusVisualStyle">
+         <Setter.Value>
+            <Style>
+               <Setter Property="Control.Template">
+                  <Setter.Value>
+                     <ControlTemplate>
+                        <Border>
+                           <Rectangle Margin="15,0,0,0"
+                                      Stroke="#60000000"
+                                      StrokeThickness="1"
+                                      StrokeDashArray="1 2"/>
+                        </Border>
+                     </ControlTemplate>
+                  </Setter.Value>
+               </Setter>
+            </Style>
+         </Setter.Value>
+      </Setter>
+
+      <Setter Property="Background">
+         <Setter.Value>
+            <!-- NormalBrush is used as the Background for SimpleButton, SimpleRepeatButton -->
+            <LinearGradientBrush EndPoint="0,1"
+                                 StartPoint="0,0">
+
+               <GradientStop Color="#FFA07106"
+                             Offset="0"/>
+
+               <GradientStop Color="#FFF9BE3A"
+                             Offset="1"/>
+
+               <GradientStop Color="#FFDA9700"
+                             Offset="0.671"/>
+
+            </LinearGradientBrush>
+         </Setter.Value>
+      </Setter>
+
+      <Setter Property="BorderBrush">
+         <Setter.Value>
+            <LinearGradientBrush EndPoint="0,1"
+                                 StartPoint="0,0">
+
+               <GradientStop Color="#CC000000"
+                             Offset="1"/>
+
+               <GradientStop Color="#BE101010"
+                             Offset="0.815"/>
+
+               <GradientStop Color="#3BB4B4B4"
+                             Offset="0"/>
+
+            </LinearGradientBrush>
+         </Setter.Value>
+      </Setter>
+
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="{x:Type RadioButton}">
+
+               <!-- BulletDecorator is used to provide baseline alignment between the checkmark and the Content -->
+               <BulletDecorator Background="Transparent"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top">
+
+                  <BulletDecorator.Bullet>
+                     <Grid Width="Auto"
+                           Height="15"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Top">
+
+                        <Border x:Name="border"
+                                Margin="0,0,0,0"
+                                Width="14"
+                                Height="14"
+                                Background="#4C000000"
+                                CornerRadius="20,20,20,20"
+                                BorderBrush="#FF000000"
+                                BorderThickness="1,1,1,1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+
+                        <ContentPresenter x:Name="IMAGE"
+                                          Margin="2,0,0,0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Width="Auto"
+                                          Height="15"/>
+
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M4.1140706,-1.1131968 C7.6725113,-3.7091382 10.734278,-0.41539673 10.734278,-0.41539673 10.734278,-0.41539673 11.562265,0.58132243 6.2660427,2.5771113 0.96982059,4.5729001 1.6315318,8.0651958 1.6315318,8.0651958 1.6315318,8.0651958 0.55562993,1.4827446 4.1140706,-1.1131968 z"
+                              Width="10"
+                              Height="10"
+                              Grid.ColumnSpan="1"
+                              RenderTransformOrigin="0.5,0.5"
+                              Margin="-28.018,-6.577,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top"  >
+
+                           <Path.RenderTransform>
+                              <TransformGroup>
+                                 <ScaleTransform ScaleX="1"
+                                                 ScaleY="1"/>
+
+                                 <SkewTransform AngleX="0"
+                                                AngleY="0"/>
+
+                                 <RotateTransform Angle="180"/>
+
+                                 <TranslateTransform X="31.197"
+                                                     Y="11.077"/>
+                              </TransformGroup>
+                           </Path.RenderTransform>
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.309,0.386">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="0.774"
+                                                       ScaleY="1.245"/>
+
+                                       <SkewTransform AngleX="-5.031"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5"/>
+
+                                       <RotateTransform Angle="34.471"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5"/>
+
+                                       <TranslateTransform X="-0.372"
+                                                           Y="-0.317"/>
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+
+                                 <GradientStop Color="#CC000000"
+                                               Offset="0"/>
+
+                                 <GradientStop Color="#19000000"
+                                               Offset="1"/>
+
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M5.5264455,-5.0053735 C9.6789087,-5.0968124 10.39782,0.79245231 10.39782,0.79245231 10.39782,0.79245231 6.2462241,-0.12185523 3.9667957,2.0726003 1.6873672,4.2670559 1.3617636,11.049826 0.54769485,10.592636 -0.26637378,10.135446 -0.42923277,9.6751348 -0.42953064,4.322928 -0.4298285,-1.0292789 2.8400027,-5.0056271 5.5264455,-5.0053735 z"
+                              HorizontalAlignment="Left"
+                              Margin="1.5,1.999,0,5.25"
+                              Width="10"
+                              Grid.ColumnSpan="1">
+
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.384,0.496">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="1.495"
+                                                       ScaleY="1.701"/>
+
+                                       <SkewTransform AngleX="0"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5"/>
+
+                                       <RotateTransform Angle="0"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5"/>
+
+                                       <TranslateTransform X="-0.432"
+                                                           Y="-0.379"/>
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+
+                                 <GradientStop Color="#19FFFFFF"
+                                               Offset="1"/>
+
+                                 <GradientStop Color="#7FFFFFFF"
+                                               Offset="0"/>
+
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+
+                        <Viewbox Margin="4.625,1,0,1"
+                                 VerticalAlignment="Stretch"
+                                 Height="Auto"
+                                 HorizontalAlignment="Left"
+                                 Width="17.25">
+
+                           <Canvas x:Name="CheckMark"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="0,0,0,0"
+                                   VerticalAlignment="Stretch"
+                                   Width="24"
+                                   Opacity="1"
+                                   Height="24">
+
+                              <Path Canvas.Left="0.1"
+                                    Height="23.312"
+                                    Width="23.652"
+                                    Stretch="Fill"
+                                    Opacity="1"
+                                    Data="M0.10439524,14.145516 C0.10439524,14.145516 4.375,9.5 4.375,9.5 4.375,9.5 5.5839109,11.360891 6.604455,13.055446 7.625,14.75 8.25,17.375 8.25,17.375 8.25,17.375 10.333333,11.666667 14.333333,7.333333 19.005066,2.27229 22.3125,0.1875 22.3125,0.1875 22.3125,0.1875 23.811989,8.4372139 23.75,8.5 23.719387,8.5310068 19.186649,9.9585476 16,13.5 12.733985,17.129656 8.5,23.5  8.5,23.5 8.5,23.5 6.125,19.625 4.5,18 2.875,16.375 0.10439524,14.145516 0.10439524,14.145516 z"
+                                    StrokeThickness="1">
+
+                                 <Path.Fill>
+                                    <RadialGradientBrush Center="0.67,0.44"
+                                                         GradientOrigin="0.67,0.44"
+                                                         RadiusX="1.267"
+                                                         RadiusY="0.76">
+
+                                       <GradientStop Color="#FFFFCC00"
+                                                     Offset="0" />
+
+                                       <GradientStop Color="#FFEA8C00"
+                                                     Offset="0.91" />
+
+                                       <GradientStop	Color="#FFFFCC00"
+                                                      Offset="0.97" />
+
+                                       <GradientStop	Color="#FFFFCC00"
+                                                      Offset="0.98" />
+
+                                    </RadialGradientBrush>
+                                 </Path.Fill>
+
+                                 <Path.Stroke>
+                                    <LinearGradientBrush StartPoint="0,0.587"
+                                                         EndPoint="1,0.587">
+
+                                       <GradientStop	Color="#FFF06000"
+                                                      Offset="0" />
+
+                                       <GradientStop Color="#FFFFAD33"
+                                                     Offset="0.75" />
+
+                                       <GradientStop Color="#FFF06000"
+                                                     Offset="0.95" />
+
+                                       <GradientStop	Color="#FFF06000"
+                                                      Offset="0.97" />
+
+                                    </LinearGradientBrush>
+                                 </Path.Stroke>
+                              </Path>
+
+                              <Path Height="19.978"
+                                    Width="21.299"
+                                    Stretch="Fill"
+                                    Opacity="1"
+                                    Data="M8.6812678,18.5 C8.6812678,18.5 12.128425,13.61236 14.0625,10.4375 15.674172,7.7918775 21.375,2.724985 21.375,2.724985 21.375,2.724985 21.9375,7.2375116 21.9375,7.2375116 21.9375,7.2375116 17.725958,9.357767 15.25,11.625 12.774042,13.892233 8.7745764,20.291404 8.7745764,20.291404 8.7745764,20.291404 2.8498764,13.528727 2.8498764,13.528727 2.8498764,13.528727 4.6498898,11.553767 4.6498898,11.553767 4.6498898,11.553767 8.6812678,18.5  8.6812678,18.5 z M8.6125134,17 C8.6125134,17 4.8207686,10.073278 4.8207686,10.073278 4.8207686,10.073278 1.6745477,13.591402 1.6745477,13.591402 1.6745477,13.591402 8.8742645,21.291664 8.8742645,21.291664 8.8742645,21.291664 14.174105,14.69228 16.074189,12.192134 17.974274,9.6919882 22.974497,7.7917546 22.974497,7.7917546 22.974497,7.7917546 21.6875,1.3125 21.6875,1.3125 21.6875,1.3125 15.974185,5.8917668 13.5625,9.4375 11.556235,12.387173 8.6125134,17  8.6125134,17 z"
+                                    Canvas.Left="1.451"
+                                    Canvas.Top="1.521">
+
+                                 <Path.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0.182"
+                                                         EndPoint="0.5,1.55">
+
+                                       <GradientStop Color="#7FFFFFFF"
+                                                     Offset="0" />
+
+                                       <GradientStop	Color="#00FFFFFF"
+                                                      Offset="1" />
+
+                                    </LinearGradientBrush>
+                                 </Path.Fill>
+                              </Path>
+                              <Path Height="16.376"
+                                    Width="21.5"
+                                    Stretch="Fill"
+                                    Opacity="1"
+                                    Data="M5.349984,18.25 C5.349984,18.25 0.99431285,14.05 0.99431285,14.05 0.99431285,14.05 4.3941163,10.450027 4.3941163,10.450027 4.3941163,10.450027 8.1942079,17.250012 8.1942079,17.250012 8.1942079,17.250012 10.781875,12.262289 13.794126,8.5500007 17.041318,4.5481722 20.550462,1.9000192 21.149991,1.9000192 21.894008,3.3500193 22.161008,5.5132209 22.493999,8.1499968 21.882451,8.7180678 18.850341,10.09629 15.694099,12.35002 11.97068,15.008744 12.594143,14.050573  10.494174,16.350572 8.3942041,18.65057 5.349984,18.25 5.349984,18.25 z"
+                                    Canvas.Left="1.25"
+                                    Canvas.Top="1.65">
+
+                                 <Path.Fill>
+                                    <RadialGradientBrush Center="0.65,0.695"
+                                                         GradientOrigin="0.65,0.6950"
+                                                         RadiusX="0.32"
+                                                         RadiusY="2.66">
+
+                                       <GradientStop	Color="#19FFFFFF"
+                                                      Offset="0" />
+
+                                       <GradientStop	Color="#7CFFFFFF"
+                                                      Offset="0.96" />
+
+                                       <GradientStop	Color="#7FFFFFFF"
+                                                      Offset="0.98" />
+
+                                    </RadialGradientBrush>
+                                 </Path.Fill>
+                              </Path>
+                           </Canvas>
+                        </Viewbox>
+                     </Grid>
+                  </BulletDecorator.Bullet>
+               </BulletDecorator>
+
+               <ControlTemplate.Triggers>
+                  <Trigger Property="IsChecked"
+                           Value="false">
+
+                     <Setter Property="Visibility"
+                             Value="Collapsed"
+                             TargetName="CheckMark"/>
+                  </Trigger>
+                  <Trigger Property="IsMouseOver"
+                           Value="true">
+
+                     <Setter Property="BorderBrush"
+                             TargetName="border">
+
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="0.9,0.888"
+                                                StartPoint="0.225,0.138">
+
+                              <GradientStop Color="#FF000000"
+                                            Offset="0"/>
+
+                              <GradientStop Color="#FF5A5A5A"
+                                            Offset="1"/>
+
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+
+                  <Trigger Property="IsPressed"
+                           Value="true">
+
+                     <Setter Property="BorderBrush"
+                             TargetName="border">
+
+                        <Setter.Value>
+                           <LinearGradientBrush EndPoint="0.55,0.05"
+                                                StartPoint="0.588,1.013">
+
+                              <GradientStop Color="#FF000000"
+                                            Offset="0"/>
+
+                              <GradientStop Color="#FF3D3D3D"
+                                            Offset="1"/>
+
+                           </LinearGradientBrush>
+                        </Setter.Value>
+                     </Setter>
+                  </Trigger>
+                  <Trigger Property="IsEnabled"
+                           Value="false">
+
+                     <Setter Property="Foreground"
+                             Value="#80000000"/>
+
+                  </Trigger>
+
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <!-- The style of the small tokens in the full theme list palette. -->
+   <Style x:Key="rdMiniTokenStyle"
+          TargetType="ContentPresenter">
+      <Setter Property="Width"
+              Value="10"/>
+      <Setter Property="Height"
+              Value="10"/>
+   </Style>
+
+   <!-- The text of the RadioButton in the full Theme list palette. -->
+   <Style x:Key="rdButtonTextStyle"
+          TargetType="TextBlock">
+      <Setter Property="Foreground"
+              Value="#FFDADADA"/>
+      <Setter Property="TextWrapping"
+              Value="Wrap"/>
+      <Setter Property="FontWeight"
+              Value="Normal"/>
+      <Setter Property="Margin"
+              Value="5,0,0,0"/>
+      <Setter Property="VerticalAlignment"
+              Value="Center"/>
+   </Style>
+
+</ResourceDictionary>

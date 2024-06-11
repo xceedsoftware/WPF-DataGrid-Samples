@@ -1,0 +1,200 @@
+﻿<?xml version="1.0"?>
+<SettingsRepository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Settings>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/CompanyName</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>0</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/ContactName</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>1</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/ContactTitle</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>2</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/Address</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>3</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/City</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>4</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/Region</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>5</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/PostalCode</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>6</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/Country</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>7</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/Phone</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>8</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/Fax</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>9</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.DataGridControlSettings, Xceed.Wpf.DataGrid">
+      <DataGridControlSettings>
+        <SettingsKey>/</SettingsKey>
+        <FixedColumnCount>0</FixedColumnCount>
+        <CardWidth xsi:nil="true" />
+        <SortDescriptions />
+        <GroupPropertyNames />
+        <FilterCriteria />
+        <AutoFilterValues />
+      </DataGridControlSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/SuppliersProducts/ProductName</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>0</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/SuppliersProducts/QuantityPerUnit</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>1</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/SuppliersProducts/UnitPrice</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>2</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/SuppliersProducts/UnitsInStock</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>3</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/SuppliersProducts/ReorderDate</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>4</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.ColumnSettings, Xceed.Wpf.DataGrid">
+      <ColumnSettings>
+        <SettingsKey>/SuppliersProducts/Discontinued</SettingsKey>
+        <Width>
+          <Value>125</Value>
+          <UnitType>Pixel</UnitType>
+        </Width>
+        <VisiblePosition>5</VisiblePosition>
+        <Visible>true</Visible>
+      </ColumnSettings>
+    </Setting>
+    <Setting type="Xceed.Wpf.DataGrid.Settings.DetailConfigurationSettings, Xceed.Wpf.DataGrid">
+      <DetailConfigurationSettings>
+        <SettingsKey>/SuppliersProducts/</SettingsKey>
+        <FixedColumnCount>0</FixedColumnCount>
+        <SortDescriptions />
+        <GroupPropertyNames />
+      </DetailConfigurationSettings>
+    </Setting>
+  </Settings>
+</SettingsRepository>

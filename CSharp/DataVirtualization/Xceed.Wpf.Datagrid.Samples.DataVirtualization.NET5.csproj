@@ -1,0 +1,62 @@
+<Project>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>obj\net5.0-windows\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>Xceed.Wpf.DataGrid.Samples.DataVirtualization</RootNamespace>
+    <AssemblyName>Xceed.Wpf.DataGrid.Samples.DataVirtualization</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <Deterministic>false</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NET5</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;NET5</DefineConstants>
+    <DebugType>none</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\XceedDeploymentLicense.cs">
+      <link>XceedDeploymentLicense.cs</link>
+    </Compile>
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+    <Resource Include="App.ico" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Xceed.Wpf.Controls">
+      <HintPath>..\..\..\..\Bin\Debug\NET5\Xceed.Wpf.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\..\..\..\Bin\Debug\NET5\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  
+  <PropertyGroup>
+    <!-- .NET Core projects use a custom AssemblySearchPaths value that doesn't
+         include the ReferencePath property. No good reason why. We reactivate its use here
+    -->
+    <AssemblySearchPaths>$(AssemblySearchPaths);$(ReferencePath)</AssemblySearchPaths>
+  </PropertyGroup>
+</Project>

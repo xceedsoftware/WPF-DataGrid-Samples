@@ -1,0 +1,105 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Custom Views Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ItemsSources.xaml]
+
+  This ResourceDictionary contains various array definition that will populate
+  this sample's ComboBox.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.CustomViews">
+
+   <!-- List of glyphs used to indicates the current item of the DataGrid. -->
+   <x:Array x:Key="currentItemGlyphArray"
+            Type="local:GlyphItem">
+      <!-- A null value will "reset" the glyph to its default value. -->
+      <local:GlyphItem Description="Theme's default"
+                       Glyph="{x:Null}"/>
+
+      <!-- A sort of bull's eye. -->
+      <local:GlyphItem Description="Custom">
+         <local:GlyphItem.Glyph>
+            <DataTemplate>
+               <TextBlock Text="Â¥"
+                          FontFamily="Wingdings"
+                          FontSize="20"/>
+            </DataTemplate>
+         </local:GlyphItem.Glyph>
+      </local:GlyphItem>
+   </x:Array>
+
+   <!-- List of Pens used to separate the columns in CardView mode. -->
+   <x:Array x:Key="columnSeparatorArray"
+            Type="local:PenItem">
+      <!-- A null value will "reset" the column separator to its default value. -->
+      <local:PenItem Description="Theme's default"
+                     Pen="{x:Null}"/>
+
+      <local:PenItem Description="None">
+         <local:PenItem.Pen>
+            <Pen Thickness="0"/>
+         </local:PenItem.Pen>
+      </local:PenItem>
+
+      <local:PenItem Description="Custom (narrow light gray)">
+         <local:PenItem.Pen>
+            <Pen Brush="LightGray"
+                 Thickness="1"/>
+         </local:PenItem.Pen>
+      </local:PenItem>
+
+      <local:PenItem Description="Custom (dotted orange)">
+         <local:PenItem.Pen>
+            <Pen Brush="Orange"
+                 Thickness="3">
+               <Pen.DashStyle>
+                  <DashStyle Dashes="1,3"/>
+               </Pen.DashStyle>
+            </Pen>
+         </local:PenItem.Pen>
+      </local:PenItem>
+   </x:Array>
+
+   <!-- List of GridLines used to visually separate Rows and Cells. -->
+   <x:Array x:Key="gridLinesArray"
+            Type="local:GridLinesItem">
+      <!-- The "-1" Thickness is something handled by our sample (see MainPage source 
+           code). It is NOT a valid value normally. -->
+      <local:GridLinesItem Description="Theme's default"
+                           HorizontalBrush="{x:Null}" 
+                           HorizontalThickness="-1"
+                           VerticalBrush="{x:Null}" 
+                           VerticalThickness="-1"/>
+
+      <local:GridLinesItem Description="Custom (horizontal gray)"
+                           HorizontalThickness="1" 
+                           HorizontalBrush="Gray" 
+                           VerticalThickness="0"/>
+
+      <local:GridLinesItem Description="Custom (vertical gray)"
+                           HorizontalThickness="0" 
+                           VerticalThickness="1"
+                           VerticalBrush="Gray"/>
+
+      <local:GridLinesItem Description="Custom (both orange)"
+                           HorizontalThickness="1" 
+                           HorizontalBrush="Orange" 
+                           VerticalThickness="1"
+                           VerticalBrush="Orange"/>
+
+      <local:GridLinesItem Description="None"
+                           HorizontalBrush="{x:Null}" 
+                           HorizontalThickness="0"
+                           VerticalBrush="{x:Null}" 
+                           VerticalThickness="0"/>
+   </x:Array>
+
+</ResourceDictionary>

@@ -1,0 +1,140 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Multi-View Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainPage.xaml]
+
+     This Page contains the UI declarations of the Multi-View sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.MultiView.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.MultiView"
+      Title="MainPage">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <xcdg:DataGridCollectionViewSource x:Key="cvsProducts"
+                                            Source="{Binding Source={x:Static Application.Current}, Path=Products}"
+                                            AutoCreateItemProperties="False"
+                                            AutoFilterMode="And">
+            <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="Discontinued" />
+            </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+               <scm:SortDescription PropertyName="ProductName" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+               <xcdg:DataGridItemProperty Name="Photo"
+                                          CalculateDistinctValues="False" />
+               <xcdg:DataGridItemProperty Name="ProductName"
+                                          Title="Product name" />
+               <xcdg:DataGridItemProperty Name="QuantityPerUnit"
+                                          Title="Qty per unit" />
+               <xcdg:DataGridItemProperty Name="UnitPrice"
+                                          Title="Unit price" />
+               <xcdg:DataGridItemProperty Name="UnitsInStock"
+                                          Title="In stock" />
+               <xcdg:DataGridItemProperty Name="UnitsOnOrder"
+                                          Title="On order" />
+               <xcdg:DataGridItemProperty Name="Discontinued" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+         </xcdg:DataGridCollectionViewSource>
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <!-- This grid hosts the configuration Panel at the top. -->
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Views"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}">
+               <StackPanel Margin="0,0,6,0">
+                  <RadioButton x:Name="tableflowViewRadio"
+                               Content="Tableflow™ view"
+                               Checked="TableflowViewRadio_Checked"
+                               IsChecked="True"
+                               Margin="{StaticResource configItemMargin}" />
+
+                  <RadioButton x:Name="tableViewRadio"
+                               Content="Table view"
+                               Checked="TableViewRadio_Checked"
+                               Margin="{StaticResource configItemMargin}" />
+
+                  <RadioButton x:Name="cardViewRadio"
+                               Content="Card view"
+                               Checked="CardViewRadio_Checked"
+                               Margin="{StaticResource configItemMargin}" />
+
+                  <RadioButton x:Name="compactCardViewRadio"
+                               Content="Compact card view"
+                               Checked="CompactCardViewRadio_Checked"
+                               Margin="{StaticResource configItemMargin}" />
+
+                  <RadioButton x:Name="cardflow3DView"
+                               Content="Cardflow™ 3D view"
+                               Checked="Cardflow3DView_Checked"
+                               Margin="{StaticResource configItemMargin}" />
+               </StackPanel>
+            </GroupBox>
+         </Grid>
+      </ContentControl>
+
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsProducts}}"
+                            ReadOnly="True"
+                            NavigationBehavior="RowOnly"
+                            ItemScrollingBehavior="Immediate"
+                            ItemContainerStyleSelector="{x:Static local:DataRowStyleSelector.Singleton}">
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"
+                                ContainerHeight="40" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="Photo"
+                         Width="60"
+                         CellContentTemplate="{StaticResource pictureCellDataTemplate}" />
+            <xcdg:Column FieldName="ProductName"
+                         IsMainColumn="True"
+                         Width="*" />
+            <xcdg:Column FieldName="QuantityPerUnit" />
+            <xcdg:Column FieldName="UnitPrice"
+                         CellContentTemplateSelector="{x:Static local:CurrencyDataTemplateSelector.Singleton}" />
+            <xcdg:Column FieldName="UnitsInStock"
+                         CellContentTemplateSelector="{x:Static local:NumericDataTemplateSelector.Singleton}" />
+            <xcdg:Column FieldName="UnitsOnOrder"
+                         CellContentTemplateSelector="{x:Static local:NumericDataTemplateSelector.Singleton}" />
+            <xcdg:Column FieldName="Discontinued"
+                         CellContentTemplateSelector="{x:Static local:BooleanDataTemplateSelector.Singleton}" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

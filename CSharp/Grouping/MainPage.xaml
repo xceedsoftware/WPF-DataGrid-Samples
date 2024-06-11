@@ -1,0 +1,277 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Grouping Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Grouping sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.Grouping.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Grouping"
+      xmlns:s="clr-namespace:System;assembly=mscorlib">
+   <Page.Resources>
+
+      <!-- Define a resource for the converters needed by the cell content templates. -->
+      <local:FlagPathConverter x:Key="flagconverter" />
+
+      <!-- DataTemplate to display the name of the Country followed by the flag -->
+      <DataTemplate x:Key="countryCellContentTemplate">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="30" />
+               <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0"
+                Margin="1,1,4,1"
+                VerticalAlignment="Top"
+                Source="{Binding Converter={StaticResource flagconverter}}" />
+
+            <TextBlock Text="{Binding}"
+                    Grid.Column="1"
+                    Margin="2,0,4,0"
+                    VerticalAlignment="Top" />
+         </Grid>
+      </DataTemplate>
+
+      <!-- This is the Data Source used in the DataGridControl. It's based on the
+           Songs table and is, by default, grouped and sorted by LastPlayed.
+           The Xceed DataGridControl uses this standard WPF construct to support
+           grouping and sorting. No special sauce needed. -->
+      <xcdg:DataGridCollectionViewSource x:Key="cvsSongs"
+                                         Source="{Binding Source={x:Static Application.Current},Path=Songs}">
+         <xcdg:DataGridCollectionViewSource.SortDescriptions>
+            <compModel:SortDescription PropertyName="LastPlayed"
+                                       Direction="Descending"/>
+         </xcdg:DataGridCollectionViewSource.SortDescriptions>
+
+         <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+            <local:DateGroupDescription PropertyName="LastPlayed"/>
+         </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+      </xcdg:DataGridCollectionViewSource>
+
+      <x:Array x:Key="groupingItemArray"
+               Type="local:GroupingItem">
+         <local:GroupingItem Description="Custom (Last Played Date)">
+            <local:GroupingItem.GroupDescriptions>
+               <local:DateGroupDescription PropertyName="LastPlayed"/>
+            </local:GroupingItem.GroupDescriptions>
+         </local:GroupingItem>
+
+         <local:GroupingItem Description="Country then Artist">
+            <local:GroupingItem.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="Country"/>
+               <xcdg:DataGridGroupDescription PropertyName="Artist"/>
+            </local:GroupingItem.GroupDescriptions>
+         </local:GroupingItem>
+
+         <local:GroupingItem Description="Included then Rating">
+            <local:GroupingItem.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="Included"/>
+               <xcdg:DataGridGroupDescription PropertyName="Rating"/>
+            </local:GroupingItem.GroupDescriptions>
+         </local:GroupingItem>
+
+         <local:GroupingItem Description="Rating then Category">
+            <local:GroupingItem.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="Rating"/>
+               <xcdg:DataGridGroupDescription PropertyName="Category"/>
+            </local:GroupingItem.GroupDescriptions>
+         </local:GroupingItem>
+      </x:Array>
+
+      <DataTemplate x:Key="groupingComboBoxItemTemplate"
+                    DataType="local:GroupingItem">
+         <TextBlock Text="{Binding Description}"
+                    Margin="2,0,6,0"/>
+      </DataTemplate>
+
+   </Page.Resources>
+
+   <DockPanel>
+      <!-- This is the configuration Panel at the Top. -->
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <StackPanel Orientation="Horizontal">
+            <GroupBox Header="Group Actions"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}">
+               <StackPanel>
+                  <DockPanel Margin="0,0,0,10">
+                     <TextBlock Text="Predefined grouping:"
+                                DockPanel.Dock="Left"
+                                Margin="0,2,6,0"/>
+
+                     <ComboBox x:Name="groupCombo"
+                               ItemsSource="{Binding Source={StaticResource groupingItemArray} }"
+                               ItemTemplate="{StaticResource groupingComboBoxItemTemplate}"
+                               SelectionChanged="GroupComboSelectionChanged" />
+                  </DockPanel>
+
+                  <UniformGrid Columns="2"
+                               Rows="1"
+                               Margin="{StaticResource configItemMargin}">
+
+                     <Button x:Name="removeAllGroupsButton"
+                             Content="Remove All Groups"
+                             Click="RemoveAllGroupsClicked"
+                             Padding="10,3,10,3"
+                             Margin="0,0,6,0"/>
+
+                     <Button x:Name="removeFirstGroupLevelButton"
+                             Content="Remove First Group Level"
+                             Click="RemoveFirstGroupLevelClicked"
+                             Padding="10,3,10,3"/>
+                  </UniformGrid>
+
+                  <CheckBox x:Name="allowGroupingModificationCheckBox"
+                            Margin="{StaticResource configItemMargin}"
+                            IsChecked="True"
+                            Content="Allow UI group modifications"
+                            ToolTip="Indicates if groups can be added or removed, by the end-user, through the group-by control."/>
+
+                  <CheckBox x:Name="allowSortCheckBox"
+                            Margin="{StaticResource configItemMargin}"
+                            IsChecked="True"
+                            Content="Allow UI sort modifications"
+                            ToolTip="Indicates if the end-user can sort columns."/>
+
+                  <CheckBox x:Name="allowColumnReorderCheckBox"
+                            Margin="{StaticResource configItemMargin}"
+                            IsChecked="True"
+                            Content="Allow UI column-order modifications"
+                            ToolTip="Indicates if the end-user can reorder the columns' visible positions."/>
+
+                  <StackPanel>
+
+                     <Grid>
+                        <Grid.ColumnDefinitions>
+                           <ColumnDefinition MaxWidth="18"/>
+                           <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                           <RowDefinition/>
+                           <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <CheckBox x:Name="useCustomGroupConfigurationSelector"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="2"
+                                  Grid.Row="0"
+                                  IsEnabled="False" 
+                                  Margin="{StaticResource configItemMargin}"
+                                  Checked="UseCustomGroupConfigurationSelectorCheckBoxChecked"
+                                  Unchecked="UseCustomGroupConfigurationSelectorCheckBoxChecked"
+                                  IsChecked="False"
+                                  Content="Highlight group appearance based on rating (Rating must be last group)"/>
+
+
+                        <StackPanel Grid.Column="1"
+                                    Grid.Row="1"
+                                    Orientation="Horizontal">
+
+                           <TextBlock IsEnabled="{Binding ElementName=useCustomGroupConfigurationSelector, Path=IsChecked}"
+                                      Margin="{StaticResource configItemMargin}"
+                                      VerticalAlignment="Center"
+                                      Text="Minimum rating to highlight in blue: "/>
+
+                           <ComboBox x:Name="minimumRatingComboBox"
+                                     IsEnabled="{Binding ElementName=useCustomGroupConfigurationSelector, Path=IsEnabled}"
+                                     IsEditable="True"
+                                     IsReadOnly="True"
+                                     SelectedIndex="2"
+                                     Margin="{StaticResource configItemMargin}"
+                                     SelectionChanged="MinimumRatingComboBoxSelectionChanged"
+                                     MaxWidth="40">
+                              <s:Int32>1</s:Int32>
+                              <s:Int32>2</s:Int32>
+                              <s:Int32>3</s:Int32>
+                              <s:Int32>4</s:Int32>
+                              <s:Int32>5</s:Int32>
+                           </ComboBox>
+
+                        </StackPanel>
+
+                     </Grid>
+                  </StackPanel>
+               </StackPanel>
+            </GroupBox>
+         </StackPanel>
+      </ContentControl>
+
+      <!-- The read-only main DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            CellEditorDisplayConditions="None"
+                            ItemsSource="{Binding Source={StaticResource cvsSongs}}"
+                            EditTriggers="None"
+                            ReadOnly="True"
+                            ItemScrollingBehavior="Immediate">
+         <xcdg:DataGridControl.Resources>
+            <!-- These implicit styles that are local to this DataGridControl are an 
+                 elegant way to set some desired default values of various grid elements. -->
+            <ResourceDictionary>
+               <Style TargetType="xcdg:HierarchicalGroupByControl">
+                  <Setter Property="NoGroupContent"
+                          Value="Drag a column header here to group by that column, or use the options above to modify the grouping."/>
+                  <Setter Property="AllowGroupingModification"
+                          Value="{Binding ElementName=allowGroupingModificationCheckBox,Path=IsChecked}"/>
+                  <Setter Property="AllowSort"
+                          Value="{Binding ElementName=allowSortCheckBox,Path=IsChecked}"/>
+               </Style>
+
+               <Style TargetType="xcdg:ColumnManagerRow">
+                  <Setter Property="AllowSort"
+                          Value="{Binding ElementName=allowSortCheckBox,Path=IsChecked}"/>
+                  <Setter Property="AllowColumnReorder"
+                          Value="{Binding ElementName=allowColumnReorderCheckBox,Path=IsChecked}"/>
+               </Style>
+            </ResourceDictionary>
+         </xcdg:DataGridControl.Resources>
+
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"/>
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="SongID"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="Included"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="SongName"
+                         Title="Song"
+                         IsMainColumn="True"
+                         Width="200"/>
+            <xcdg:Column FieldName="Rating"
+                         Width="67"/>
+            <xcdg:Column FieldName="LastPlayed"
+                         Title="Last Played">
+               <xcdg:Column.GroupDescription>
+                  <local:DateGroupDescription PropertyName="LastPlayed" />
+               </xcdg:Column.GroupDescription>
+            </xcdg:Column>
+            <xcdg:Column FieldName="Artist" />
+            <xcdg:Column FieldName="Category" />
+            <xcdg:Column FieldName="Country"
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource countryCellContentTemplate}" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

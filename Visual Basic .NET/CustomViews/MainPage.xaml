@@ -1,0 +1,271 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Custom Views Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Custom Views sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.CustomViews.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.CustomViews">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <!-- This xaml declares the contents of the various ComboBoxes -->
+            <ResourceDictionary Source="ItemsSources.xaml" />
+            <!-- This xaml defines the styles and templates for our custom card view -->
+            <ResourceDictionary Source="CustomCardView.xaml" />
+            <!-- This xaml defines the styles and templates for our custom table view -->
+            <ResourceDictionary Source="CustomTableView.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <!-- This is the Data Source used in the DataGridControl. It's based on the
+              Employees table and is, by default, sorted by LastName. -->
+         <xcdg:DataGridCollectionViewSource x:Key="cvsEmployees"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Employees}">
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+               <compModel:SortDescription PropertyName="LastName" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+         </xcdg:DataGridCollectionViewSource>
+
+         <!-- All ComboBox in the configuration panel will contains items templated by
+              this DataTemplate which displays the CustomComboBoxItem's Description field. -->
+         <DataTemplate x:Key="customComboBoxItemTemplate"
+                       DataType="local:CustomComboBoxItem">
+            <TextBlock Text="{Binding Description}"
+                       Margin="2,0,6,0" />
+         </DataTemplate>
+
+         <xcdg:InverseBooleanConverter x:Key="inverseBooleanConverter" />
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <StackPanel Orientation="Horizontal">
+            <!-- List of RadioButtons allowing to change the View between Table and Card. 
+                 The View switching is done in code. -->
+            <GroupBox Header="Sample Views"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}">
+               <StackPanel>
+                  <RadioButton x:Name="customTableViewRadioButton"
+                               Content="Custom card view"
+                               Margin="{StaticResource configItemMargin}"
+                               Checked="CardViewSelected" />
+                  <RadioButton x:Name="customCardViewRadioButton"
+                               Content="Custom table view"
+                               Margin="{StaticResource configItemMargin}"
+                               Checked="TableViewSelected" />
+               </StackPanel>
+            </GroupBox>
+
+            <!-- Section allowing the end-user to dynamically change the styles and 
+                 templates. Again, these actions are handled in code via the various 
+                 event handlers. -->
+            <GroupBox Header="Parameters"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      Grid.IsSharedSizeScope="True">
+               <GroupBox.Resources>
+                  <Thickness x:Key="titleMargin"
+                             Top="2"
+                             Right="8" />
+               </GroupBox.Resources>
+
+               <StackPanel>
+                  <Grid Margin="{StaticResource configItemMargin}"
+                        ToolTip="The glyph displayed when an item is current.">
+                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="titleColumn" />
+                        <ColumnDefinition SharedSizeGroup="comboColumn"
+                                          Width="170" />
+                     </Grid.ColumnDefinitions>
+
+                     <TextBlock Text="Current-item glyph:"
+                                Margin="{StaticResource titleMargin}"
+                                Grid.Column="0" />
+
+                     <ComboBox x:Name="currentItemGlyphComboBox"
+                               SelectedIndex="0"
+                               Grid.Column="1"
+                               ItemTemplate="{StaticResource customComboBoxItemTemplate}"
+                               ItemsSource="{Binding Source={StaticResource currentItemGlyphArray} }"
+                               SelectionChanged="CurrentItemGlyphSelectionChanged" />
+                  </Grid>
+
+                  <!-- This Panel is only shown if the RadioButton 
+                       "Custom Card View" is Checked. -->
+                  <StackPanel x:Name="customCardViewParametersPanel">
+                     <Grid Margin="{StaticResource configItemMargin}"
+                           ToolTip="The appearance of the line separating each column of cards.">
+                        <Grid.ColumnDefinitions>
+                           <ColumnDefinition SharedSizeGroup="titleColumn" />
+                           <ColumnDefinition SharedSizeGroup="comboColumn" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Column separators:"
+                                   Margin="{StaticResource titleMargin}"
+                                   Grid.Column="0" />
+
+                        <ComboBox x:Name="columnSeparatorComboBox"
+                                  SelectedIndex="0"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Source={StaticResource columnSeparatorArray} }"
+                                  ItemTemplate="{StaticResource customComboBoxItemTemplate}"
+                                  SelectionChanged="ColumnSeparatorSelectionChanged" />
+                     </Grid>
+
+                     <CheckBox x:Name="useCustomDataRowTemplate"
+                               Content="Use custom DataRow template"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="True"
+                               ToolTip="Use a custom layout for DataRows instead of this theme's default one. Uncheck this to allow the alternative card title below."
+                               Checked="UseCustomDataRowTemplateChange"
+                               Unchecked="UseCustomDataRowTemplateChange" />
+
+                     <!-- This Checkbox is only Enabled if the previous CheckBox is unchecked. -->
+                     <CheckBox x:Name="useAlternativeCardTitle"
+                               Content="Use alternative (constant) card title"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="False"
+                               ToolTip="Use a constant card title instead of the default 'LastName' title."
+                               Checked="UseAlternativeCardTitleChange"
+                               Unchecked="UseAlternativeCardTitleChange"
+                               IsEnabled="{Binding ElementName=useCustomDataRowTemplate, Path=IsChecked, Converter={StaticResource inverseBooleanConverter}}" />
+
+                     <CheckBox x:Name="hideEmptyCellsCheckBox"
+                               Content="Hide empty cells"
+                               Margin="{StaticResource configItemMargin}"
+                               ToolTip="Hide fields that have a Null (Nothing in Visual Basic) or DBNull value. In this data source, only 'Region' is affected."
+                               Checked="HideEmptyCellsCheckedChange"
+                               Unchecked="HideEmptyCellsCheckedChange" />
+                  </StackPanel>
+
+                  <!-- This Panel is only shown if the RadioButton 
+                       "Custom Table View" is Checked. -->
+                  <StackPanel x:Name="customTableViewParametersPanel"
+                              Visibility="Collapsed">
+                     <Grid Margin="{StaticResource configItemMargin}"
+                           ToolTip="The appearance of the grid line that demarcates the rows and/or the cells.">
+                        <Grid.ColumnDefinitions>
+                           <ColumnDefinition SharedSizeGroup="titleColumn" />
+                           <ColumnDefinition SharedSizeGroup="comboColumn" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Grid line:"
+                                   Margin="{StaticResource titleMargin}"
+                                   Grid.Column="0" />
+
+                        <ComboBox x:Name="gridLineComboBox"
+                                  SelectedIndex="0"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Source={StaticResource gridLinesArray} }"
+                                  ItemTemplate="{StaticResource customComboBoxItemTemplate}"
+                                  SelectionChanged="GridLineSelectionChanged" />
+                     </Grid>
+
+                     <CheckBox x:Name="useCustomDataRowStyle"
+                               Content="Use custom DataRow style"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="True"
+                               ToolTip="Use a custom layout for DataRows instead of this theme's default one. It mainly demonstrates explicit Cell positioning."
+                               Checked="UseCustomDataRowStyleChange"
+                               Unchecked="UseCustomDataRowStyleChange" />
+
+                     <CheckBox x:Name="showRowSelectorPaneCheckBox"
+                               Content="Show row-selector pane"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="True"
+                               ToolTip="Show the area that contains the RowSelectors."
+                               Checked="ShowRowSelectorPaneCheckedChanged"
+                               Unchecked="ShowRowSelectorPaneCheckedChanged" />
+
+                     <CheckBox x:Name="useCustomContentTemplateSelector"
+                               Content="Use custom content-template selector"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="True"
+                               ToolTip="Demonstrates the use of a custom cell content selector for the 'BirthDate' field."
+                               Checked="UseCustomContentTemplateSelectorChanged"
+                               Unchecked="UseCustomContentTemplateSelectorChanged" />
+                  </StackPanel>
+               </StackPanel>
+            </GroupBox>
+         </StackPanel>
+      </ContentControl>
+
+      <!-- The Main DataGridControl is bound to a list of Employees and is read-only. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsEmployees}}"
+                            CellEditorDisplayConditions="None"
+                            EditTriggers="None"
+                            
+                            ItemScrollingBehavior="Immediate"
+                            NavigationBehavior="RowOnly">
+         <!-- Specify the preferred columns order, width and, optionally, their titles.
+              This could have been entirely omitted and the Grid would have had all the
+              columns in their physical order (in the dataset). -->
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="Photo"/>
+            <xcdg:Column FieldName="LastName"
+                         Title="Last Name"
+                         IsMainColumn="True"/>
+            <xcdg:Column FieldName="FirstName"
+                         Title="First Name" />
+            <xcdg:Column FieldName="BirthDate"
+                         Title="Birth Date"/>
+            <xcdg:Column FieldName="Address"/>
+            <xcdg:Column FieldName="City"/>
+            <xcdg:Column FieldName="Region" />
+            <xcdg:Column FieldName="Country"/>
+            <xcdg:Column FieldName="PostalCode"
+                         Title="Postal Code"/>
+            <xcdg:Column FieldName="HomePhone"
+                         Title="Home Phone"/>
+            <xcdg:Column FieldName="Notes"
+                         Visible="False"
+                         TextWrapping="Wrap"
+                         ShowInColumnChooser="False"/>
+            <!-- Hidden columns -->
+            <xcdg:Column FieldName="EmployeeID"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="HireDate"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="ReportsTo"
+                         Visible="False" 
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="TitleOfCourtesy"
+                         Visible="False" 
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="Title"
+                         Visible="False" 
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="Extension"
+                         Visible="False" 
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="StillEmployed"
+                         Title="Still Employed"
+                         Visible="False" 
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="SmallPhoto"
+                         Visible="False" 
+                         ShowInColumnChooser="False"/>
+
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

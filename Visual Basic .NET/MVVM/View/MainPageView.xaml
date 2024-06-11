@@ -1,0 +1,374 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - MVVM Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPageView.xaml]
+
+  This Page contains the UI declarations of the MVVM sample main window.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.MVVM.View.MainPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:s="clr-namespace:System;assembly=mscorlib"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.MVVM.View"
+      xmlns:viewModel="clr-namespace:Xceed.Wpf.DataGrid.Samples.MVVM.ViewModel">
+
+   <Page.Resources>
+      <!--Converters for cell content-->
+      <xcdg:CurrencyConverter x:Key="currencyConverter" />
+      <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+      <viewModel:PercentConverter x:Key="percentConverter" />
+      <viewModel:CategoryForeignKeyConfigurationConverter x:Key="categoryForeignKeyConfigurationConverter" />
+
+      <!--Style that displays a visual cue for data rows that have been modified-->
+      <Style x:Key="isModifiedRowSelectorStyle"
+             TargetType="{x:Type xcdg:RowSelector}">
+         <Setter Property="Content"
+                 Value="&#x221A;" />
+         <Setter Property="VerticalContentAlignment"
+                 Value="Center" />
+      </Style>
+
+      <Style x:Key="isModifiedDataRowStyle"
+             TargetType="{x:Type xcdg:DataRow}">
+         <Style.Triggers>
+            <DataTrigger Binding="{Binding IsModified}"
+                         Value="True">
+               <Setter Property="xcdg:RowSelector.RowSelectorStyle"
+                       Value="{StaticResource isModifiedRowSelectorStyle}" />
+            </DataTrigger>
+         </Style.Triggers>
+      </Style>
+
+      <!--Cell content templates-->
+      <DataTemplate x:Key="currencyCellContentTemplate">
+         <TextBlock Text="{Binding Converter={StaticResource currencyConverter}}" />
+      </DataTemplate>
+
+      <DataTemplate x:Key="shortDateCellContentTemplate">
+         <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+      </DataTemplate>
+
+      <DataTemplate x:Key="percentCellContentTemplate">
+         <TextBlock Text="{Binding Converter={StaticResource percentConverter}}" />
+      </DataTemplate>
+
+      <!--Data template that is used to represent a category with its picture and name.-->
+      <DataTemplate x:Key="categoryCellContentTemplate">
+         <DockPanel>
+            <Image Source="{Binding Picture}"
+                   Height="20"
+                   VerticalAlignment="Top"
+                   Margin="1"
+                   DockPanel.Dock="Left" />
+
+            <TextBlock Text="{Binding CategoryName}" />
+         </DockPanel>
+      </DataTemplate>
+
+      <!--Remove the default GroupHeaderControl, and define a StatGroupHeaderControl so the custom StatCell template can be used
+          This would not be required if the stat cell was not customized - only setting the DefaultHeaderFootersType to "StatGroupHeaderControl" would be sufficient-->
+      <xcdg:GroupConfiguration x:Key="supplierGroupConfiguration"
+                               DefaultHeadersFootersType="None">
+         <xcdg:GroupConfiguration.Headers>
+            <xcdg:GroupHeaderFooterItemTemplate VisibleWhenCollapsed="True">
+               <DataTemplate>
+                  <xcdg:StatGroupHeaderControl ShowGroupLabel="True">
+                     <xcdg:StatGroupHeaderControl.Cells>
+                        <xcdg:StatCell FieldName="Discontinued"
+                                       ResultPropertyName="MaintainedCount"
+                                       Label="Maintained :" />
+                     </xcdg:StatGroupHeaderControl.Cells>
+                  </xcdg:StatGroupHeaderControl>
+               </DataTemplate>
+            </xcdg:GroupHeaderFooterItemTemplate>
+         </xcdg:GroupConfiguration.Headers>
+      </xcdg:GroupConfiguration>
+
+      <!--Configurations used to correctly display values in foreign key columns
+          Because a converter is provided that does not return the display value, but the item as such, UseDisplayedValueWhenExporting must be set to true, so exporting works as expected.-->
+      <xcdg:ForeignKeyConfiguration x:Key="categoryForeignKeyConfiguration"
+                                    ItemsSource="{Binding Categories}"
+                                    ForeignKeyConverter="{StaticResource categoryForeignKeyConfigurationConverter}"
+                                    UseDisplayedValueWhenExporting="True"
+                                    ValuePath="CategoryID"
+                                    DisplayMemberPath="CategoryName" />
+
+      <!--Since no converter is used, setting the UseDisplayedValueWhenExporting is not required, it will automatically use the DisplayedValue as defined through the DisplayMemeberPath-->
+      <xcdg:ForeignKeyConfiguration x:Key="supplierForeignKeyConfiguration"
+                                    ItemsSource="{Binding Suppliers}"
+                                    ValuePath="SupplierID"
+                                    DisplayMemberPath="CompanyName" />
+   </Page.Resources>
+
+   <DockPanel>
+      <Grid DockPanel.Dock="Top">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="375" />
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="350" />
+         </Grid.ColumnDefinitions>
+
+         <GroupBox Header="Functionalities"
+                   Margin="{StaticResource groupBoxMargin}"
+                   Padding="{StaticResource groupBoxPadding}">
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+               </Grid.RowDefinitions>
+
+               <TextBlock Text="Remove : &#x0a;Selecting a row(s) and pressing the Delete key shows how to handle this in the ViewModel and deletes it (them) from the DB."
+                          TextWrapping="Wrap"
+                          Margin="{StaticResource configItemMargin}" />
+
+               <TextBlock Text="Add : &#x0a;By clicking the InsertionRow and editing at least one value and pressing enter, a new item will be added to the grid; this will result in the item being added to the ViewModel and to the DB"
+                          TextWrapping="Wrap"
+                          Margin="{StaticResource configItemTopBottomMargin}"
+                          Grid.Row="1" />
+
+               <TextBlock Text="Edit : &#x0a;Items that are edited are kept in a list in the ViewModel, and can be saved to the DB by pressing the &quot;Save modified items&quot; button."
+                          TextWrapping="Wrap"
+                          Margin="{StaticResource configItemTopMargin}"
+                          Grid.Row="2" />
+            </Grid>
+         </GroupBox>
+
+         <GroupBox Header="Commands and Events"
+                   Margin="{StaticResource groupBoxMargin}"
+                   Padding="{StaticResource groupBoxPadding}"
+                   Grid.Column="1">
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+               </Grid.RowDefinitions>
+
+               <Button Content="Save modified items"
+                       Command="{Binding CommitModifiedItemsCommand}"
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="0" />
+
+               <Button Content="Simulate a new item added by the DB"
+                       Command="{Binding GetNewItemCommand}"
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="1" />
+
+               <Button Content="Export to Excel"
+                       Click="OnExportButtonClick"
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="2" />
+
+               <StackPanel Grid.Row="3">
+                  <TextBlock Text="Select a value to filter the data on"
+                             TextWrapping="Wrap" />
+                  <ComboBox ItemsSource="{Binding FilterValues}"
+                            SelectedItem="{Binding FilterValue}">
+                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                           <i:InvokeCommandAction Command="{Binding ApplyFilterCommand}" />
+                        </i:EventTrigger>
+                     </i:Interaction.Triggers>
+                  </ComboBox>
+               </StackPanel>
+            </Grid>
+         </GroupBox>
+
+         <GroupBox Header="Feedback"
+                   Margin="{StaticResource groupBoxMargin}"
+                   Padding="{StaticResource groupBoxPadding}"
+                   Grid.Column="2">
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+               </Grid.RowDefinitions>
+
+               <TextBlock Text="The following demontrates how to bind to the DataGrid's CurrentItem (this feature is only available at the master level) and/or SelectedItems in the ViewModel, be notified when it changes, at which time it can be acted upon."
+                          TextWrapping="Wrap"
+                          Margin="{StaticResource configItemMargin}" />
+
+               <TextBlock Text="The current item ID is :"
+                          Margin="{StaticResource configItemTopBottomMargin}"
+                          Grid.Row="1" />
+
+               <TextBlock Text="{Binding CurrentItem.ProductID, FallbackValue=A detail item is currently selected}"
+                          Margin="{StaticResource configItemMargin}"
+                          Grid.Row="2" />
+
+               <TextBlock Text="Number of currently selected items (note that items previously selected in detail grids that are now collapsed are no longer part of the DataGrid's selected items) :"
+                          TextWrapping="Wrap"
+                          Margin="{StaticResource configItemTopBottomMargin}"
+                          Grid.Row="3" />
+
+               <TextBlock Text="{Binding SelectedItemsCount}"
+                          Grid.Row="4" />
+            </Grid>
+         </GroupBox>
+      </Grid>
+
+      <!--Definition part of the DataGrid.
+          ItemsSourceName displays the name of the master level in the GroupByControl.
+          ItemContainerStyle only targets data rows.
+          AutoScrollCurrentItem allows a newly added item to be scrolled into view when setting it as the CurrentItem in the ViewModel.
+          SynchronizeSelectionWithCurrent is necessary if what is wanted is for the current item to always be selected.
+          CurrentColumnFieldName allows the ViewModel to set which property on an item is current when the current item is set
+          SelectedItemsSource allows the ViewModel to set SelectedItems, and/or be informed of which items are selected by the user.-->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding ProductsCollectionView}"
+                            ItemsSourceName="{Binding ProductsTitle}"
+                            ItemContainerStyle="{StaticResource isModifiedDataRowStyle}"
+                            AutoCreateDetailConfigurations="False"
+                            IsDeleteCommandEnabled="True"
+                            InitializingInsertionRow="OnInitializingInsertionRow"
+                            AutoScrollCurrentItem="CurrentChanged"
+                            SynchronizeSelectionWithCurrent="True"
+                            CurrentItem="{Binding CurrentItem}"
+                            CurrentColumnFieldName="{Binding CurrentColumnFieldName}"
+                            SelectedItemsSource="{Binding MasterSelectedItems}">
+
+         <!--These events cascade to the ViewModel and allow a binding to the SelectedItemsSource for each detail-->
+         <i:Interaction.Triggers>
+            <i:EventTrigger EventName="DetailsExpanding">
+               <ei:CallMethodAction TargetObject="{Binding}"
+                                    MethodName="ProvideSelectedList" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName="DetailsCollapsing">
+               <ei:CallMethodAction TargetObject="{Binding}"
+                                    MethodName="PreserveSelectedList" />
+            </i:EventTrigger>
+         </i:Interaction.Triggers>
+
+         <!--Set the Theme and Headers on the DataGrid-->
+         <xcdg:DataGridControl.View>
+            <xcdg:TableflowView>
+               <xcdg:TableflowView.Theme>
+                  <xcdg:Windows10Theme />
+               </xcdg:TableflowView.Theme>
+               <xcdg:TableflowView.Headers>
+                  <DataTemplate>
+                     <xcdg:InsertionRow />
+                  </DataTemplate>
+               </xcdg:TableflowView.Headers>
+            </xcdg:TableflowView>
+         </xcdg:DataGridControl.View>
+
+         <!--Set columns; links to cell content, group, and foreign key setups are made here-->
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="ProductName"
+                         Title="Name"
+                         Description="{Binding RelativeSource={RelativeSource Self}, Path=DataGridControl.DataContext.ProductNameDescription}"
+                         IsMainColumn="True"
+                         AllowGroup="False"
+                         Width="215" />
+            <xcdg:Column FieldName="Photo"
+                         AllowAutoFilter="False"
+                         AllowGroup="False"
+                         AllowSort="False"
+                         Width="55" />
+            <xcdg:Column FieldName="ProductID"
+                         Title="ID"
+                         ReadOnly="True"
+                         AllowGroup="False"
+                         Width="65" />
+            <xcdg:Column FieldName="CategoryID"
+                         Title="Category"
+                         CellContentTemplate="{StaticResource categoryCellContentTemplate}"
+                         ForeignKeyConfiguration="{StaticResource categoryForeignKeyConfiguration}" />
+            <xcdg:Column FieldName="Discontinued"
+                         Width="135" />
+            <xcdg:Column FieldName="SupplierID"
+                         Title="Supplier"
+                         Width="245"
+                         GroupConfiguration="{StaticResource supplierGroupConfiguration}"
+                         ForeignKeyConfiguration="{StaticResource supplierForeignKeyConfiguration}" />
+            <xcdg:Column FieldName="QuantityPerUnit"
+                         Title="Quantity per Unit"
+                         AllowGroup="False"
+                         AllowSort="False"
+                         Width="135" />
+            <xcdg:Column FieldName="UnitPrice"
+                         Title="Price"
+                         Width="80"
+                         CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+            <xcdg:Column FieldName="UnitsInStock"
+                         Title="In Stock"
+                         Width="100" />
+            <xcdg:Column FieldName="UnitsOnOrder"
+                         Title="On Order"
+                         Width="110" />
+            <xcdg:Column FieldName="ReorderLevel"
+                         Title="Reorder Level"
+                         Width="135" />
+            <xcdg:Column FieldName="ReorderDate"
+                         Title="Reorder Date"
+                         Width="135"
+                         CellContentTemplate="{StaticResource shortDateCellContentTemplate}" />
+         </xcdg:DataGridControl.Columns>
+
+         <!--Definition part of detail grids
+             Title displays the name of the detail level in the GroupByControl
+             ItemContainerStyle only targets data rows.-->
+         <xcdg:DataGridControl.DetailConfigurations>
+            <xcdg:DetailConfiguration RelationName="OrderDetails"
+                                      Title="{Binding OrderDetailsTitle}"
+                                      ItemContainerStyle="{StaticResource isModifiedDataRowStyle}">
+
+               <!--Add a StatRow in the headers of each detail grid-->
+               <xcdg:DetailConfiguration.Headers>
+                  <DataTemplate>
+                     <xcdg:StatRow>
+                        <xcdg:StatCell FieldName="Quantity"
+                                       ResultPropertyName="TotalProductsOrders"
+                                       Label="Total sold :" />
+                     </xcdg:StatRow>
+                  </DataTemplate>
+               </xcdg:DetailConfiguration.Headers>
+
+               <!--Set columns at detail level; links to cell content setups are made here-->
+               <xcdg:DetailConfiguration.Columns>
+                  <xcdg:Column FieldName="OrderID"
+                               Title="Order ID"
+                               Description="{Binding RelativeSource={RelativeSource Self}, Path=DataGridControl.DataContext.OrderDetailsDescription}"
+                               IsMainColumn="True"
+                               ReadOnly="True"
+                               AllowGroup="False"
+                               Width="110" />
+                  <xcdg:Column FieldName="ProductID"
+                               Visible="False"
+                               ShowInColumnChooser="False" />
+                  <xcdg:Column FieldName="UnitPrice"
+                               Title="Price"
+                               Description="{Binding RelativeSource={RelativeSource Self}, Path=DataGridControl.DataContext.OrderDetailsDescription}"
+                               Width="90"
+                               CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                               GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+                  <xcdg:Column FieldName="Discount"
+                               Description="{Binding RelativeSource={RelativeSource Self}, Path=DataGridControl.DataContext.OrderDetailsDescription}"
+                               Width="110"
+                               CellContentTemplate="{StaticResource percentCellContentTemplate}" />
+                  <xcdg:Column FieldName="Quantity"
+                               Description="{Binding RelativeSource={RelativeSource Self}, Path=DataGridControl.DataContext.OrderDetailsDescription}"
+                               Width="110" />
+               </xcdg:DetailConfiguration.Columns>
+            </xcdg:DetailConfiguration>
+         </xcdg:DataGridControl.DetailConfigurations>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

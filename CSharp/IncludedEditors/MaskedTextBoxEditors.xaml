@@ -1,0 +1,110 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Included Editors Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MaskedTextBoxEditors.xaml]
+
+  This ResourceDictionary contains templates and CellEditors providing MaskedTextBox
+  editors for a DataGrid.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary x:Class="Xceed.Wpf.DataGrid.Samples.IncludedEditors.MaskedTextBoxEditors"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:net="clr-namespace:System.Net;assembly=System"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="AuxiliaryResources.xaml" />
+   </ResourceDictionary.MergedDictionaries>
+
+   <xcdg:ValueToMaskedTextConverter x:Key="valueToMaskedTextConverter" />
+
+   <Style x:Key="ipAddressMaskedTextBoxStyle"
+          TargetType="{x:Type xcdg:MaskedTextBox}"
+          BasedOn="{StaticResource baseValueRangeTextBoxStyle}">
+      <Style.Triggers>
+         <Trigger Property="HasValidationError"
+                  Value="True">
+            <Setter Property="Foreground"
+                    Value="Orange" />
+         </Trigger>
+      </Style.Triggers>
+   </Style>
+
+   <!-- This is a MaskedTextBox editor used for the IP Address column. -->
+   <xcdg:CellEditor x:Key="ipAddressEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:MaskedTextBox xcdg:DataCell.IsCellFocusScope="True"
+                                Name="PART_CellEditorBoundControl"
+                                xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                Value="{xcdg:CellEditorBinding}"
+                                Mask="099\.099\.099\.099"
+                                ValueDataType="{x:Type net:IPAddress}"
+                                QueryTextFromValue="IPAddressEditor_QueryTextFromValue"
+                                QueryValueFromText="IPAddressEditor_QueryValueFromText"
+                                AutoCompletingMask="OnAutoCompletingMaskHandler"
+                                Style="{StaticResource ipAddressMaskedTextBoxStyle}">
+            </xcdg:MaskedTextBox>
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the IPAdress CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+
+   <!-- This is a MaskedTextBox editor used for the phone number column. -->
+   <xcdg:CellEditor x:Key="phoneNumberEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:MaskedTextBox xcdg:DataCell.IsCellFocusScope="True"
+                                RejectInputOnFirstFailure="False"
+                                Text="{xcdg:CellEditorBinding}"
+                                Mask="(999) 000-0000" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the PhoneNumber CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+
+   <!-- This Mask will be used by the priceCellDataTemplate's converter and by the priceEditor.-->
+   <s:String x:Key="priceMask">$ 90.99</s:String>
+
+   <!-- This Cell Template makes sure that the Cell's content display the price as US Dollars.-->
+   <DataTemplate x:Key="priceCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource valueToMaskedTextConverter}, ConverterParameter={StaticResource priceMask} }" />
+   </DataTemplate>
+
+   <!-- This is a MaskedTextBox editor used for the price column. -->
+   <xcdg:CellEditor x:Key="priceEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:MaskedTextBox Name="PART_CellEditorBoundControl"
+                                xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                xcdg:DataCell.IsCellFocusScope="True"
+                                Mask="{StaticResource priceMask}"
+                                IncludeLiteralsInValue="False"
+                                Value="{xcdg:CellEditorBinding}"
+                                ValueDataType="{x:Type s:Double}"
+                                MinValue="0.01"
+                                AutoCompletingMask="OnAutoCompletingMaskHandler" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the Price CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+</ResourceDictionary>

@@ -1,0 +1,308 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Column Chooser Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainPage.xaml]
+
+     This Page contains the UI declarations of the Column Chooser sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.ColumnChooser.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.ColumnChooser"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      x:Name="Main">
+
+   <Page.Resources>
+      <ResourceDictionary>
+         <xcdg:DataGridCollectionViewSource x:Key="cvsTransactions"
+                                            Source="{Binding DataItems, ElementName=Main}" />
+
+         <xcdg:NullToBooleanConverter x:Key="nullToBoolConverter" />
+
+         <x:Array x:Key="DefaultPopupColumnChooserStyles" Type="{x:Type Style}">
+            <Style TargetType="{x:Type xcdg:ColumnManagerRow}">
+               <Setter Property="ColumnChooserTemplate">
+                  <Setter.Value>
+                     <DataTemplate>
+                        <xcdg:ColumnChooserControl />
+                     </DataTemplate>
+                  </Setter.Value>
+               </Setter>
+            </Style>
+            <Style TargetType="{x:Type xcdg:MergedColumnManagerRow}">
+               <Setter Property="ColumnChooserTemplate">
+                  <Setter.Value>
+                     <DataTemplate>
+                        <xcdg:ColumnChooserControl />
+                     </DataTemplate>
+                  </Setter.Value>
+               </Setter>
+            </Style>
+         </x:Array>
+
+         <x:Array x:Key="CustomizedPopupColumnChooserStyles" Type="{x:Type Style}">
+            <Style TargetType="{x:Type xcdg:ColumnManagerRow}">
+               <Setter Property="ColumnChooserTemplate">
+                  <Setter.Value>
+                     <DataTemplate>
+                        <local:CustomizedColumnChooserControl />
+                     </DataTemplate>
+                  </Setter.Value>
+               </Setter>
+            </Style>
+            <Style TargetType="{x:Type xcdg:MergedColumnManagerRow}">
+               <Setter Property="ColumnChooserTemplate">
+                  <Setter.Value>
+                     <DataTemplate>
+                        <local:CustomizedColumnChooserControl />
+                     </DataTemplate>
+                  </Setter.Value>
+               </Setter>
+            </Style>
+         </x:Array>
+
+         <x:Array x:Key="MergedColumnEditorPopupColumnChooserStyles" Type="{x:Type Style}">
+            <Style TargetType="{x:Type xcdg:ColumnManagerRow}">
+               <Setter Property="ColumnChooserTemplate">
+                  <Setter.Value>
+                     <DataTemplate>
+                        <xcdg:MergedColumnEditorControl CanAddMergedColumns="True"
+                                                        CanRemoveMergedColumns="True"
+                                                        CanRenameMergedColumns="True"/>
+                     </DataTemplate>
+                  </Setter.Value>
+               </Setter>
+            </Style>
+            <Style TargetType="{x:Type xcdg:MergedColumnManagerRow}">
+               <Setter Property="ColumnChooserTemplate">
+                  <Setter.Value>
+                     <DataTemplate>
+                        <xcdg:MergedColumnEditorControl CanAddMergedColumns="True"
+                                                        CanRemoveMergedColumns="True"
+                                                        CanRenameMergedColumns="True"/>
+                     </DataTemplate>
+                  </Setter.Value>
+               </Setter>
+            </Style>
+         </x:Array>
+
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+
+         <!--All the elements under this grid are the parameters used to modify the behavior of the sample-->
+
+         <Grid>
+            <GroupBox Header="Column Chooser"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      HorizontalAlignment="Left">
+               <StackPanel>
+                  <!-- These radio buttons are used to chose how the column chooser will be displayed. -->
+                  <RadioButton x:Name="chkDefaultContextMenu"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="True"
+                               Checked="chkRadioButton_Checked"
+                               Content="Default Context Menu"
+                               Tag="{x:Null}"
+                               ToolTip="Select the default context menu column chooser." />
+                  <RadioButton x:Name="chkDefaultPopup"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="False"
+                               Checked="chkRadioButton_Checked"
+                               Content="Default Popup"
+                               Tag="{StaticResource DefaultPopupColumnChooserStyles}"
+                               ToolTip="Select the default popup column chooser." />
+                  <RadioButton x:Name="chkCustomized"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="False"
+                               Checked="chkRadioButton_Checked"
+                               Content="Customized Popup"
+                               Tag="{StaticResource CustomizedPopupColumnChooserStyles}"
+                               ToolTip="Select a customized pupup column chooser." />
+                  <RadioButton x:Name="chkMergedColumnEditorPopup"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="False"
+                               Checked="chkRadioButton_Checked"
+                               Content="Merged Column Editor Popup"
+                               Tag="{StaticResource MergedColumnEditorPopupColumnChooserStyles}"
+                               ToolTip="Select a merged column editor pupup." />
+               </StackPanel>
+            </GroupBox>
+         </Grid>
+
+      </ContentControl>
+
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsTransactions}}"
+                            AutoCreateColumns="False"
+                            ReadOnly="True"
+                            NavigationBehavior="RowOnly">
+
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.MergedHeaders>
+            <xcdg:MergedHeader>
+               <xcdg:MergedHeader.MergedColumns>
+                  <xcdg:MergedColumn FieldName="Today"
+                                     Title="Today"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="Company,Price,Info"
+                                     Description="Today's info"/>
+                  <xcdg:MergedColumn FieldName="TrailingTwelveMonths"
+                                     Title="Trailing Twelve Months"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="TrailingValuationMeasures,TrailingIncomeStatement"
+                                     Description="Data for last 12 months" />
+                  <xcdg:MergedColumn FieldName="Year"
+                                     Title="Year"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="YearValuationMeasures,YearIncomeStatement"
+                                     Description="Year 2015" />
+               </xcdg:MergedHeader.MergedColumns>
+            </xcdg:MergedHeader>
+
+            <xcdg:MergedHeader>
+               <xcdg:MergedHeader.MergedColumns>
+                  <xcdg:MergedColumn FieldName="Company"
+                                     Title="Company"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="Symbol"
+                                     Description="Company symbol"/>
+                  <xcdg:MergedColumn FieldName="Price"
+                                     Title="Price"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="PreviousClose,Open,LastTrade,Change,DailyHigh,DailyLow"
+                                     Description="Current Prices" />
+                  <xcdg:MergedColumn FieldName="Info"
+                                     Title="Informations"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="DailyVolume,LastTradeTime"
+                                     Description="Current Informations"/>
+                  <xcdg:MergedColumn FieldName="TrailingValuationMeasures"
+                                     Title="Trailing Twelve Months Valuation Measures"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="TrailingPriceOverSales,TrailingPE,TrailingEPS,TrailingHigh,TrailingLow,TrailingAvgVolume"
+                                     Description="Trailing valuation measures for last 12 months" />
+                  <xcdg:MergedColumn FieldName="TrailingIncomeStatement"
+                                     Title="Trailing Twelve Months Income Statement"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="TrailingRevenu,TrailingGrossProfit,TrailingRevenuPerShare"
+                                     Description="Trailing income statement for last 12 months"/>
+                  <xcdg:MergedColumn FieldName="YearValuationMeasures"
+                                     Title="Year Valuation Measures"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="YearPriceOverSales,YearPE,YearEPS,YearHigh,YearLow,YearAvgVolume"
+                                     Description="Valuation measures for 2015"/>
+                  <xcdg:MergedColumn FieldName="YearIncomeStatement"
+                                     Title="Year Income Statement"
+                                     CellHorizontalContentAlignment="Center"
+                                     ChildColumnNames="YearRevenu" 
+                                     Description="Statement income for 2015"/>
+               </xcdg:MergedHeader.MergedColumns>
+            </xcdg:MergedHeader>
+         </xcdg:DataGridControl.MergedHeaders>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="Symbol"
+                         Title="Symbol"
+                         Description="The company symbol" />
+            <xcdg:Column FieldName="PreviousClose"
+                         Title="Previous Close"
+                         Description="The price on last closure" />
+            <xcdg:Column FieldName="Open"
+                         Title="Open"
+                         Description="The price on opening" />
+            <xcdg:Column FieldName="LastTrade"
+                         Title="Last Trade"
+                         Description="The price on last transaction" />
+            <xcdg:Column FieldName="Change"
+                         Title="Change"
+                         Description="The variation of the price (current trade vs last trade)" />
+            <xcdg:Column FieldName="DailyHigh"
+                         Title="Daily High"
+                         Description="The highest price for today" />
+            <xcdg:Column FieldName="DailyLow"
+                         Title="Daily Low"
+                         Description="The lowest price for today" />
+            <xcdg:Column FieldName="DailyVolume"
+                         Title="Daily Volume"
+                         Description="The volume of actions traded today" />
+            <xcdg:Column FieldName="LastTradeTime"
+                         Title="Last Trade Time"
+                         Description="The time for the last transaction" />
+            <xcdg:Column FieldName="TrailingPriceOverSales"
+                         Title="Trailing Price Over Sales"
+                         Description="The price over sales for the last 12 months" />
+            <xcdg:Column FieldName="TrailingPE"
+                         Title="Trailing PE"
+                         Description="The P/E for the last 12 months" />
+            <xcdg:Column FieldName="TrailingEPS"
+                         Title="Trailing EPS"
+                         Description="The EPS for the last 12 months" />
+            <xcdg:Column FieldName="TrailingHigh"
+                         Title="Traling High"
+                         Description="The highest price for the last 12 months" />
+            <xcdg:Column FieldName="TrailingLow"
+                         Title="Trailing Low"
+                         Description="The lowest price for the last 12 months" />
+            <xcdg:Column FieldName="TrailingAvgVolume"
+                         Title="Traling Avg Volume"
+                         Description="The average volume of trades for the last 12 months" />
+            <xcdg:Column FieldName="TrailingRevenu"
+                         Title="Trailing Revenu"
+                         Description="The company revenus for the last 12 months" />
+            <xcdg:Column FieldName="TrailingGrossProfit"
+                         Title="Trailing Gross Profit"
+                         Description="The company gross profit for the last 12 months" />
+            <xcdg:Column FieldName="TrailingRevenuPerShare"
+                         Title="Trailing Revenu Per Share"
+                         Description="The revenu per share for the last 12 months" />
+            <xcdg:Column FieldName="YearPriceOverSales"
+                         Title="Yer Price Over Sales"
+                         Description="The price over sales for 2015" />
+            <xcdg:Column FieldName="YearPE"
+                         Title="Year PE"
+                         Description="The P/E for 2015" />
+            <xcdg:Column FieldName="YearEPS"
+                         Title="Year EPS"
+                         Description="The EPS for 2015" />
+            <xcdg:Column FieldName="YearHigh"
+                         Title="Year High"
+                         Description="The highest price for 2015" />
+            <xcdg:Column FieldName="YearLow"
+                         Title="Year Low"
+                         Description="The lowest price for 2015" />
+            <xcdg:Column FieldName="YearAvgVolume"
+                         Title="Year Avg Volume"
+                         Description="The average volume of trades for 2015" />
+            <xcdg:Column FieldName="YearRevenu"
+                         Title="Year Revenu"
+                         Description="The company revenus for 2015" />
+            <xcdg:Column FieldName="YearGrossProfit"
+                         Title="Year Gross Profit"
+                         Description="The company gross profit for 2015" />
+            <xcdg:Column FieldName="YearRevenuPerShare"
+                         Title="Year Revenu Per Share"
+                         Description="The revenu per share for 2015" />
+         </xcdg:DataGridControl.Columns>
+
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

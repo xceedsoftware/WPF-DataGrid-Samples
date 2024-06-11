@@ -1,0 +1,1115 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:xdgs="clr-namespace:Xceed.Wpf.DataGrid.Samples"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Theming.UIStyles">
+
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="..\Resources\ViewThemePicker.xaml" />
+   </ResourceDictionary.MergedDictionaries>
+
+   <Style x:Key="viewImageStyle"
+          TargetType="{x:Type Viewbox}">
+      <Setter Property="RenderTransformOrigin"
+              Value="0.5,0.5" />
+      <Setter Property="HorizontalAlignment"
+              Value="Stretch" />
+      <Setter Property="Margin"
+              Value="0" />
+      <Setter Property="VerticalAlignment"
+              Value="Stretch" />
+      <Setter Property="Width"
+              Value="24" />
+      <Setter Property="Height"
+              Value="18" />
+   </Style>
+
+   <DataTemplate x:Key="tableViewImageTemplate">
+      <Viewbox Style="{StaticResource viewImageStyle}">
+         <Viewbox.RenderTransform>
+            <TransformGroup>
+               <ScaleTransform ScaleX="1"
+                               ScaleY="1" />
+               <SkewTransform AngleX="0"
+                              AngleY="0" />
+               <RotateTransform Angle="0" />
+               <TranslateTransform X="0"
+                                   Y="0" />
+            </TransformGroup>
+         </Viewbox.RenderTransform>
+
+         <Canvas Height="28"
+                 Width="38"
+                 Margin="0,0,0,0"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Left">
+            <Path Canvas.Left="0"
+                  Canvas.Top="0"
+                  Height="Auto"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.697967529296875,0.701934814453125 C0.697967529296875,0.701934814453125 36.0897216796875,0.701934814453125 36.0897216796875,0.701934814453125 36.0897216796875,0.701934814453125 36.0897216796875,7.041778564453125 36.0897216796875,7.041778564453125 36.0897216796875,7.041778564453125 0.697967529296875,7.041778564453125 0.697967529296875,7.041778564453125 0.697967529296875,7.041778564453125 0.697967529296875,0.701934814453125 0.697967529296875,0.701934814453125 z"
+                  Fill="#ffffff" />
+            <Path Canvas.Left="0"
+                  Canvas.Top="4.834"
+                  Height="7.33984375"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.697967529296875,4.833984375 C0.697967529296875,4.833984375 36.0897216796875,4.833984375 36.0897216796875,4.833984375 36.0897216796875,4.833984375 36.0897216796875,12.173828125 36.0897216796875,12.173828125 36.0897216796875,12.173828125 0.697967529296875,12.173828125 0.697967529296875,12.173828125 0.697967529296875,12.173828125 0.697967529296875,4.833984375 0.697967529296875,4.833984375 z"
+                  Fill="#ffe8c6"
+                  HorizontalAlignment="Left" />
+            <Path Canvas.Left="0"
+                  Canvas.Top="9.966"
+                  Height="7.33984375"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.697967529296875,9.96600341796875 C0.697967529296875,9.96600341796875 36.0897216796875,9.96600341796875 36.0897216796875,9.96600341796875 36.0897216796875,9.96600341796875 36.0897216796875,17.30584716796875 36.0897216796875,17.30584716796875 36.0897216796875,17.30584716796875 0.697967529296875,17.30584716796875 0.697967529296875,17.30584716796875 0.697967529296875,17.30584716796875 0.697967529296875,9.96600341796875 0.697967529296875,9.96600341796875 z"
+                  Fill="#ffffff" />
+            <Path Canvas.Left="0"
+                  Canvas.Top="15.298"
+                  Height="7.33984375"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.697967529296875,15.29803466796875 C0.697967529296875,15.29803466796875 36.0897216796875,15.29803466796875 36.0897216796875,15.29803466796875 36.0897216796875,15.29803466796875 36.0897216796875,22.63787841796875 36.0897216796875,22.63787841796875 36.0897216796875,22.63787841796875 0.697967529296875,22.63787841796875 0.697967529296875,22.63787841796875 0.697967529296875,22.63787841796875 0.697967529296875,15.29803466796875 0.697967529296875,15.29803466796875 z"
+                  Fill="#ffe8c6" />
+            <Path Canvas.Left="0"
+                  Canvas.Top="19.63"
+                  Height="4.33984375"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.697967529296875,19.63006591796875 C0.697967529296875,19.63006591796875 36.0897216796875,19.63006591796875 36.0897216796875,19.63006591796875 36.0897216796875,19.63006591796875 36.0897216796875,23.96990966796875 36.0897216796875,23.96990966796875 36.0897216796875,23.96990966796875 0.697967529296875,23.96990966796875 0.697967529296875,23.96990966796875 0.697967529296875,23.96990966796875 0.697967529296875,19.63006591796875 0.697967529296875,19.63006591796875 z"
+                  Fill="#ffffff" />
+            <Path Canvas.Left="0"
+                  Canvas.Top="23.837"
+                  Height="3.865"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.697967529296875,23.962158203125 C0.697967529296875,23.962158203125 36.0897216796875,23.962158203125 36.0897216796875,23.962158203125 36.0897216796875,23.962158203125 36.0897216796875,25.701934814453125 36.0897216796875,25.701934814453125 36.0897216796875,25.701934814453125 0.697967529296875,25.701934814453125 0.697967529296875,25.701934814453125 0.697967529296875,25.701934814453125 0.697967529296875,23.962158203125 0.697967529296875,23.962158203125 z"
+                  Fill="#ffe8c6" />
+            <Path Canvas.Left="4.698"
+                  Height="27.725"
+                  Width="1.302"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 4.697967529296875,1.1019287109375 C4.697967529296875,1.1019287109375 4.697967529296875,26.701934814453125 4.697967529296875,26.701934814453125 "
+                  Stroke="#cccccc"
+                  StrokeThickness="1"
+                  Canvas.Top="0.5" />
+            <Path Canvas.Left="27.898"
+                  Canvas.Top="0.477"
+                  Height="27.35"
+                  Width="1"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 27.89794921875,1.1019287109375 C27.89794921875,1.1019287109375 27.89794921875,26.701934814453125 27.89794921875,26.701934814453125 "
+                  Stroke="#cccccc"
+                  StrokeThickness="1" />
+            <Path Canvas.Left="0"
+                  Canvas.Top="0"
+                  Height="Auto"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M -0.302032470703125,-0.28253173828125 C-0.302032470703125,-0.28253173828125 37.48150634765625,-0.28253173828125 37.48150634765625,-0.28253173828125 37.48150634765625,-0.28253173828125 37.48150634765625,27.1019287109375 37.48150634765625,27.1019287109375 37.48150634765625,27.1019287109375 -0.302032470703125,27.1019287109375 -0.302032470703125,27.1019287109375 -0.302032470703125,27.1019287109375 -0.302032470703125,-0.28253173828125 -0.302032470703125,-0.28253173828125 z"
+                  Stroke="#999999"
+                  StrokeThickness="1"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top" />
+         </Canvas>
+      </Viewbox>
+   </DataTemplate>
+
+   <DataTemplate x:Key="cardViewImageTemplate">
+      <Viewbox Style="{StaticResource viewImageStyle}">
+         <Viewbox.RenderTransform>
+            <TransformGroup>
+               <ScaleTransform ScaleX="1"
+                               ScaleY="1" />
+               <SkewTransform AngleX="0"
+                              AngleY="0" />
+               <RotateTransform Angle="0" />
+               <TranslateTransform X="0"
+                                   Y="0" />
+            </TransformGroup>
+         </Viewbox.RenderTransform>
+
+         <Canvas Height="28"
+                 Width="36"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top">
+            <Path Canvas.Left="0.69793701171875"
+                  Canvas.Top="1.1019287109375"
+                  Height="25.600006103515625"
+                  Width="34.39996337890625"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.69793701171875,6.982757568359375 C0.69793701171875,3.67523193359375 3.32763671875,1.1019287109375 6.70751953125,1.1019287109375 6.70751953125,1.1019287109375 29.08837890625,1.1019287109375 29.08837890625,1.1019287109375 32.46826171875,1.1019287109375 35.097900390625,3.67523193359375 35.097900390625,6.982757568359375 35.097900390625,6.982757568359375 35.097900390625,20.821136474609375 35.097900390625,20.821136474609375 35.097900390625,24.128662109375 32.46826171875,26.701934814453125 29.08837890625,26.701934814453125 29.08837890625,26.701934814453125 6.70751953125,26.701934814453125 6.70751953125,26.701934814453125 3.32763671875,26.701934814453125 0.69793701171875,24.128662109375 0.69793701171875,20.821136474609375 0.69793701171875,20.821136474609375 0.69793701171875,6.982757568359375 0.69793701171875,6.982757568359375 z"
+                  Stroke="#93c9e3"
+                  StrokeThickness="1">
+               <Path.Fill>
+                  <LinearGradientBrush StartPoint="0.8924431653859325,0.9374997764826354"
+                                       EndPoint="0.23026246919406892,0.1797318030043118">
+                     <GradientStop Color="#FFe3f7ff"
+                                   Offset="0" />
+                     <GradientStop Color="#FFffffff"
+                                   Offset="0.9888889789581299" />
+                  </LinearGradientBrush>
+               </Path.Fill>
+            </Path>
+
+            <Path Canvas.Left="0.69793701171875"
+                  Canvas.Top="1.1019287109375"
+                  Height="7.20001220703125"
+                  Width="34.39996337890625"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.69793701171875,8.30194091796875 C0.69793701171875,8.30194091796875 0.69793701171875,6.982757568359375 0.69793701171875,6.982757568359375 0.69793701171875,3.67523193359375 3.32763671875,1.1019287109375 6.70751953125,1.1019287109375 6.70751953125,1.1019287109375 29.08837890625,1.1019287109375 29.08837890625,1.1019287109375 32.46826171875,1.1019287109375 35.097900390625,3.67523193359375 35.097900390625,6.982757568359375 35.097900390625,6.982757568359375 35.097900390625,8.30194091796875 35.097900390625,8.30194091796875 35.097900390625,8.30194091796875 0.69793701171875,8.30194091796875 0.69793701171875,8.30194091796875 z"
+                  Stroke="#93c9e3"
+                  StrokeThickness="1">
+               <Path.Fill>
+                  <LinearGradientBrush StartPoint="0.49709461701285823,1"
+                                       EndPoint="0.49709461701285823,0.08333403975755521">
+                     <GradientStop Color="#FFbcebfe"
+                                   Offset="0" />
+                     <GradientStop Color="#FFbcebfe"
+                                   Offset="0.5888890027999878" />
+                     <GradientStop Color="#FFe3f7ff"
+                                   Offset="0.6111109852790833" />
+                     <GradientStop Color="#FFe3f7ff"
+                                   Offset="0.9833329916000366" />
+                  </LinearGradientBrush>
+               </Path.Fill>
+            </Path>
+         </Canvas>
+      </Viewbox>
+   </DataTemplate>
+
+   <DataTemplate x:Key="compactCardViewImageTemplate">
+      <Viewbox Style="{StaticResource viewImageStyle}">
+         <Viewbox.RenderTransform>
+            <TransformGroup>
+               <ScaleTransform ScaleX="1"
+                               ScaleY="1" />
+               <SkewTransform AngleX="0"
+                              AngleY="0" />
+               <RotateTransform Angle="0" />
+               <TranslateTransform X="0"
+                                   Y="0" />
+            </TransformGroup>
+         </Viewbox.RenderTransform>
+
+         <Canvas Width="38"
+                 Height="28">
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="Auto"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0,0 C0,0 36.800048828125,0 36.800048828125,0 36.800048828125,0 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,0 0,0 z"
+                  Stroke="#999999"
+                  StrokeThickness="1"
+                  Fill="#ffffff" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="2.399993896484375"
+                  Width="32.80000114440918"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,10.400016784667969 C2.0000476837158203,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,10.400016784667969 2.0000476837158203,10.400016784667969 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.5"
+                  Canvas.Top="23.625" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="2.4000015258789062"
+                  Width="32.80000114440918"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,14.400009155273438 C2.0000476837158203,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,14.400009155273438 2.0000476837158203,14.400009155273438 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.5"
+                  Canvas.Top="19.25" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="2.4000015258789062"
+                  Width="32.80000114440918"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,18.400009155273438 C2.0000476837158203,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,18.400009155273438 2.0000476837158203,18.400009155273438 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.625"
+                  Canvas.Top="15.125" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Height="Auto"
+                  Width="Auto"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,22.400009155273438 C2.0000476837158203,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,22.400009155273438 2.0000476837158203,22.400009155273438 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.625"
+                  Canvas.Top="10.5" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Height="7.20001220703125"
+                  Width="36"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.8000898361206055,1.60003662109375 C0.8000898361206055,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,1.60003662109375 0.8000898361206055,1.60003662109375 z"
+                  Canvas.Left="1"
+                  Canvas.Top="1">
+               <Path.Fill>
+                  <LinearGradientBrush StartPoint="0.0000011643664930032525,0.9999936421820032"
+                                       EndPoint="-0.0000011643664930032525,0.08695269783410334">
+                     <GradientStop Color="#FF7b9ade"
+                                   Offset="0" />
+                     <GradientStop Color="#FFa5c3f7"
+                                   Offset="0.9777780175209045" />
+                  </LinearGradientBrush>
+               </Path.Fill>
+            </Path>
+         </Canvas>
+      </Viewbox>
+   </DataTemplate>
+
+   <DataTemplate x:Key="cardFlow3DViewImageTemplate">
+      <Viewbox Style="{StaticResource viewImageStyle}">
+         <Viewbox.RenderTransform>
+            <TransformGroup>
+               <ScaleTransform ScaleX="1"
+                               ScaleY="1" />
+               <SkewTransform AngleX="0"
+                              AngleY="0" />
+               <RotateTransform Angle="0" />
+               <TranslateTransform X="0"
+                                   Y="0" />
+            </TransformGroup>
+         </Viewbox.RenderTransform>
+
+         <Canvas Width="38"
+                 Height="28">
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="Auto"
+                  Width="38"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0,0 C0,0 36.800048828125,0 36.800048828125,0 36.800048828125,0 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 36.800048828125,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,27.399993896484375 0,0 0,0 z"
+                  Stroke="#999999"
+                  StrokeThickness="1"
+                  Fill="#ffffff" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="2.399993896484375"
+                  Width="32.80000114440918"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,10.400016784667969 C2.0000476837158203,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,10.400016784667969 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 34.800048828125,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,12.800010681152344 2.0000476837158203,10.400016784667969 2.0000476837158203,10.400016784667969 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.5"
+                  Canvas.Top="23.625" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="2.4000015258789062"
+                  Width="32.80000114440918"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,14.400009155273438 C2.0000476837158203,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,14.400009155273438 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 34.800048828125,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,16.800010681152344 2.0000476837158203,14.400009155273438 2.0000476837158203,14.400009155273438 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.5"
+                  Canvas.Top="19.25" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Height="2.4000015258789062"
+                  Width="32.80000114440918"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,18.400009155273438 C2.0000476837158203,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,18.400009155273438 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 34.800048828125,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,20.800010681152344 2.0000476837158203,18.400009155273438 2.0000476837158203,18.400009155273438 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.625"
+                  Canvas.Top="15.125" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Height="Auto"
+                  Width="Auto"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 2.0000476837158203,22.400009155273438 C2.0000476837158203,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,22.400009155273438 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 34.800048828125,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,24.800010681152344 2.0000476837158203,22.400009155273438 2.0000476837158203,22.400009155273438 z"
+                  Fill="#e8e8e8"
+                  Canvas.Left="2.625"
+                  Canvas.Top="10.5" />
+            <Path Margin="0,0,0,0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Height="7.20001220703125"
+                  Width="36"
+                  Stretch="Fill"
+                  Opacity="1"
+                  Data="M 0.8000898361206055,1.60003662109375 C0.8000898361206055,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,1.60003662109375 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 35.20018768310547,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,8.800048828125 0.8000898361206055,1.60003662109375 0.8000898361206055,1.60003662109375 z"
+                  Canvas.Left="1"
+                  Canvas.Top="1">
+               <Path.Fill>
+                  <LinearGradientBrush StartPoint="0.0000011643664930032525,0.9999936421820032"
+                                       EndPoint="-0.0000011643664930032525,0.08695269783410334">
+                     <GradientStop Color="#FF7b9ade"
+                                   Offset="0" />
+                     <GradientStop Color="#FFa5c3f7"
+                                   Offset="0.9777780175209045" />
+                  </LinearGradientBrush>
+               </Path.Fill>
+            </Path>
+         </Canvas>
+      </Viewbox>
+   </DataTemplate>
+
+   <local:ViewDataObservableCollection x:Key="viewsData">
+      <local:ViewData Description="Tableflow™ View"
+                      IsView3D="False"
+                      ImageDataTemplate="{StaticResource tableViewImageTemplate}"
+                      ViewType="{x:Type xcdg:TableflowView}">
+      </local:ViewData>
+
+      <local:ViewData Description="Table View"
+                      IsView3D="False"
+                      ImageDataTemplate="{StaticResource tableViewImageTemplate}"
+                      ViewType="{x:Type xcdg:TableView}">
+      </local:ViewData>
+
+      <local:ViewData Description="TreeGridflow View"
+                      IsView3D="False"
+                      ImageDataTemplate="{StaticResource tableViewImageTemplate}"
+                      ViewType="{x:Type xcdg:TreeGridflowView}">
+      </local:ViewData>
+
+      <local:ViewData Description="Card View"
+                      IsView3D="False"
+                      ImageDataTemplate="{StaticResource cardViewImageTemplate}"
+                      ViewType="{x:Type xcdg:CardView}">
+      </local:ViewData>
+
+      <local:ViewData Description="Compact Card View"
+                      IsView3D="False"
+                      ImageDataTemplate="{StaticResource compactCardViewImageTemplate}"
+                      ViewType="{x:Type xcdg:CompactCardView}">
+      </local:ViewData>
+   </local:ViewDataObservableCollection>
+
+   <local:ThemeDataObservableCollection x:Key="themesData">
+      <local:ThemeData Description="Aero"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdAeroNormalColorContent}">
+         <local:ThemeData.Theme>
+            <xcdg:AeroNormalColorTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Windows 8"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdAero2NormalColorContent}">
+         <local:ThemeData.Theme>
+            <xcdg:Windows8Theme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="XP Blue"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdLunaNormalColorContent}">
+         <local:ThemeData.Theme>
+            <xcdg:LunaNormalColorTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="XP Olive"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdLunaHomesteadContent}">
+         <local:ThemeData.Theme>
+            <xcdg:LunaHomesteadTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="XP Silver"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdLunaMetallicContent}">
+         <local:ThemeData.Theme>
+            <xcdg:LunaMetallicTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Royale"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdRoyaleNormalColorContent}">
+         <local:ThemeData.Theme>
+            <xcdg:RoyaleNormalColorTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Classic"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdClassicSystemColorContent}">
+         <local:ThemeData.Theme>
+            <xcdg:ClassicSystemColorTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Zune"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdZuneContent}">
+         <local:ThemeData.Theme>
+            <xcdg:ZuneNormalColorTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="System"
+                       ThemeGroup="OS Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="True"
+                       ImageDataTemplate="{StaticResource rdSystemContent}">
+      </local:ThemeData>
+
+      <local:ThemeData Description="Metro Light"
+                       ThemeGroup="Metro Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdMetroLightContent}">
+         <local:ThemeData.Theme>
+            <xcdg:MetroTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Metro Dark"
+                       ThemeGroup="Metro Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdMetroDarkContent}">
+         <local:ThemeData.Theme>
+            <xcdg:MetroTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Office 2007 Blue"
+                       ThemeGroup="Office 2007 Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdOffice2007BlueContent}">
+         <local:ThemeData.Theme>
+            <xcdg:Office2007BlueTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Office 2007 Black"
+                       ThemeGroup="Office 2007 Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdOffice2007BlackContent}">
+         <local:ThemeData.Theme>
+            <xcdg:Office2007BlackTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Office 2007 Silver"
+                       ThemeGroup="Office 2007 Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdOffice2007SilverContent}">
+         <local:ThemeData.Theme>
+            <xcdg:Office2007SilverTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Media Player 11"
+                       ThemeGroup="Custom Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdWMP11Content}">
+         <local:ThemeData.Theme>
+            <xcdg:WMP11Theme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Live Explorer"
+                       ThemeGroup="Custom Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdLiveExplorerContent}">
+         <local:ThemeData.Theme>
+            <xcdg:LiveExplorerTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Glass"
+                       ThemeGroup="Custom Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       ImageDataTemplate="{StaticResource rdGlassContent}">
+         <local:ThemeData.Theme>
+            <xcdg:GlassTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Windows 7"
+                       ThemeGroup="Custom Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="False"
+                       ImageDataTemplate="{StaticResource rdWindows7Content}">
+         <local:ThemeData.Theme>
+            <xcdg:Windows7Theme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Windows 10"
+                       ThemeGroup="Custom Themes"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="False"
+                       ImageDataTemplate="{StaticResource rdWindows10Content}">
+         <local:ThemeData.Theme>
+            <xcdg:Windows10Theme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Material Design Light"
+                       ThemeGroup="Material Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource MaterialDesignLight}">
+         <local:ThemeData.Theme>
+            <xcdg:MaterialDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+      <local:ThemeData Description="Material Design Dark"
+                       ThemeGroup="Material Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource MaterialDesignDark}">
+         <local:ThemeData.Theme>
+            <xcdg:MaterialDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+
+      <local:ThemeData Description="Fluent Design Light"
+                       ThemeGroup="Fluent Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource FluentDesignLight}">
+         <local:ThemeData.Theme>
+            <xcdg:FluentDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+      <local:ThemeData Description="Fluent Design Dark"
+                       ThemeGroup="Fluent Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource FluentDesignDark}">
+         <local:ThemeData.Theme>
+            <xcdg:FluentDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+   </local:ThemeDataObservableCollection>
+
+   <local:ThemeDataObservableCollection x:Key="materialThemesData">
+      <local:ThemeData Description="Dark"
+                       ThemeGroup="Material Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource MaterialDesignDark}">
+         <local:ThemeData.Theme>
+            <xcdg:MaterialDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+      <local:ThemeData Description="Light"
+                       ThemeGroup="Material Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource MaterialDesignLight}">
+         <local:ThemeData.Theme>
+            <xcdg:MaterialDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+   </local:ThemeDataObservableCollection>
+
+   <local:ThemeDataObservableCollection x:Key="fluentThemesData">
+      <local:ThemeData Description="Dark"
+                       ThemeGroup="Fluent Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource FluentDesignDark}">
+         <local:ThemeData.Theme>
+            <xcdg:FluentDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+      <local:ThemeData Description="Light"
+                       ThemeGroup="Fluent Design"
+                       IsTheme3D="False"
+                       UseSystemTheme="False"
+                       IsNewTheme="True"
+                       ImageDataTemplate="{StaticResource FluentDesignLight}">
+         <local:ThemeData.Theme>
+            <xcdg:FluentDesignTheme />
+         </local:ThemeData.Theme>
+      </local:ThemeData>
+   </local:ThemeDataObservableCollection>
+
+   <local:AccentDataObservableCollection x:Key="accentData">
+      <local:AccentData Description="Gold"
+                        ImageDataTemplate="{StaticResource rdGoldAccentContent}" />
+      <local:AccentData Description="LightGreen"
+                        ImageDataTemplate="{StaticResource rdLightGreenAccentContent}" />
+      <local:AccentData Description="Blue"
+                        ImageDataTemplate="{StaticResource rdBlueAccentContent}" />
+      <local:AccentData Description="MediumVioletRed"
+                        ImageDataTemplate="{StaticResource rdMediumVioletRedAccentContent}" />
+      <local:AccentData Description="Brown"
+                        ImageDataTemplate="{StaticResource rdBrownAccentContent}" />
+      <local:AccentData Description="DarkRed"
+                        ImageDataTemplate="{StaticResource rdDarkRedAccentContent}" />
+      <local:AccentData Description="PaleVioletRed"
+                        ImageDataTemplate="{StaticResource rdPaleVioletRedAccentContent}" />
+      <local:AccentData Description="DarkViolet"
+                        ImageDataTemplate="{StaticResource rdDarkVioletAccentContent}" />
+      <local:AccentData Description="DarkSlateBlue"
+                        ImageDataTemplate="{StaticResource rdDarkSlateBlueAccentContent}" />
+      <local:AccentData Description="RoyalBlue"
+                        ImageDataTemplate="{StaticResource rdRoyalBlueAccentContent}" />
+      <local:AccentData Description="Teal"
+                        ImageDataTemplate="{StaticResource rdTealAccentContent}" />
+      <local:AccentData Description="Green"
+                        ImageDataTemplate="{StaticResource rdGreenAccentContent}" />
+      <local:AccentData Description="Lime"
+                        ImageDataTemplate="{StaticResource rdLimeAccentContent}" />
+      <local:AccentData Description="LightSalmon"
+                        ImageDataTemplate="{StaticResource rdLightSalmonAccentContent}" />
+      <local:AccentData Description="Red"
+                        ImageDataTemplate="{StaticResource rdRedAccentContent}" />
+      <local:AccentData Description="DeepPink"
+                        ImageDataTemplate="{StaticResource rdDeepPinkAccentContent}" />
+      <local:AccentData Description="DarkTurquoise"
+                        ImageDataTemplate="{StaticResource rdDarkTurquoiseAccentContent}" />
+      <local:AccentData Description="Turquoise"
+                        ImageDataTemplate="{StaticResource rdTurquoiseAccentContent}" />
+      <local:AccentData Description="YellowGreen"
+                        ImageDataTemplate="{StaticResource rdYellowGreenAccentContent}" />
+      <local:AccentData Description="DarkYellow"
+                        ImageDataTemplate="{StaticResource rdDarkYellowAccentContent}" />
+      <local:AccentData Description="Pink"
+                        ImageDataTemplate="{StaticResource rdPinkAccentContent}" />
+      <local:AccentData Description="LightSeaGreen"
+                        ImageDataTemplate="{StaticResource rdLightSeaGreenAccentContent}" />
+      <local:AccentData Description="Orange"
+                        ImageDataTemplate="{StaticResource rdOrangeAccentContent}" />
+   </local:AccentDataObservableCollection>
+
+   <local:AccentDataObservableCollection x:Key="primaryColorData">
+      <local:AccentData Description="Amber"
+                        ImageDataTemplate="{StaticResource AmberContent}" />
+      <local:AccentData Description="Blue"
+                        ImageDataTemplate="{StaticResource BlueContent}" />
+      <local:AccentData Description="BlueGray"
+                        ImageDataTemplate="{StaticResource BlueGrayContent}" />
+      <local:AccentData Description="Cyan"
+                        ImageDataTemplate="{StaticResource CyanContent}" />
+      <local:AccentData Description="DarkRed"
+                        ImageDataTemplate="{StaticResource DarkRedContent}" />
+      <local:AccentData Description="DeepOrange"
+                        ImageDataTemplate="{StaticResource DeepOrangeContent}" />
+      <local:AccentData Description="DeepPurple"
+                        ImageDataTemplate="{StaticResource DeepPurpleContent}" />
+      <local:AccentData Description="Gray"
+                        ImageDataTemplate="{StaticResource GrayContent}" />
+      <local:AccentData Description="Green"
+                        ImageDataTemplate="{StaticResource GreenContent}" />
+      <local:AccentData Description="Indigo"
+                        ImageDataTemplate="{StaticResource IndigoContent}" />
+      <local:AccentData Description="LightBlue"
+                        ImageDataTemplate="{StaticResource LightBlueContent}" />
+      <local:AccentData Description="LightGreen"
+                        ImageDataTemplate="{StaticResource LightGreenContent}" />
+      <local:AccentData Description="Lime"
+                        ImageDataTemplate="{StaticResource LimeContent}" />
+      <local:AccentData Description="Orange"
+                        ImageDataTemplate="{StaticResource OrangeContent}" />
+      <local:AccentData Description="Pink"
+                        ImageDataTemplate="{StaticResource PinkContent}" />
+      <local:AccentData Description="Purple"
+                        ImageDataTemplate="{StaticResource PurpleContent}" />
+      <local:AccentData Description="Red"
+                        ImageDataTemplate="{StaticResource RedContent}" />
+      <local:AccentData Description="Teal"
+                        ImageDataTemplate="{StaticResource TealContent}" />
+      <local:AccentData Description="Yellow"
+                        ImageDataTemplate="{StaticResource YellowContent}" />
+   </local:AccentDataObservableCollection>
+
+   <local:AccentDataObservableCollection x:Key="fluentAccentData">
+      <local:AccentData Description="Blue"
+                        ImageDataTemplate="{StaticResource FluentBlueContent}" />
+      <local:AccentData Description="BrownGray"
+                        ImageDataTemplate="{StaticResource FluentBrownGrayContent}" />
+      <local:AccentData Description="Camouflage"
+                        ImageDataTemplate="{StaticResource FluentCamouflageContent}" />
+      <local:AccentData Description="CoolBlue"
+                        ImageDataTemplate="{StaticResource FluentCoolBlueContent}" />
+      <local:AccentData Description="DarkGray"
+                        ImageDataTemplate="{StaticResource FluentDarkGrayContent}" />
+      <local:AccentData Description="DarkLily"
+                        ImageDataTemplate="{StaticResource FluentDarkLilyContent}" />
+      <local:AccentData Description="DarkMint"
+                        ImageDataTemplate="{StaticResource FluentDarkMintContent}" />
+      <local:AccentData Description="DarkOrange"
+                        ImageDataTemplate="{StaticResource FluentDarkOrangeContent}" />
+      <local:AccentData Description="DarkPurple"
+                        ImageDataTemplate="{StaticResource FluentDarkPurpleContent}" />
+      <local:AccentData Description="Deck"
+                        ImageDataTemplate="{StaticResource FluentDeckContent}" />
+      <local:AccentData Description="Desert"
+                        ImageDataTemplate="{StaticResource FluentDesertContent}" />
+      <local:AccentData Description="Gold"
+                        ImageDataTemplate="{StaticResource FluentGoldContent}" />
+      <local:AccentData Description="Gray"
+                        ImageDataTemplate="{StaticResource FluentGrayContent}" />
+      <local:AccentData Description="GrayBlue"
+                        ImageDataTemplate="{StaticResource FluentGrayBlueContent}" />
+      <local:AccentData Description="Green"
+                        ImageDataTemplate="{StaticResource FluentGreenContent}" />
+      <local:AccentData Description="GreenBlue"
+                        ImageDataTemplate="{StaticResource FluentGreenBlueContent}" />
+      <local:AccentData Description="GreenGrass"
+                        ImageDataTemplate="{StaticResource FluentGreenGrassContent}" />
+      <local:AccentData Description="GreenLiddy"
+                        ImageDataTemplate="{StaticResource FluentGreenLiddyContent}" />
+      <local:AccentData Description="GreenMeadow"
+                        ImageDataTemplate="{StaticResource FluentGreenMeadowContent}" />
+      <local:AccentData Description="GreenSport"
+                        ImageDataTemplate="{StaticResource FluentGreenSportContent}" />
+      <local:AccentData Description="LightBlue"
+                        ImageDataTemplate="{StaticResource FluentLightBlueContent}" />
+      <local:AccentData Description="LightGold"
+                        ImageDataTemplate="{StaticResource FluentLightGoldContent}" />
+      <local:AccentData Description="LightLily"
+                        ImageDataTemplate="{StaticResource FluentLightLilyContent}" />
+      <local:AccentData Description="LightMint"
+                        ImageDataTemplate="{StaticResource FluentLightMintContent}" />
+      <local:AccentData Description="LightMoss"
+                        ImageDataTemplate="{StaticResource FluentLightMossContent}" />
+      <local:AccentData Description="LightOrange"
+                        ImageDataTemplate="{StaticResource FluentLightOrangeContent}" />
+      <local:AccentData Description="LightOrchid"
+                        ImageDataTemplate="{StaticResource FluentLightOrchidContent}" />
+      <local:AccentData Description="LightOxide"
+                        ImageDataTemplate="{StaticResource FluentLightOxideContent}" />
+      <local:AccentData Description="LightPink"
+                        ImageDataTemplate="{StaticResource FluentLightPinkContent}" />
+      <local:AccentData Description="LightPlum"
+                        ImageDataTemplate="{StaticResource FluentLightPlumContent}" />
+      <local:AccentData Description="LightPurple"
+                        ImageDataTemplate="{StaticResource FluentLightPurpleContent}" />
+      <local:AccentData Description="LightRed"
+                        ImageDataTemplate="{StaticResource FluentLightRedContent}" />
+      <local:AccentData Description="LightViolet"
+                        ImageDataTemplate="{StaticResource FluentLightVioletContent}" />
+      <local:AccentData Description="MetalicBlue"
+                        ImageDataTemplate="{StaticResource FluentMetalicBlueContent}" />
+      <local:AccentData Description="Moss"
+                        ImageDataTemplate="{StaticResource FluentMossContent}" />
+      <local:AccentData Description="Orchid"
+                        ImageDataTemplate="{StaticResource FluentOrchidContent}" />
+      <local:AccentData Description="Oxide"
+                        ImageDataTemplate="{StaticResource FluentOxideContent}" />
+      <local:AccentData Description="Pink"
+                        ImageDataTemplate="{StaticResource FluentPinkContent}" />
+      <local:AccentData Description="Plum"
+                        ImageDataTemplate="{StaticResource FluentPlumContent}" />
+      <local:AccentData Description="Red"
+                        ImageDataTemplate="{StaticResource FluentRedContent}" />
+      <local:AccentData Description="RedBrick"
+                        ImageDataTemplate="{StaticResource FluentRedBrickContent}" />
+      <local:AccentData Description="RedMod"
+                        ImageDataTemplate="{StaticResource FluentRedModContent}" />
+      <local:AccentData Description="Sage"
+                        ImageDataTemplate="{StaticResource FluentSageContent}" />
+      <local:AccentData Description="SeaBlue"
+                        ImageDataTemplate="{StaticResource FluentSeaBlueContent}" />
+      <local:AccentData Description="SeaFoam"
+                        ImageDataTemplate="{StaticResource FluentSeaFoamContent}" />
+      <local:AccentData Description="SteelBlue"
+                        ImageDataTemplate="{StaticResource FluentSteelBlueContent}" />
+      <local:AccentData Description="Storm"
+                        ImageDataTemplate="{StaticResource FluentStormContent}" />
+      <local:AccentData Description="Violet"
+                        ImageDataTemplate="{StaticResource FluentVioletContent}" />
+   </local:AccentDataObservableCollection>
+
+   <xcdg:DataGridCollectionViewSource x:Key="viewsDataSource"
+                                      Source="{Binding Source={StaticResource viewsData}}">
+      <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+         <PropertyGroupDescription PropertyName="IsView3D" />
+      </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+   </xcdg:DataGridCollectionViewSource>
+
+   <xcdg:DataGridCollectionViewSource x:Key="themesDataSource"
+                                      Source="{Binding Source={StaticResource themesData}}">
+      <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+         <PropertyGroupDescription PropertyName="ThemeGroup" />
+      </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+   </xcdg:DataGridCollectionViewSource>
+   <xcdg:DataGridCollectionViewSource x:Key="materialThemesDataSource"
+                                      Source="{Binding Source={StaticResource materialThemesData}}">
+      <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+         <PropertyGroupDescription PropertyName="ThemeGroup" />
+      </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+   </xcdg:DataGridCollectionViewSource>
+
+   <xcdg:DataGridCollectionViewSource x:Key="accentDataSource"
+                                      Source="{Binding Source={StaticResource accentData}}">
+   </xcdg:DataGridCollectionViewSource>
+   <xcdg:DataGridCollectionViewSource x:Key="primaryColorDataSource"
+                                      Source="{Binding Source={StaticResource primaryColorData}}">
+   </xcdg:DataGridCollectionViewSource>
+   <xcdg:DataGridCollectionViewSource x:Key="fluentAccentDataSource"
+                                      Source="{Binding Source={StaticResource fluentAccentData}}">
+   </xcdg:DataGridCollectionViewSource>
+
+   <Style x:Key="viewContentPresenterStyle" 
+          TargetType="{x:Type ContentPresenter}">
+      <Setter Property="Margin"
+              Value="3,0,5,0" />
+   </Style>
+
+   <Style x:Key="viewThemeComboItemTextStyle"
+          TargetType="{x:Type TextBlock}">
+      <Setter Property="FontWeight"
+              Value="Normal" />
+      <Setter Property="FontSize"
+              Value="11" />
+      <Setter Property="VerticalAlignment"
+              Value="Center"/>
+   </Style>
+
+   <DataTemplate x:Key="viewDataTemplate"
+                 DataType="{x:Type local:ViewData}">
+      <TextBlock Text="{Binding Path=Description}"
+                 Style="{StaticResource viewThemeComboItemTextStyle}"
+                 Margin="4,0,0,0"/>
+   </DataTemplate>
+
+   <DataTemplate x:Key="newThemeDecorator">
+      <Grid>
+         <Border Width="27"
+                 Height="13"
+                 BorderBrush="Black"
+                 BorderThickness="0.5"
+                 CornerRadius="0,4,4,4">
+            <Border.Background>
+               <LinearGradientBrush EndPoint="0.5,1"
+                                    StartPoint="0.5,0"
+                                    MappingMode="RelativeToBoundingBox">
+                  <GradientStop Color="#FF989898"
+                                Offset="1" />
+                  <GradientStop Color="#FFD8D8D8"
+                                Offset="0.509" />
+                  <GradientStop Color="White"
+                                Offset="0.003" />
+               </LinearGradientBrush>
+            </Border.Background>
+         </Border>
+         <TextBlock Width="28"
+                    Text="New!"
+                    TextWrapping="Wrap"
+                    FontFamily="Arial"
+                    Height="14"
+                    FontSize="9"
+                    Margin="6,4,0,0"
+                    Foreground="Black" />
+      </Grid>
+   </DataTemplate>
+
+   <DataTemplate x:Key="themeDataTemplate"
+                 DataType="{x:Type local:ThemeData}">
+      <DockPanel>
+         <ContentPresenter x:Name="newThemeDecoratorPresenter"
+                           ContentTemplate="{StaticResource newThemeDecorator}"
+                           Margin="2,1,0,0" 
+                           DockPanel.Dock="Right"/>
+
+         <StackPanel Orientation="Horizontal">
+            <Border BorderThickness="1">
+
+               <BulletDecorator Background="Transparent"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top">
+
+                  <BulletDecorator.Bullet>
+                     <Grid Height="14"
+                           Width="14">
+
+                        <ContentPresenter ContentTemplate="{Binding Path=ImageDataTemplate}" />
+
+                        <Border x:Name="border"
+                                CornerRadius="15"
+                                BorderBrush="#FF000000"
+                                BorderThickness="1,1,1,1" />
+
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M4.1140706,-1.1131968 C7.6725113,-3.7091382 10.734278,-0.41539673 10.734278,-0.41539673 10.734278,-0.41539673 11.562265,0.58132243 6.2660427,2.5771113 0.96982059,4.5729001 1.6315318,8.0651958 1.6315318,8.0651958 1.6315318,8.0651958 0.55562993,1.4827446 4.1140706,-1.1131968 z"
+                              Width="10"
+                              Height="10"
+                              Grid.ColumnSpan="1"
+                              RenderTransformOrigin="0.5,0.5"
+                              Margin="-28.018,-6.577,0,0"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Top">
+
+                           <Path.RenderTransform>
+                              <TransformGroup>
+                                 <ScaleTransform ScaleX="1"
+                                                 ScaleY="1" />
+
+                                 <SkewTransform AngleX="0"
+                                                AngleY="0" />
+
+                                 <RotateTransform Angle="180" />
+
+                                 <TranslateTransform X="31.197"
+                                                     Y="11.077" />
+                              </TransformGroup>
+                           </Path.RenderTransform>
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.309,0.386">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="0.774"
+                                                       ScaleY="1.245" />
+
+                                       <SkewTransform AngleX="-5.031"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5" />
+
+                                       <RotateTransform Angle="34.471"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5" />
+
+                                       <TranslateTransform X="-0.372"
+                                                           Y="-0.317" />
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+
+                                 <GradientStop Color="#CC000000"
+                                               Offset="0" />
+
+                                 <GradientStop Color="#19000000"
+                                               Offset="1" />
+
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+
+                        <Path	Grid.Column="0"
+                              Stretch="Fill"
+                              Opacity="1"
+                              Data="M5.5264455,-5.0053735 C9.6789087,-5.0968124 10.39782,0.79245231 10.39782,0.79245231 10.39782,0.79245231 6.2462241,-0.12185523 3.9667957,2.0726003 1.6873672,4.2670559 1.3617636,11.049826 0.54769485,10.592636 -0.26637378,10.135446 -0.42923277,9.6751348 -0.42953064,4.322928 -0.4298285,-1.0292789 2.8400027,-5.0056271 5.5264455,-5.0053735 z"
+                              HorizontalAlignment="Left"
+                              Margin="1.5,1.999,0,5.25"
+                              Width="10"
+                              Grid.ColumnSpan="1">
+
+                           <Path.Fill>
+                              <RadialGradientBrush GradientOrigin="0.384,0.496">
+                                 <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                       <ScaleTransform CenterX="0.5"
+                                                       CenterY="0.5"
+                                                       ScaleX="1.495"
+                                                       ScaleY="1.701" />
+
+                                       <SkewTransform AngleX="0"
+                                                      AngleY="0"
+                                                      CenterX="0.5"
+                                                      CenterY="0.5" />
+
+                                       <RotateTransform Angle="0"
+                                                        CenterX="0.5"
+                                                        CenterY="0.5" />
+
+                                       <TranslateTransform X="-0.432"
+                                                           Y="-0.379" />
+                                    </TransformGroup>
+                                 </RadialGradientBrush.RelativeTransform>
+
+                                 <GradientStop Color="#19FFFFFF"
+                                               Offset="1" />
+
+                                 <GradientStop Color="#7FFFFFFF"
+                                               Offset="0" />
+
+                              </RadialGradientBrush>
+                           </Path.Fill>
+                        </Path>
+                     </Grid>
+                  </BulletDecorator.Bullet>
+               </BulletDecorator>
+
+            </Border>
+
+            <TextBlock Text="{Binding Path=Description}"
+                       Style="{StaticResource viewThemeComboItemTextStyle}"
+                       Margin="2,0,0,0" />
+         </StackPanel>
+      </DockPanel>
+
+      <DataTemplate.Triggers>
+         <DataTrigger Binding="{Binding Path=IsNewTheme}"
+                      Value="False">
+            <Setter TargetName="newThemeDecoratorPresenter"
+                    Property="Visibility"
+                    Value="Collapsed" />
+         </DataTrigger>
+      </DataTemplate.Triggers>
+   </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,147 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Flexible Rows & Cells Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Flexibles Rows & Cells sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.FlexibleRowsCells.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.FlexibleRowsCells"
+      xmlns:s="clr-namespace:System;assembly=mscorlib">
+   <Page.Resources>
+
+      <!-- Define a resource for the converters needed by the cell content templates. -->
+      <local:FlagPathConverter x:Key="flagconverter" />
+
+      <!-- DataTemplate to display the name of the Country followed by the flag -->
+      <DataTemplate x:Key="countryCellContentTemplate">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="30" />
+               <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0"
+                   Margin="1,1,4,1"
+                   VerticalAlignment="Top"
+                   Source="{Binding Converter={StaticResource flagconverter}}" />
+
+            <TextBlock Text="{Binding}"
+                       Grid.Column="1"
+                       Margin="2,0,4,0"
+                       VerticalAlignment="Top" />
+         </Grid>
+      </DataTemplate>
+
+      <!-- This is the Data Source used in the DataGridControl. It's based on the
+           Songs table and is, by default, grouped and sorted by LastPlayed.
+           The Xceed DataGridControl uses this standard WPF construct to support
+           grouping and sorting. No special sauce needed. -->
+      <xcdg:DataGridCollectionViewSource x:Key="cvsSongs"
+                                         Source="{Binding Source={x:Static Application.Current},Path=Songs}" />
+
+   </Page.Resources>
+
+   <DockPanel>
+      <!-- This is the configuration Panel at the Top. -->
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <TextBlock TextWrapping="Wrap"
+                    MaxWidth="400"
+                    Margin="{StaticResource groupBoxMargin}">
+            In this sample, the FixedHeader contains a FlexibleRow with FlexibleCells that set their content to simple strings. <LineBreak />
+            The FixedFooter contains a FlexibleRow that binds its content to a specific ContactInfo object. This FlexibleRow contains FlexibleCells that bind their content to properties of the FlexibleRow's content.
+         </TextBlock>
+      </ContentControl>
+
+      <!-- The read-only main DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            CellEditorDisplayConditions="None"
+                            ItemsSource="{Binding Source={StaticResource cvsSongs}}"
+                            EditTriggers="None"
+                            ReadOnly="True"
+                            ItemScrollingBehavior="Immediate">
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}">
+               <xcdg:TableflowView.FixedHeaders>
+                  <DataTemplate>
+                     <!-- The flexible row in the fixed header contains flexible cells that only display strings-->
+                     <xcdg:FlexibleRow Background="LightGreen">
+                        <xcdg:FlexibleCell FieldName="SongName"
+                                           Content="Title of the song" />
+                        <xcdg:FlexibleCell FieldName="Rating"
+                                           Content="Out of 5" />
+                        <xcdg:FlexibleCell FieldName="LastPlayed"
+                                           Content="Date it was last aired" />
+                        <xcdg:FlexibleCell FieldName="Artist"
+                                           Content="Name of the author" />
+                        <xcdg:FlexibleCell FieldName="Category"
+                                           Content="Type of music" />
+                        <xcdg:FlexibleCell FieldName="Country"
+                                           Content="Country of the author" />
+                     </xcdg:FlexibleRow>
+                  </DataTemplate>
+               </xcdg:TableflowView.FixedHeaders>
+
+               <xcdg:TableflowView.FixedFooters>
+                  <DataTemplate>
+                     <!-- The flexible row in the fixed footer binds its content on another DataSource to get the 2nd record.
+                           The flexible cells will then bind their content on this record.-->
+                     <xcdg:FlexibleRow Background="LightGreen"
+                                       Content="{Binding ContactCollection[2], RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
+                        <xcdg:FlexibleCell FieldName="SongName"
+                                           Content="Contact Info:"/>
+                        <xcdg:FlexibleCell FieldName="LastPlayed"
+                                           Content="{Binding Path=Name}" />
+                        <xcdg:FlexibleCell FieldName="Artist"
+                                           Content="{Binding Path=Title}" />
+                        <xcdg:FlexibleCell FieldName="Category"
+                                           Content="{Binding Path=Phone}" />
+                     </xcdg:FlexibleRow>
+                  </DataTemplate>
+               </xcdg:TableflowView.FixedFooters>
+            </xcdg:TableflowView>
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="SongID"
+                         Visible="False"
+                         ShowInColumnChooser="False"/>
+            <xcdg:Column FieldName="Included"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="SongName"
+                         Title="Song"
+                         IsMainColumn="True"
+                         Width="200" />
+            <xcdg:Column FieldName="Rating"
+                         Width="67" />
+            <xcdg:Column FieldName="LastPlayed"
+                         Title="Last Played"
+                         Width="150"/>
+            <xcdg:Column FieldName="Artist"
+                         Width="190"/>
+            <xcdg:Column FieldName="Category" />
+            <xcdg:Column FieldName="Country"
+                         Width="140"
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource countryCellContentTemplate}" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

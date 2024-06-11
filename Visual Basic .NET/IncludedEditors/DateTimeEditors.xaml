@@ -1,0 +1,152 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Included Editors Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [DateTimeEditors.xaml]
+
+  This ResourceDictionary contains templates and CellEditors providing various
+  DateTime editors for a DataGrid.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary x:Class="Xceed.Wpf.DataGrid.Samples.IncludedEditors.DateTimeEditors"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.IncludedEditors">
+   <local:InvariantAbbreviatedDateToStringConverter x:Key="invariantAbbreviatedDateToStringConverter" />
+
+   <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+
+   <!-- This Cell Template makes sure that the Cell's content only displays the short time.-->
+   <DataTemplate x:Key="shortTimeCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortTime' }" />
+   </DataTemplate>
+
+   <!-- This Cell Template makes sure that the Cell's content only displays the long time.-->
+   <DataTemplate x:Key="longTimeCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='LongTime' }" />
+   </DataTemplate>
+
+   <!-- This Cell Template makes sure that the Cell's content only displays the short date.-->
+   <DataTemplate x:Key="shortDateCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+   </DataTemplate>
+
+   <!-- This Cell Template makes sure that the Cell's content only displays the short date and short time.-->
+   <DataTemplate x:Key="shortDateAndShortTimeCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDateAndShortTime' }" />
+   </DataTemplate>
+
+   <!-- This Cell Template makes sure that the Cell's content only displays the short date and long time.-->
+   <DataTemplate x:Key="shortDateAndLongTimeCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDateAndLongTime' }" />
+   </DataTemplate>
+
+   <!-- This Cell Template makes sure that the Cell's content only displays the invariant abbreviated short date.-->
+   <DataTemplate x:Key="invariantAbbreviatedDateCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource invariantAbbreviatedDateToStringConverter}}" />
+   </DataTemplate>
+
+   <!-- This is a MaskedTextBox editor used for the date column in a short date with abbreviated month names format. 
+           The / characters in the Mask property have to be escaped if we want to "force" these characters and prevent 
+           the MaskTextProvider from replacing it with the current culture date separator. -->
+   <xcdg:CellEditor x:Key="invariantAbbreviatedDateTimeEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:MaskedTextBox Name="PART_CellEditorBoundControl"
+                                xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                xcdg:DataCell.IsCellFocusScope="True"
+                                InsertKeyMode="Overwrite"
+                                ValueDataType="{x:Type s:DateTime}"
+                                Value="{xcdg:CellEditorBinding}"
+                                Mask="09\/???\/0099"
+                                QueryTextFromValue="InvariantAbbreviatedDateTimeEditor_QueryTextFromValue"
+                                QueryValueFromText="InvariantAbbreviatedDateTimeEditor_QueryValueFromText"
+                                AutoCompletingMask="InvariantAbbreviatedDateTimeEditor_AutoCompletingMask" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the ShortTime CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+
+   <!-- This is a DateTimeTextBox editor used for the date column in ShortTime format. -->
+   <xcdg:CellEditor x:Key="shortTimeEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:DateTimeTextBox Name="PART_CellEditorBoundControl"
+                                  xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                  xcdg:DataCell.IsCellFocusScope="True"
+                                  Value="{xcdg:CellEditorBinding}"
+                                  DateTimeMaskMode="ShortTime" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the ShortTime CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+
+   <!-- This is a DateTimeTextBox editor used for the date column in ShortDate format. -->
+   <xcdg:CellEditor x:Key="shortDateEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:DateTimeTextBox Name="PART_CellEditorBoundControl"
+                                  xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                  xcdg:DataCell.IsCellFocusScope="True"
+                                  Value="{xcdg:CellEditorBinding}"
+                                  DateTimeMaskMode="ShortDate" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the ShortDate CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+
+   <!-- This is a DateTimeTextBox editor used for the date column in ShortDateAndShortTime format. -->
+   <xcdg:CellEditor x:Key="shortDateAndShortTimeEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:DateTimeTextBox Name="PART_CellEditorBoundControl"
+                                  xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                  xcdg:DataCell.IsCellFocusScope="True"
+                                  Value="{xcdg:CellEditorBinding}"
+                                  DateTimeMaskMode="ShortDateAndShortTime" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the ShortDateAndShortTime CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+
+   <!-- This is a DateTimeTextBox editor used for the date column in ShortDateAndLongTime format. -->
+   <xcdg:CellEditor x:Key="shortDateAndLongTimeEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:DateTimeTextBox Name="PART_CellEditorBoundControl"
+                                  xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                  xcdg:DataCell.IsCellFocusScope="True"
+                                  Value="{xcdg:CellEditorBinding}"
+                                  DateTimeMaskMode="ShortDateAndLongTime" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the ShortDateAndLongTime CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+</ResourceDictionary>

@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Composers>
+  <Composer>
+    <LastName>von Bingen</LastName>
+    <FirstName>Hildegard</FirstName>
+    <Period>Medieval</Period>
+    <BirthYear>1098</BirthYear>
+    <DeathYear>1179</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Monteverdi</LastName>
+    <FirstName>Claudio</FirstName>
+    <Period>Renaissance</Period>
+    <BirthYear>1567</BirthYear>
+    <DeathYear>1643</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Purcell</LastName>
+    <FirstName>Henry</FirstName>
+    <Period>Baroque</Period>
+    <BirthYear>1659</BirthYear>
+    <DeathYear>1695</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Mozart</LastName>
+    <FirstName>Wolfgang Amadeus</FirstName>
+    <Period>Classical</Period>
+    <BirthYear>1756</BirthYear>
+    <DeathYear>1791</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Schubert</LastName>
+    <FirstName>Franz Peter</FirstName>
+    <Period>Romantic</Period>
+    <BirthYear>1797</BirthYear>
+    <DeathYear>1828</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Khachaturian</LastName>
+    <FirstName>Aram</FirstName>
+    <Period>TwentiethCentury</Period>
+    <BirthYear>1903</BirthYear>
+    <DeathYear>1978</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Takemitsu</LastName>
+    <FirstName>Toru</FirstName>
+    <Period>Modern</Period>
+    <BirthYear>1930</BirthYear>
+    <DeathYear>1996</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Barraque</LastName>
+    <FirstName>Jean</FirstName>
+    <Period>Modern</Period>
+    <BirthYear>1928</BirthYear>
+    <DeathYear>1973</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Haydn</LastName>
+    <FirstName>Franz Joseph</FirstName>
+    <Period>Classical</Period>
+    <BirthYear>1732</BirthYear>
+    <DeathYear>1809</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Schobert</LastName>
+    <FirstName>Johann</FirstName>
+    <Period>Classical</Period>
+    <BirthYear>1735</BirthYear>
+    <DeathYear>1767</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>van Beethoven</LastName>
+    <FirstName>Ludwig</FirstName>
+    <Period>Classical</Period>
+    <BirthYear>1770</BirthYear>
+    <DeathYear>1827</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Bach</LastName>
+    <FirstName>Carl Philipp Emanuel</FirstName>
+    <Period>Classical</Period>
+    <BirthYear>1714</BirthYear>
+    <DeathYear>1788</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Tchaikovsky</LastName>
+    <FirstName>Piotr Ilyitch</FirstName>
+    <Period>Romantic</Period>
+    <BirthYear>1840</BirthYear>
+    <DeathYear>1893</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Debussy</LastName>
+    <FirstName>Claude</FirstName>
+    <Period>Romantic</Period>
+    <BirthYear>1862</BirthYear>
+    <DeathYear>1918</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Dvorak</LastName>
+    <FirstName>Antonin</FirstName>
+    <Period>Romantic</Period>
+    <BirthYear>1841</BirthYear>
+    <DeathYear>1904</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Handel</LastName>
+    <FirstName>George Frideric</FirstName>
+    <Period>Baroque</Period>
+    <BirthYear>1685</BirthYear>
+    <DeathYear>1759</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Pachelbel</LastName>
+    <FirstName>Johann</FirstName>
+    <Period>Baroque</Period>
+    <BirthYear>1653</BirthYear>
+    <DeathYear>1706</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>van Wassenaer</LastName>
+    <FirstName>Unico Wilhelm</FirstName>
+    <Period>Baroque</Period>
+    <BirthYear>1692</BirthYear>
+    <DeathYear>1766</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Zelenka</LastName>
+    <FirstName>Jan Dismas</FirstName>
+    <Period>Baroque</Period>
+    <BirthYear>1679</BirthYear>
+    <DeathYear>1745</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>von Wolkenstein</LastName>
+    <FirstName>Oswald</FirstName>
+    <Period>Medieval</Period>
+    <BirthYear>1337</BirthYear>
+    <DeathYear>1445</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>de Vitry</LastName>
+    <FirstName>Philippe</FirstName>
+    <Period>Medieval</Period>
+    <BirthYear>1291</BirthYear>
+    <DeathYear>1361</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>de Machaut</LastName>
+    <FirstName>Guillaume</FirstName>
+    <Period>Medieval</Period>
+    <BirthYear>1300</BirthYear>
+    <DeathYear>1377</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Praetorius</LastName>
+    <FirstName>Micheal</FirstName>
+    <Period>Renaissance</Period>
+    <BirthYear>1571</BirthYear>
+    <DeathYear>1621</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>de Victoria</LastName>
+    <FirstName>Tom&#0225;s Luis</FirstName>
+    <Period>Renaissance</Period>
+    <BirthYear>1549</BirthYear>
+    <DeathYear>1611</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Buxtehude</LastName>
+    <FirstName>Dietrich</FirstName>
+    <Period>Baroque</Period>
+    <BirthYear>1637</BirthYear>
+    <DeathYear>1707</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Ciconia</LastName>
+    <FirstName>Johannes</FirstName>
+    <Period>Medieval</Period>
+    <BirthYear>1335</BirthYear>
+    <DeathYear>1411</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Landini</LastName>
+    <FirstName>Francesco</FirstName>
+    <Period>Medieval</Period>
+    <BirthYear>1325</BirthYear>
+    <DeathYear>1397</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>de Cabezon</LastName>
+    <FirstName>Antonio</FirstName>
+    <Period>Renaissance</Period>
+    <BirthYear>1510</BirthYear>
+    <DeathYear>1566</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Isaac</LastName>
+    <FirstName>Heinrich</FirstName>
+    <Period>Renaissance</Period>
+    <BirthYear>1450</BirthYear>
+    <DeathYear>1517</DeathYear>
+  </Composer>
+  <Composer>
+    <LastName>Gombert</LastName>
+    <FirstName>Nicolas</FirstName>
+    <Period>Renaissance</Period>
+    <BirthYear>1490</BirthYear>
+    <DeathYear>1556</DeathYear>
+  </Composer>
+</Composers>

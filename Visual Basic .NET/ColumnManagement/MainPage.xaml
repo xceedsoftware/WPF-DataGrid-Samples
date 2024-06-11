@@ -1,0 +1,145 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Column Management Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Column Management sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.ColumnManagement.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:s="clr-namespace:System;assembly=mscorlib"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.ColumnManagement">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <!-- This Comparer will be used for the LastPlayedElapsed unbound column. -->
+         <local:LastPlayedElapsedComparer x:Key="lastPlayedElapsedComparer" />
+
+         <!-- This is the Data Source used by the DataGridControl and is based on the
+              Songs table. It explicitly declares the list of ItemProperties (columns)
+              that will be exposed. This is done to exclude some fields (fields not part
+              of the collection will be ignored) and to specify the title of some columns. -->
+         <xcdg:DataGridCollectionViewSource x:Key="cvsSongs"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Songs}"
+                                            AutoCreateItemProperties="False">
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+               <xcdg:DataGridItemProperty Name="SongName"
+                                          Title="Song" />
+
+               <xcdg:DataGridItemProperty Name="Rating" />
+
+               <xcdg:DataGridItemProperty Name="LastPlayed"
+                                          Title="Last Played" />
+
+               <!-- When using a DataGridCollectionView or one of its derived class, you 
+                    can add easily an unbound field to the data source.
+                    The important properties to set are Name, DataType and QueryValue. -->
+               <xcdg:DataGridUnboundItemProperty Name="LastPlayedElapsed"
+                                                 Title="Elapsed"
+                                                 DataType="s:String"
+                                                 IsReadOnly="True"
+                                                 SortComparer="{StaticResource lastPlayedElapsedComparer}"
+                                                 QueryValue="LastPlayedElapsed_QueryValue" />
+
+               <xcdg:DataGridItemProperty Name="Artist" />
+
+               <xcdg:DataGridItemProperty Name="Country" />
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+         </xcdg:DataGridCollectionViewSource>
+
+         <!-- This template will be used for the ResetLastPlayed control column. The
+              button inside has its DataContext bound to the parent DataCell's DataContext
+              to give the Click event handler easy access to the row's data item. -->
+         <DataTemplate x:Key="resetButtonContentTemplate">
+            <Button Content="Reset"
+                    DataContext="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:Cell.ParentCell).DataContext}"
+                    Click="ResetLastPlayed_Click" />
+         </DataTemplate>
+
+         <!-- The following 4 templates will be added (in code-behind) to the grid's 
+              headers in advanced mode. -->
+         <DataTemplate x:Key="columnWidthRowTemplate">
+            <local:ColumnPropertyRow ColumnProperty="xcdg:Column.Width"
+                                     xcdg:RowSelector.RowSelectorStyle="{StaticResource widthRowSelector}" />
+         </DataTemplate>
+
+         <DataTemplate x:Key="columnMinWidthRowTemplate">
+            <local:ColumnPropertyRow ColumnProperty="xcdg:Column.MinWidth"
+                                     xcdg:RowSelector.RowSelectorStyle="{StaticResource minWidthRowSelector}" />
+         </DataTemplate>
+
+         <DataTemplate x:Key="columnMaxWidthRowTemplate">
+            <local:ColumnPropertyRow ColumnProperty="xcdg:Column.MaxWidth"
+                                     xcdg:RowSelector.RowSelectorStyle="{StaticResource maxWidthRowSelector}" />
+         </DataTemplate>
+
+         <DataTemplate x:Key="headerSeparatorTemplate">
+            <Border Height="10"
+                    Background="Orange" />
+         </DataTemplate>
+
+         <!-- The ColumnManagerRow will allow column resizing according to the corresponding
+              CheckBox value in the configuration panel of this Window. -->
+         <Style TargetType="xcdg:ColumnManagerRow">
+            <Setter Property="AllowColumnResize"
+                    Value="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=AllowColumnResizing}" />
+         </Style>
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <local:ConfigurationPanel x:Name="configurationPanel" />
+      </ContentControl>
+
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsSongs}}"
+                            ItemScrollingBehavior="Immediate">
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define the defaultTheme resource to specify the 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"
+                                AllowColumnChooser="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=AllowColumnChooser}"
+                                ColumnChooserSortOrder="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=ColumnChooserSortOrder}"
+                                ColumnStretchMode="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=ColumnStretchMode}"
+                                ColumnStretchMinWidth="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=ColumnStretchMinWidth}" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="SongName" />
+            <xcdg:Column FieldName="Rating" />
+            <xcdg:Column FieldName="LastPlayed" />
+
+            <!-- You can easily add a control column in a DataGridControl. By nature,
+                 a control column has no binding to the data source. -->
+            <xcdg:UnboundColumn FieldName="ResetLastPlayed"
+                                Title="Reset Last Played"
+                                CellContentTemplate="{StaticResource resetButtonContentTemplate}" />
+
+            <xcdg:Column FieldName="Artist" />
+
+            <xcdg:Column FieldName="LastPlayedElapsed" />
+
+            <xcdg:Column FieldName="Country" 
+                         CellContentTemplate="{StaticResource countryCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource countryCellContentTemplate}" />
+
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

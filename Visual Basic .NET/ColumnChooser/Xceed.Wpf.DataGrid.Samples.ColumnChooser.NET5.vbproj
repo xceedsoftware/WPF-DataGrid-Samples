@@ -1,0 +1,155 @@
+<Project>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>obj\net5.0-windows\</BaseIntermediateOutputPath>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace></RootNamespace>
+    <AssemblyName>Xceed.Wpf.DataGrid.Samples.ColumnChooser</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <Deterministic>false</Deterministic>
+    <StartupObject>Sub Main</StartupObject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>NET5</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>NET5</DefineConstants>
+    <DebugType>none</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="CustomizedColumnChooserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.vb">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BoolToVisibilityConverter.vb" />
+    <Compile Include="BusinessObject.vb" />
+    <Compile Include="CustomizedColumnChooserControl.xaml.vb">
+      <DependentUpon>CustomizedColumnChooserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.vb">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainPage.xaml.vb">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWpfExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.WPF.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="..\XceedDeploymentLicense.vb">
+      <link>XceedDeploymentLicense.vb</link>
+    </Compile>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <None Include="My Project\Application.myapp" />
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <AppDesigner Include="My Project\" />
+    <Resource Include="App.ico" />
+    <EmbeddedResource Include="Flags\argentina.png" />
+    <EmbeddedResource Include="Flags\australia.png" />
+    <EmbeddedResource Include="Flags\austria.png" />
+    <EmbeddedResource Include="Flags\belgium.png" />
+    <EmbeddedResource Include="Flags\brazil.png" />
+    <EmbeddedResource Include="Flags\canada.png" />
+    <EmbeddedResource Include="Flags\denmark.png" />
+    <EmbeddedResource Include="Flags\finland.png" />
+    <EmbeddedResource Include="Flags\france.png" />
+    <EmbeddedResource Include="Flags\germany.png" />
+    <EmbeddedResource Include="Flags\ireland.png" />
+    <EmbeddedResource Include="Flags\italy.png" />
+    <EmbeddedResource Include="Flags\japan.png" />
+    <EmbeddedResource Include="Flags\mexico.png" />
+    <EmbeddedResource Include="Flags\netherlands.png" />
+    <EmbeddedResource Include="Flags\norway.png" />
+    <EmbeddedResource Include="Flags\notfound.png" />
+    <EmbeddedResource Include="Flags\poland.png" />
+    <EmbeddedResource Include="Flags\portugal.png" />
+    <EmbeddedResource Include="Flags\russia.png" />
+    <EmbeddedResource Include="Flags\singapore.png" />
+    <EmbeddedResource Include="Flags\spain.png" />
+    <EmbeddedResource Include="Flags\sudan.png" />
+    <EmbeddedResource Include="Flags\sweden.png" />
+    <EmbeddedResource Include="Flags\switzerland.png" />
+    <EmbeddedResource Include="Flags\uk.png" />
+    <EmbeddedResource Include="Flags\usa.png" />
+    <EmbeddedResource Include="Flags\venezuela.png" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Xceed.Wpf.Controls">
+      <HintPath>..\..\..\..\Bin\Debug\NET5\Xceed.Wpf.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\..\..\..\Bin\Debug\NET5\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid.Samples.SampleData">
+      <HintPath>..\..\..\..\Bin\Debug\NET5\Xceed.Wpf.DataGrid.Samples.SampleData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  
+  <PropertyGroup>
+    <!-- .NET Core projects use a custom AssemblySearchPaths value that doesn't
+         include the ReferencePath property. No good reason why. We reactivate its use here
+    -->
+    <AssemblySearchPaths>$(AssemblySearchPaths);$(ReferencePath)</AssemblySearchPaths>
+  </PropertyGroup>
+</Project>

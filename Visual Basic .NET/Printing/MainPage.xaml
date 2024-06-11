@@ -1,0 +1,236 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Printing Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Printing sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.Printing.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:interop="clr-namespace:System.Windows.Interop;assembly=PresentationFramework">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="AuxiliaryResources.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <!-- The DataGridControl's PrintView property dictates the appearance of the 
+              printed data grid. By default (when null) it will produce a printer-
+              friendly output. -->
+         <!-- This sample demonstrates how you can use the PrintTableView to customize 
+              the print output. -->
+
+         <!-- This PrintTableView simply adds a page header and a page footer. -->
+         <xcdg:PrintTableView x:Key="configuredPrintView"
+                              IsAlternatingRowStyleEnabled="True"
+                              FixedColumnCount="3">
+            <xcdg:PrintTableView.PageHeaders>
+               <DataTemplate>
+                  <TextBlock FontSize="16"
+                             FontWeight="Bold"
+                             HorizontalAlignment="Center"
+                             Text="Xceed DataGrid for WPF" />
+               </DataTemplate>
+
+               <DataTemplate>
+                  <TextBlock Margin="0,0,0,48"
+                             FontSize="12"
+                             HorizontalAlignment="Center"
+                             FontStyle="Italic"
+                             Text="Sample data" />
+               </DataTemplate>
+            </xcdg:PrintTableView.PageHeaders>
+
+            <xcdg:PrintTableView.PageFooters>
+               <DataTemplate>
+                  <DockPanel Margin="8">
+                     <TextBlock DockPanel.Dock="Left"
+                                FontSize="6"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                FontStyle="Italic"
+                                Text="Copyright (c) 2007-2024 Xceed Software Inc." />
+
+                     <StackPanel DockPanel.Dock="Right"
+                                 TextElement.FontSize="12"
+                                 Orientation="Horizontal"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom">
+                        <TextBlock Text="Page " />
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).CurrentPageNumber}" />
+                     </StackPanel>
+                  </DockPanel>
+               </DataTemplate>
+            </xcdg:PrintTableView.PageFooters>
+         </xcdg:PrintTableView>
+
+         <!-- This PrintTableView provides a entirely new page appearance using the 
+              PageStyle property. -->
+         <xcdg:PrintTableView x:Key="customPrintView">
+            <xcdg:PrintTableView.PageStyle>
+               <Style TargetType="xcdg:DataGridPageControl">
+                  <!-- The template used to provide the page decoration has almost no 
+                       relations to the Xceed DataGrid product, so it was put in the 
+                       AuxiliaryResources file. -->
+                  <!-- The only mandatory characteristic of a DataGridPageControl 
+                       template is that it must include an element having the
+                       DataGridPageControl.IsDataGridHost property set to True. This
+                       element is where the printed data grid will be displayed. -->
+                  <Setter Property="Template"
+                          Value="{StaticResource dataGridPageControlTemplate}" />
+               </Style>
+            </xcdg:PrintTableView.PageStyle>
+         </xcdg:PrintTableView>
+
+         <!-- This is the Data Source used in the DataGridControl. It's based on the
+              Songs table and is, by default, grouped and sorted by LastPlayed.
+              The Xceed DataGridControl uses this standard WPF construct to support
+              grouping and sorting. No special sauce needed. -->
+         <xcdg:DataGridCollectionViewSource x:Key="cvsSongs"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Songs}">
+            <xcdg:DataGridCollectionViewSource.SortDescriptions>
+               <compModel:SortDescription PropertyName="LastPlayed"
+                                          Direction="Descending" />
+            </xcdg:DataGridCollectionViewSource.SortDescriptions>
+
+            <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="Rating" />
+            </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+         </xcdg:DataGridCollectionViewSource>
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <!-- All the elements under this are the parameters use for modifing the 
+              behavior of the sample. -->
+         <StackPanel>
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="290" />
+                  <ColumnDefinition MaxWidth="240" />
+               </Grid.ColumnDefinitions>
+
+               <GroupBox Header="Page Layout"
+                         Grid.Column="0"
+                         Margin="{StaticResource groupBoxMargin}"
+                         Padding="{StaticResource groupBoxPadding}">
+                  <StackPanel>
+                     <!-- These radio buttons are used to chose how the grid will be printed. -->
+                     <RadioButton x:Name="chkStandardPrintView"
+                                  Margin="{StaticResource configItemMargin}"
+                                  IsChecked="True"
+                                  Content="Default print view"
+                                  Checked="SelectedPrintViewChanged"
+                                  ToolTip="Print or export the grid using the default print view." />
+
+                     <RadioButton x:Name="chkConfiguredPrintView"
+                                  Margin="{StaticResource configItemMargin}"
+                                  IsChecked="False"
+                                  Content="Customized print view"
+                                  Checked="SelectedPrintViewChanged"
+                                  ToolTip="Print or export the grid using a customized print view." />
+
+                     <RadioButton x:Name="chkCustomPrintView"
+                                  Margin="{StaticResource configItemMargin}"
+                                  IsChecked="False"
+                                  Content="Custom page layout"
+                                  Checked="SelectedPrintViewChanged"
+                                  ToolTip="Print or export the grid using a custom page layout (DataGridPageControl)." />
+
+                     <Grid>
+                        <Grid.ColumnDefinitions>
+                           <ColumnDefinition />
+                           <ColumnDefinition />
+                           <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="m_printButton"
+                                Margin="{StaticResource groupBoxMargin}"
+                                Content="Print"
+                                Click="ButtonPrint_Click"
+                                Grid.Column="0" />
+                        <Button x:Name="m_exportButton"
+                                Margin="{StaticResource groupBoxMargin}"
+                                Content="Export"
+                                Click="ButtonExport_Click"
+                                Grid.Column="1" />
+                        <Button x:Name="m_printPreviewButton"
+                                Margin="{StaticResource groupBoxMargin}"
+                                Content="Print Preview"
+                                Click="ButtonPrintPreview_Click"
+                                Grid.Column="2"
+                                Width="84" />
+                     </Grid>
+                  </StackPanel>
+               </GroupBox>
+
+               <GroupBox Header="Progress Information"
+                         Grid.Column="1"
+                         Margin="{StaticResource groupBoxMargin}"
+                         Padding="{StaticResource groupBoxPadding}">
+                  <ScrollViewer x:Name="progressScrollViewer"
+                                HorizontalScrollBarVisibility="Disabled"
+                                VerticalScrollBarVisibility="Auto"
+                                Height="75">
+                     <TextBlock x:Name="textProgressInformation"
+                                TextWrapping="Wrap"
+                                Text="Progress information will be shown here." />
+                  </ScrollViewer>
+               </GroupBox>
+            </Grid>
+         </StackPanel>
+      </ContentControl>
+
+      <!-- The read-only main DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            CellEditorDisplayConditions="None"
+                            ItemsSource="{Binding Source={StaticResource cvsSongs}}"
+                            EditTriggers="None"
+                            ReadOnly="True"
+                            ItemScrollingBehavior="Immediate">
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"
+                                ShowFixedColumnSplitter="False" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="SongID"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="Included"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="SongName"
+                         Title="Song"
+                         IsMainColumn="True"
+                         Width="230" />
+            <xcdg:Column FieldName="Rating"
+                         Width="120"
+                         CellContentTemplate="{StaticResource ratingDataTemplate}"
+                         GroupValueTemplate="{StaticResource ratingDataTemplate}" />
+            <xcdg:Column FieldName="LastPlayed"
+                         Title="Last Played"
+                         Width="160" />
+            <xcdg:Column FieldName="Artist"
+                         Width="180" />
+            <!-- The other columns will be added after these ones and will have default 
+                 appearance and behavior when they are automatically added upon loading. -->
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

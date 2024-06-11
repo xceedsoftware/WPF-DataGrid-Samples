@@ -1,0 +1,283 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Summaries & Statistics Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [TableViewTemplates.xaml]
+
+  This Page contains the various templates that will be added programmatically 
+  to the grid and group headers and footers, in TableView.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid">
+
+   <!-- This StatCell Style will display, above the result, a line or a double line depending on whether the StatCell is in a group or not. -->
+   <Style x:Key="tableViewTotalStatCellStyle"
+          TargetType="xcdg:StatCell">
+
+      <!-- The line(s) will be of the same color as the HorizontalGridLine. -->
+      <Setter Property="BorderBrush"
+              Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HorizontalGridLineBrush}" />
+
+      <Setter Property="HorizontalContentAlignment"
+              Value="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.CellHorizontalContentAlignment, FallbackValue=Stretch}" />
+
+      <Setter Property="VerticalContentAlignment"
+              Value="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.CellVerticalContentAlignment, FallbackValue=Stretch}" />
+
+      <Setter Property="Template">
+         <Setter.Value>
+            <ControlTemplate TargetType="xcdg:StatCell">
+               <Border Background="{TemplateBinding Background}"
+                       BorderBrush="{TemplateBinding BorderBrush}"
+                       BorderThickness="{TemplateBinding BorderThickness}"
+                       Padding="{TemplateBinding Padding}">
+                  <StackPanel>
+                     <Border x:Name="totalBorder"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="0,1,0,0" />
+
+                     <!-- This is required in order to display a label into a StatCell. -->
+                     <xcdg:LabeledCellPanel x:Name="PART_LabeledCellPanel"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                        <xcdg:CellLabelPresenter x:Name="PART_CellLabelPresenter"
+                                                 ContentTemplateSelector="{x:Static xcdg:GenericContentTemplateSelector.Instance}" />
+                        <xcdg:CellContentPresenter x:Name="PART_LabeledCellContentPresenter" />
+                     </xcdg:LabeledCellPanel>
+
+                  </StackPanel>
+               </Border>
+
+               <ControlTemplate.Triggers>
+
+                  <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ParentColumn.Visible}"
+                               Value="False">
+                     <Setter Property="Visibility"
+                             Value="Collapsed" />
+                  </DataTrigger>
+
+                  <!-- When the StatCell is not inside a Group, display a double line. -->
+                  <Trigger Property="xcdg:GroupLevelIndicatorPane.GroupLevel"
+                           Value="-1">
+                     <Setter TargetName="totalBorder"
+                             Property="BorderThickness"
+                             Value="0,1,0,1" />
+
+                     <Setter TargetName="totalBorder"
+                             Property="Padding"
+                             Value="0,2,0,0" />
+                  </Trigger>
+
+                  <!-- When the StatCell has no content, don't display any line above. -->
+                  <Trigger Property="HasContent"
+                           Value="False">
+                     <Setter TargetName="totalBorder"
+                             Property="Visibility"
+                             Value="Hidden" />
+                  </Trigger>
+               </ControlTemplate.Triggers>
+            </ControlTemplate>
+         </Setter.Value>
+      </Setter>
+   </Style>
+
+   <!-- StatFunction results can be "fetched" in any content control by using a binding on the StatContext property.
+        This StatContext exposes, as properties, all the StatFunctions declared in the DataGridCollectionViewSource. 
+           
+        This template will be added to the TableView in code. -->
+   <DataTemplate x:Key="tableViewHeader">
+      <Border Margin="4"
+              TextElement.FontSize="14"
+              TextElement.FontWeight="Bold"
+              xcdg:TableView.CanScrollHorizontally="False">
+         <StackPanel Orientation="Horizontal"
+                     ToolTip="Only products that have a reorder level of 5, 10, 15, or 20, and units on order of 0 will be counted.">
+            <TextBlock TextWrapping="Wrap"
+                       Text="Number of products to reorder : " />
+            <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).CountProductsToOrder}" />
+         </StackPanel>
+      </Border>
+   </DataTemplate>
+
+   <!-- A GroupConfiguration allows you to control the content (headers/footers) and behavior of same-level groups.            
+        This GroupConfiguration will be added to the TableView in code and will dictate the behavior and content of the groups. -->
+   <xcdg:GroupConfiguration x:Key="tableViewGroupConfigurationExpandedCollapsed">
+      <xcdg:GroupConfiguration.Footers>
+         <!-- The groups will contain a StatRow visible even when the group is collapsed. -->
+         <xcdg:GroupHeaderFooterItemTemplate VisibleWhenCollapsed="True">
+            <DataTemplate>
+               <xcdg:StatRow AutoCreateCells="True">
+                  <!-- Since AutoCreateCells is set to "True" on StatRow, the row is be able to create the StatCells automatically
+                       for the columns "UnitsInStock" and "UnitsOnOrder" and assign to them the appropriate StatFunction. -->
+
+                  <!-- Each StatCell has a default StatResultConverter assigned to it, allowing only a ConverterParameter that will format the result to be specified. 
+                       To improve its usage in XAML, the StatResultConverter's parameter supports a simplified syntax of composite formatting. 
+                       Refer to the documentation for more informations. -->
+                  <xcdg:StatCell FieldName="UnitPrice"
+                                 ResultPropertyName="AverageOfUnitPrice"
+                                 ResultConverterParameter="[c] (avg)"
+                                 Style="{StaticResource tableViewTotalStatCellStyle}" />
+
+                  <!-- Even though, the ResultPropertyName property is usually more convenient, nothing
+                       prevents you from simply assigning a Content or a ContentTemplate to the StatCell. 
+                       Here, we put two StatResults in the same Cell! -->
+                  <xcdg:StatCell FieldName="ReorderLevel">
+                     <xcdg:StatCell.ContentTemplate>
+                        <DataTemplate>
+                           <StackPanel Orientation="Horizontal">
+                              <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).MinOfReorderLevel}" />
+                              <TextBlock Text=" through " />
+                              <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).MaxOfReorderLevel}" />
+                           </StackPanel>
+                        </DataTemplate>
+                     </xcdg:StatCell.ContentTemplate>
+                  </xcdg:StatCell>
+               </xcdg:StatRow>
+            </DataTemplate>
+         </xcdg:GroupHeaderFooterItemTemplate>
+      </xcdg:GroupConfiguration.Footers>
+   </xcdg:GroupConfiguration>
+
+   <!-- A GroupConfiguration allows you to control the content (headers/footers) and behavior of same-level groups.            
+        This GroupConfiguration will be added to the TableView in code and will dictate the behavior and content of the groups. -->
+   <xcdg:GroupConfiguration x:Key="tableViewGroupConfigurationSummary"
+                            DefaultHeadersFootersType="None">
+      <xcdg:GroupConfiguration.Headers>
+         <!-- The groups will contain a StatGroupHeaderControl visible even when the group is collapsed. -->
+         <xcdg:GroupHeaderFooterItemTemplate VisibleWhenCollapsed="True">
+            <DataTemplate>
+               <xcdg:StatGroupHeaderControl ShowGroupLabel="True">
+                  <xcdg:StatGroupHeaderControl.Cells>
+                     <!-- Since AutoCreateCells is set to "True" by default on StatGroupHeaderControl, the row is be able to create the StatCells
+                          automatically for the columns "UnitsInStock" and "UnitsOnOrder" and assign to them the appropriate StatFunction. -->
+
+                     <!-- Each StatCell has a default StatResultConverter assigned to it, allowing only a ConverterParameter that will format the result to be specified. 
+                       To improve its usage in XAML, the StatResultConverter's parameter supports a simplified syntax of composite formatting. 
+                       Refer to the documentation for more informations. -->
+                     <xcdg:StatCell FieldName="UnitPrice"
+                                    ResultPropertyName="AverageOfUnitPrice"
+                                    ResultConverterParameter="[c] (avg)"
+                                    Style="{StaticResource tableViewTotalStatCellStyle}" />
+
+                     <!-- Even though the ResultPropertyName property is usually more convenient, nothing
+                       prevents you from simply assigning a Content or a ContentTemplate to the StatCell. 
+                       Here, we put two StatResults in the same Cell! -->
+                     <xcdg:StatCell FieldName="ReorderLevel">
+                        <xcdg:StatCell.ContentTemplate>
+                           <DataTemplate>
+                              <StackPanel Orientation="Horizontal">
+                                 <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).MinOfReorderLevel}" />
+                                 <TextBlock Text=" through " />
+                                 <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).MaxOfReorderLevel}" />
+                              </StackPanel>
+                           </DataTemplate>
+                        </xcdg:StatCell.ContentTemplate>
+                     </xcdg:StatCell>
+                  </xcdg:StatGroupHeaderControl.Cells>
+               </xcdg:StatGroupHeaderControl>
+            </DataTemplate>
+         </xcdg:GroupHeaderFooterItemTemplate>
+      </xcdg:GroupConfiguration.Headers>
+   </xcdg:GroupConfiguration>
+
+   <!-- A GroupConfiguration allows you to control the content (headers/footers) and behavior of same-level groups.            
+        This GroupConfiguration will be added to the TableView in code and will dictate the behavior and content of the groups. -->
+   <xcdg:GroupConfiguration x:Key="tableViewGroupConfigurationLabelStatCell">
+      <xcdg:GroupConfiguration.Footers>
+         <!-- The groups will contain a StatRow visible even when the group is collapsed. -->
+         <xcdg:GroupHeaderFooterItemTemplate VisibleWhenCollapsed="True">
+            <DataTemplate>
+               <xcdg:StatRow>
+                  <!-- We are not using the AutoCreateCells feature on StatRow because we want to provide a Label to these cells. -->
+                  <xcdg:StatCell FieldName="UnitsInStock"
+                                 ResultPropertyName="SumOfUnitsInStock"
+                                 Label="Available units"
+                                 Style="{StaticResource tableViewTotalStatCellStyle}" />
+
+                  <xcdg:StatCell FieldName="UnitsOnOrder"
+                                 ResultPropertyName="SumOfUnitsOnOrder"
+                                 Label="reordered units"
+                                 LabelPlacement="Right"
+                                 Style="{StaticResource tableViewTotalStatCellStyle}" />
+
+                  <!-- Each StatCell has a default StatResultConverter assigned to it, allowing only a ConverterParameter that will format the result to be specified. 
+                       To improve its usage in XAML, the StatResultConverter's parameter supports a simplified syntax of composite formatting. 
+                       Refer to the documentation for more informations. -->
+                  <xcdg:StatCell FieldName="UnitPrice"
+                                 ResultPropertyName="AverageOfUnitPrice"
+                                 ResultConverterParameter="[c] (avg)"
+                                 Style="{StaticResource tableViewTotalStatCellStyle}" />
+
+                  <!-- Even though the ResultPropertyName property is usually more convenient, nothing
+                       prevents you from simply assigning a Content or a ContentTemplate to the StatCell. 
+                       Here, we put two StatResults in the same Cell! -->
+                  <xcdg:StatCell FieldName="ReorderLevel">
+                     <xcdg:StatCell.ContentTemplate>
+                        <DataTemplate>
+                           <StackPanel Orientation="Horizontal">
+                              <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).MinOfReorderLevel}" />
+                              <TextBlock Text=" through " />
+                              <TextBlock Text="{Binding RelativeSource={RelativeSource Self},Path=(xcdg:DataGridControl.StatContext).MaxOfReorderLevel}" />
+                           </StackPanel>
+                        </DataTemplate>
+                     </xcdg:StatCell.ContentTemplate>
+                  </xcdg:StatCell>
+               </xcdg:StatRow>
+            </DataTemplate>
+         </xcdg:GroupHeaderFooterItemTemplate>
+      </xcdg:GroupConfiguration.Footers>
+   </xcdg:GroupConfiguration>
+
+   <!-- This template will be added to the TableView in code. -->
+   <DataTemplate x:Key="tableViewFixedFooter">
+      <xcdg:StatRow>
+         <xcdg:StatRow.Resources>
+            <Style TargetType="xcdg:StatCell"
+                   BasedOn="{StaticResource tableViewTotalStatCellStyle}" />
+         </xcdg:StatRow.Resources>
+
+         <!-- Each StatCell has a default StatResultConverter assigned to it, allowing only a ConverterParameter that will format the result to be specified. 
+              To improve its usage in XAML, the StatResultConverter's parameter supports a simplified syntax of composite formatting. 
+              Refer to the documentation for more informations. -->
+         <xcdg:StatCell FieldName="UnitPrice"
+                        ResultPropertyName="AverageOfUnitPrice"
+                        ResultConverterParameter="[c] (avg)" />
+
+         <xcdg:StatCell FieldName="UnitsInStock"
+                        ResultPropertyName="SumOfUnitsInStock" />
+
+         <xcdg:StatCell FieldName="UnitsOnOrder"
+                        ResultPropertyName="SumOfUnitsOnOrder" />
+      </xcdg:StatRow>
+   </DataTemplate>
+
+   <DataTemplate x:Key="tableViewFixedFooterWithStatCellLabel">
+      <xcdg:StatRow>
+         <xcdg:StatRow.Resources>
+            <Style TargetType="xcdg:StatCell"
+                   BasedOn="{StaticResource tableViewTotalStatCellStyle}" />
+         </xcdg:StatRow.Resources>
+
+         <!-- The Label property provides another way to customise what a StatCell displays -->
+         <xcdg:StatCell FieldName="UnitPrice"
+                        ResultPropertyName="AverageOfUnitPrice"
+                        ResultConverterParameter="[c] (avg)" />
+
+         <xcdg:StatCell FieldName="UnitsInStock"
+                        ResultPropertyName="SumOfUnitsInStock"
+                        Label="Available units" />
+
+         <xcdg:StatCell FieldName="UnitsOnOrder"
+                        ResultPropertyName="SumOfUnitsOnOrder"
+                        Label="reordered units"
+                        LabelPlacement="Right" />
+      </xcdg:StatRow>
+   </DataTemplate>
+
+</ResourceDictionary>

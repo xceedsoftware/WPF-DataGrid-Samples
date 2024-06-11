@@ -1,0 +1,679 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Views 3D Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ConfigurationPanel.xaml]
+
+  This UserControl contains the UI allowing the end-user to modify the 
+  settings demonstrated in this sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.Views3D.ConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Views3D"
+             DataContext="{Binding RelativeSource={RelativeSource Self}, Path=DataGridControl.View}">
+   <Grid>
+      <Grid.Resources>
+         <x:Array x:Key="presetItemArray"
+                  Type="local:PresetItem">
+            <local:PresetItem Description="Default"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.HorizonOrange}" />
+
+            <local:PresetItem Description="Elevated"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.HorizonBlue}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="ElevatedPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Card strip"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.AuroraBlue}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="CardStripPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Step up"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.AuroraBlue}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="StepUpPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Perspective"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.SunBlue}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="PerspectivePreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Train"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.NightFog}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="TrainPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Heroic"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.Sunrise}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="HeroicPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Wings"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.ElementalBlue}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="WingsPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Box"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.ElementalSilver}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="BoxPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Catwalk"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.AuroraPink}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="CatwalkPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Shuffle"
+                              PreferredDataGridBackgroundBrush="{x:Null}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="ShufflePreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Corner"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.AuroraBlue}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="CornerPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Domino"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.Sunrise}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="DominoPreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Cube"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.SunOrange}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="CubePreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+
+            <local:PresetItem Description="Black hole"
+                              PreferredDataGridBackgroundBrush="{x:Static xcdg:DataGridControlBackgroundBrushes.SunBlack}">
+               <local:PresetItem.ResourceDictionary>
+                  <ResourceDictionary Source="BlackHolePreset.xaml" />
+               </local:PresetItem.ResourceDictionary>
+            </local:PresetItem>
+         </x:Array>
+
+         <x:Array x:Key="gridBackgroundBrushArray"
+                  Type="coll:DictionaryEntry">
+            <coll:DictionaryEntry Key="Default"
+                                  Value="{x:Null}" />
+            <coll:DictionaryEntry Key="Aurora blue"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.AuroraBlue}" />
+            <coll:DictionaryEntry Key="Aurora pink"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.AuroraPink}" />
+            <coll:DictionaryEntry Key="Aurora red"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.AuroraRed}" />
+            <coll:DictionaryEntry Key="Elemental black"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.ElementalBlack}" />
+            <coll:DictionaryEntry Key="Elemental blue"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.ElementalBlue}" />
+            <coll:DictionaryEntry Key="Elemental silver"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.ElementalSilver}" />
+            <coll:DictionaryEntry Key="Horizon blue"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.HorizonBlue}" />
+            <coll:DictionaryEntry Key="Horizon orange"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.HorizonOrange}" />
+            <coll:DictionaryEntry Key="Night fog"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.NightFog}" />
+            <coll:DictionaryEntry Key="Sunrise"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.Sunrise}" />
+            <coll:DictionaryEntry Key="Sunrise blue"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.SunriseBlue}" />
+            <coll:DictionaryEntry Key="Sun black"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.SunBlack}" />
+            <coll:DictionaryEntry Key="Sun blue"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.SunBlue}" />
+            <coll:DictionaryEntry Key="Sun orange"
+                                  Value="{x:Static xcdg:DataGridControlBackgroundBrushes.SunOrange}" />
+         </x:Array>
+
+         <x:Array x:Key="cardBackgroundBrushArray"
+                  Type="coll:DictionaryEntry">
+            <coll:DictionaryEntry Key="Default"
+                                  Value="{x:Null}" />
+
+            <coll:DictionaryEntry Key="Pebbles">
+               <coll:DictionaryEntry.Value>
+                  <Style TargetType="xcdg:DataRow">
+                     <Setter Property="Background"
+                             Value="{x:Static xcdg:CardBackgroundBrushes.Pebbles}" />
+                  </Style>
+               </coll:DictionaryEntry.Value>
+            </coll:DictionaryEntry>
+
+            <coll:DictionaryEntry Key="Retro">
+               <coll:DictionaryEntry.Value>
+                  <Style TargetType="xcdg:DataRow">
+                     <Setter Property="Background"
+                             Value="{x:Static xcdg:CardBackgroundBrushes.Retro}" />
+                  </Style>
+               </coll:DictionaryEntry.Value>
+            </coll:DictionaryEntry>
+
+            <coll:DictionaryEntry Key="Sunrise">
+               <coll:DictionaryEntry.Value>
+                  <Style TargetType="xcdg:DataRow">
+                     <Setter Property="Background"
+                             Value="{x:Static xcdg:CardBackgroundBrushes.Sunrise}" />
+                  </Style>
+               </coll:DictionaryEntry.Value>
+            </coll:DictionaryEntry>
+         </x:Array>
+
+         <DataTemplate x:Key="presetComboBoxItemTemplate"
+                       DataType="local:PresetItem">
+            <TextBlock Text="{Binding Description}"
+                       Margin="2,0,6,0" />
+         </DataTemplate>
+      </Grid.Resources>
+
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition MaxWidth="470" />
+         <ColumnDefinition MaxWidth="470" />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+         <RowDefinition />
+         <RowDefinition />
+         <RowDefinition />
+      </Grid.RowDefinitions>
+
+      <!-- Predefined settings and reflections. -->
+      <GroupBox Header="Predefined View Settings"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition Width="7" />
+               <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="0,0,0,5">
+               <ComboBox x:Name="presetComboBox"
+                         HorizontalAlignment="Left"
+                         ItemsSource="{Binding Source={StaticResource presetItemArray}}"
+                         ItemTemplate="{StaticResource presetComboBoxItemTemplate}"
+                         SelectionChanged="Presets_SelectionChanged"
+                         Tag="Choose predefined setting"
+                         Width="170"
+                         Height="22"
+                         Style="{StaticResource ButtonOnlyComboBoxStyle}" />
+
+               <Button x:Name="exportButton"
+                       Content="Export"
+                       Height="22"
+                       Width="50"
+                       Margin="5,0,0,0"
+                       Click="Export_Clicked" />
+
+               <Button x:Name="importButton"
+                       Content="Import"
+                       Height="22"
+                       Width="50"
+                       Margin="5,0,0,0"
+                       Click="Import_Clicked" />
+            </StackPanel>
+
+            <TextBlock Text="Grid background:"
+                       VerticalAlignment="Center"
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="1"
+                       Grid.Column="0" />
+
+            <ComboBox x:Name="GridBackgroundBrush"
+                      ItemsSource="{StaticResource gridBackgroundBrushArray}"
+                      DisplayMemberPath="Key"
+                      SelectedValuePath="Value"
+                      SelectedIndex="0"
+                      SelectionChanged="GridBackgroundBrush_Changed"
+                      Width="125"
+                      HorizontalAlignment="Left"
+                      Margin="{StaticResource configItemMargin}"
+                      Grid.Row="1"
+                      Grid.Column="2" />
+
+            <TextBlock Text="Card background:"
+                       VerticalAlignment="Center"
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="2"
+                       Grid.Column="0" />
+
+            <ComboBox x:Name="CardBackgroundBrush"
+                      ItemsSource="{StaticResource cardBackgroundBrushArray}"
+                      DisplayMemberPath="Key"
+                      SelectedValuePath="Value"
+                      SelectedIndex="0"
+                      SelectionChanged="CardBackgroundBrush_Changed"
+                      Width="125"
+                      HorizontalAlignment="Left"
+                      Margin="{StaticResource configItemMargin}"
+                      Grid.Row="2"
+                      Grid.Column="2" />
+         </Grid>
+      </GroupBox>
+
+      <!-- Miscellaneous. -->
+      <GroupBox Header="Miscellaneous"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto" />
+               <RowDefinition Height="Auto" />
+               <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition Width="7" />
+               <ColumnDefinition MinWidth="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="The realized side-cards count represents the maximum number of cards, on either side of the center card, on which surfaces are displayed."
+                       TextWrapping="Wrap"
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3" />
+
+            <TextBlock Text="Realized side-cards count: "
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="1"
+                       Grid.Column="0" />
+
+            <Slider Grid.Row="1"
+                    Grid.Column="2"
+                    Minimum="0"
+                    Maximum="25"
+                    LargeChange="3"
+                    TickFrequency="1"
+                    AutoToolTipPrecision="0"
+                    Margin="{StaticResource configItemMargin}"
+                    Value="{Binding SideCardsCount}" />
+
+            <CheckBox Grid.Row="2"
+                      Grid.ColumnSpan="3"
+                      Margin="{StaticResource configItemMargin}"
+                      Content="Show reflections"
+                      IsChecked="{Binding ShowReflections}"
+                      ToolTip="Indicates whether card reflections are shown." />
+         </Grid>
+      </GroupBox>
+
+      <!-- Side-cards position. -->
+      <GroupBox Header="Side-cards Position"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition Width="7" />
+               <ColumnDefinition MinWidth="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Side-cards X offset:"
+                       ToolTip="The X-axis offset of the cards located to either side of the center card, measured from the middle of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="0"
+                    Grid.Column="2"
+                    Minimum="0"
+                    Maximum="3"
+                    LargeChange="0.2"
+                    TickFrequency="0.05"
+                    AutoToolTipPrecision="2"
+                    Value="{Binding SideCardsXOffset}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Side-cards Z offset:"
+                       ToolTip="The Z-axis offset of the cards located to either side of the center card, measured from the middle of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="1"
+                    Grid.Column="2"
+                    Minimum="-5"
+                    Maximum="5"
+                    LargeChange="0.2"
+                    TickFrequency="0.05"
+                    AutoToolTipPrecision="2"
+                    Value="{Binding SideCardsZOffset}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Side-cards X spacing:"
+                       ToolTip="The X-axis spacing between the cards located to either side of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="2"
+                    Grid.Column="2"
+                    Minimum="0"
+                    Maximum="3"
+                    LargeChange="0.2"
+                    TickFrequency="0.05"
+                    AutoToolTipPrecision="2"
+                    Value="{Binding SideCardsXSpacing}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Side-cards Z spacing:"
+                       ToolTip="The Z-axis spacing between the cards located to either side of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="3"
+                    Grid.Column="2"
+                    Minimum="-5"
+                    Maximum="5"
+                    LargeChange="0.2"
+                    TickFrequency="0.05"
+                    AutoToolTipPrecision="2"
+                    Value="{Binding SideCardsZSpacing}"
+                    Margin="{StaticResource configItemMargin}" />
+
+         </Grid>
+      </GroupBox>
+
+      <!-- Card angles. -->
+      <GroupBox Header="Card Angles"
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition Width="7" />
+               <ColumnDefinition MinWidth="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Side-cards X angle:"
+                       ToolTip="The X-axis angle of the cards located to either side of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="0"
+                    Grid.Column="2"
+                    Minimum="-90"
+                    Maximum="90"
+                    LargeChange="10"
+                    AutoToolTipPrecision="0"
+                    Value="{Binding SideCardsXAngle}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Side-cards Y angle:"
+                       ToolTip="The Y-axis angle of the cards located to either side of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="1"
+                    Grid.Column="2"
+                    Minimum="-90"
+                    Maximum="90"
+                    LargeChange="10"
+                    AutoToolTipPrecision="0"
+                    Value="{Binding SideCardsYAngle}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Center-card X angle:"
+                       ToolTip="The X-axis angle of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="2"
+                    Grid.Column="2"
+                    Minimum="-90"
+                    Maximum="90"
+                    LargeChange="10"
+                    AutoToolTipPrecision="0"
+                    Value="{Binding CenterCardXAngle}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Center-card Y angle:"
+                       ToolTip="The Y-axis angle of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="3"
+                    Grid.Column="2"
+                    Minimum="-90"
+                    Maximum="90"
+                    LargeChange="10"
+                    AutoToolTipPrecision="0"
+                    Value="{Binding CenterCardYAngle}"
+                    Margin="{StaticResource configItemMargin}" />
+         </Grid>
+      </GroupBox>
+
+      <!-- Camera Position. -->
+      <GroupBox Header="Camera Position"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <Grid>
+
+            <Grid.RowDefinitions>
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition Width="7" />
+               <ColumnDefinition MinWidth="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Camera X offset:"
+                       ToolTip="The X-axis offset of the camera from the middle of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="0"
+                    Grid.Column="2"
+                    Minimum="-5"
+                    Maximum="5"
+                    LargeChange="0.5"
+                    TickFrequency="0.05"
+                    AutoToolTipPrecision="2"
+                    Value="{Binding CameraXOffset}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Camera Y offset:"
+                       ToolTip="The Y-axis offset of the camera from the middle of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="1"
+                    Grid.Column="2"
+                    Minimum="-5"
+                    Maximum="5"
+                    LargeChange="0.5"
+                    TickFrequency="0.05"
+                    AutoToolTipPrecision="2"
+                    Value="{Binding CameraYOffset}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Camera Z offset: "
+                       ToolTip="The Z-axis offset of the camera from the middle of the center card."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="2"
+                    Grid.Column="2"
+                    Minimum="-5"
+                    Maximum="5"
+                    LargeChange="0.5"
+                    TickFrequency="0.05"
+                    AutoToolTipPrecision="2"
+                    Value="{Binding CameraZOffset}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Text="Looks at origin on:"
+                       Margin="{StaticResource configItemMargin}"
+                       Grid.Row="3"
+                       Grid.Column="0" />
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
+                        Margin="{StaticResource configItemMargin}">
+               <CheckBox Content="X"
+                         IsChecked="{Binding CameraLooksAtOriginOnX}"
+                         ToolTip="Indicates whether the camera looks at the X origin when it moves along the X axis." />
+
+               <CheckBox Margin="10,0,0,0"
+                         Content="Y"
+                         IsChecked="{Binding CameraLooksAtOriginOnY}"
+                         ToolTip="Indicates whether the camera looks at the Y origin when it moves along the Y axis." />
+            </StackPanel>
+         </Grid>
+      </GroupBox>
+
+      <!-- Camera angle. -->
+      <GroupBox Header="Camera Angle"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto" />
+               <RowDefinition Height="Auto" />
+               <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition Width="7" />
+               <ColumnDefinition MinWidth="50" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Field of view: "
+                       ToolTip="The camera's horizontal field of view"
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="0"
+                    Grid.Column="2"
+                    Minimum="1"
+                    Maximum="179"
+                    LargeChange="15"
+                    TickFrequency="1"
+                    AutoToolTipPrecision="0"
+                    Value="{Binding FieldOfView}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Revolution X angle:"
+                       ToolTip="The angle of the camera as it revolves on the X-axis."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="1"
+                    Grid.Column="2"
+                    Minimum="-90"
+                    Maximum="90"
+                    LargeChange="10"
+                    AutoToolTipPrecision="0"
+                    Value="{Binding CameraRevolutionXAngle}"
+                    Margin="{StaticResource configItemMargin}" />
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Revolution Y angle:"
+                       ToolTip="The angle of the camera as it revolves on the Y-axis."
+                       Margin="{StaticResource configItemMargin}" />
+
+            <Slider Grid.Row="2"
+                    Grid.Column="2"
+                    Minimum="-90"
+                    Maximum="90"
+                    LargeChange="10"
+                    AutoToolTipPrecision="0"
+                    Value="{Binding CameraRevolutionYAngle}"
+                    Margin="{StaticResource configItemMargin}" />
+         </Grid>
+      </GroupBox>
+   </Grid>
+</UserControl>

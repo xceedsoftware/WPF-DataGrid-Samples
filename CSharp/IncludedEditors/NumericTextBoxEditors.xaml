@@ -1,0 +1,56 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Included Editors Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [NumericTextBoxEditors.xaml]
+
+  This ResourceDictionary contains templates and CellEditors providing NumericTextBox
+  editors for a DataGrid.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+   <!-- This is a NumericTextBox editor used for the quantity column. -->
+   <xcdg:CellEditor x:Key="numericRangeEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:NumericTextBox Name="PART_CellEditorBoundControl"
+                                 xcdg:CellEditor.HasError="{Binding RelativeSource={RelativeSource Self}, Path=HasValidationError }"
+                                 xcdg:DataCell.IsCellFocusScope="True"
+                                 Value="{xcdg:CellEditorBinding}"
+                                 ValueDataType="{x:Type s:Int32}"
+                                 MinValue="0"
+                                 NullValue="0" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the NumericRange CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+
+   <!-- This is a NumericTextBox editor used for the exponent column. -->
+   <xcdg:CellEditor x:Key="exponentEditor">
+      <xcdg:CellEditor.EditTemplate>
+         <DataTemplate>
+            <xcdg:NumericTextBox xcdg:DataCell.IsCellFocusScope="True"
+                                 Value="{xcdg:CellEditorBinding}"
+                                 ValueDataType="{x:Type s:Double}"
+                                 NumberStyles="Number,AllowExponent" />
+         </DataTemplate>
+      </xcdg:CellEditor.EditTemplate>
+
+      <!-- Declare the wanted key gesture that will activate the Exponential double CellEditor. -->
+      <xcdg:CellEditor.ActivationGestures>
+         <xcdg:TextInputActivationGesture />
+      </xcdg:CellEditor.ActivationGestures>
+   </xcdg:CellEditor>
+</ResourceDictionary>

@@ -1,0 +1,48 @@
+﻿<!-- 
+   Xceed DataGrid for WPF - SAMPLE CODE - Tableflow™ View Sample Application
+   Copyright (c) 2007-2024 Xceed Software Inc.
+
+   [FilterDatePicker.xaml]
+
+   This UserControl demonstrates how to build a custom editor for a filter cell.
+
+   This file is part of the Xceed DataGrid for WPF product. The use
+   and distribution of this Sample Code is subject to the terms
+   and conditions referring to "Sample Code" that are specified in
+   the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.Tableflow.FilterDatePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             KeyboardNavigation.TabNavigation="Local">
+   <Grid>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="Auto" />
+         <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+         <RowDefinition Height="Auto" />
+         <RowDefinition Height="3" />
+         <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <TextBlock Text="Start: "
+                 Grid.Column="0"
+                 Grid.Row="0" />
+
+      <xcdg:DatePicker SelectedDate="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=StartDate, Mode=TwoWay}"
+                       Grid.Column="1"
+                       Grid.Row="0" />
+
+      <TextBlock Text="End: "
+                 Grid.Column="0"
+                 Grid.Row="2" />
+
+      <xcdg:DatePicker SelectedDate="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=EndDate, Mode=TwoWay}"
+                       Grid.Column="1"
+                       Grid.Row="2" />
+   </Grid>
+</UserControl>

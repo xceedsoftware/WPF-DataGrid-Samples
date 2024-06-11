@@ -1,0 +1,64 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Views 3D Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [CornerPreset.xaml]
+
+  This ResourceDictionary contains a CardflowView3D configuration (Style).
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid">
+   <Style TargetType="xcdg:CardflowView3D">
+      <Setter Property="CardHeightToViewportRatio"
+              Value="0.8"/>
+
+      <Setter Property="CameraLooksAtOriginOnX"
+              Value="True"/>
+
+      <Setter Property="CameraLooksAtOriginOnY"
+              Value="True"/>
+
+      <Setter Property="CameraRevolutionXAngle"
+              Value="12"/>
+
+      <Setter Property="CameraRevolutionYAngle"
+              Value="8"/>
+
+      <Setter Property="CameraXOffset"
+              Value="-2.5"/>
+
+      <Setter Property="CameraYOffset"
+              Value="2.2"/>
+
+      <Setter Property="CameraZOffset"
+              Value="1.25"/>
+
+      <Setter Property="CenterCardXAngle"
+              Value="-9"/>
+
+      <Setter Property="CenterCardYAngle"
+              Value="-15"/>
+
+      <Setter Property="SideCardsXOffset"
+              Value="0.25"/>
+
+      <Setter Property="SideCardsXSpacing"
+              Value="0.45"/>
+
+      <Setter Property="SideCardsYAngle"
+              Value="65"/>
+
+      <Setter Property="SideCardsZOffset"
+              Value="-4.55"/>
+
+      <Setter Property="SideCardsZSpacing"
+              Value="-0.95"/>
+   </Style>
+</ResourceDictionary>

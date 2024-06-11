@@ -1,0 +1,141 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Master/Detail Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [OrdersDetailConfigurations.xaml]
+
+  This ResourceDictionary contains a DetailConfiguration used customize
+  the "Orders" detail grid and its Products child detail configuration.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.MasterDetail">
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="AuxiliaryResources.xaml" />
+   </ResourceDictionary.MergedDictionaries>
+
+   <xcdg:ForeignKeyConfiguration x:Key="customersForeignKeyConfiguration"
+                                 ItemsSource="{Binding Source={x:Static Application.Current},Path=Customers}"
+                                 ValuePath="CustomerID"
+                                 ForeignKeyValueConverter="{StaticResource customerConverter}" />
+
+   <!-- The orders detail configuration. -->
+   <xcdg:DetailConfiguration x:Key="ordersDetailConfiguration"
+                             RelationName="EmployeesOrders"
+                             Title="Orders"
+                             AllowDetailToggle="{Binding Source={x:Static local:MainPageParams.Singleton},Path=AllowDetailToggle}"
+                             AutoCreateForeignKeyConfigurations="True">
+      <xcdg:DetailConfiguration.Columns>
+         <xcdg:Column FieldName="OrderID"
+                      Title="ID"
+                      VisiblePosition="1"
+                      Width="55" />
+
+         <xcdg:Column FieldName="ShipVia"
+                      Title="Shipper"
+                      VisiblePosition="3" />
+
+         <!--Though there is a ForeignKeyDescription associated with the corresponding DataGridItemProperty, a CellContentTemplate is required here because
+             a ForeignKeyConverter is used instead of a DisplayMemberPath, as more than one property on the foreign object is displayed in the cell, and 
+             this is required so the ForeignKey editor (a ComboBox) correctly displays foreign objects-->
+         <xcdg:Column FieldName="CustomerID"
+                      Title="Customer"
+                      VisiblePosition="2"
+                      CellContentTemplate="{StaticResource customerDataTemplate}"
+                      ForeignKeyConfiguration="{StaticResource customersForeignKeyConfiguration}" />
+
+         <xcdg:Column FieldName="Freight"
+                      CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                      GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+
+         <xcdg:Column FieldName="OrderDate"
+                      Title="Order Date"
+                      CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+         <xcdg:Column FieldName="RequiredDate"
+                      Title="Required Date"
+                      CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+
+         <xcdg:Column FieldName="ShipCountry"
+                      Title="Country"
+                      CellContentTemplate="{StaticResource countryCellContentTemplate}"
+                      GroupValueTemplate="{StaticResource countryCellContentTemplate}" />
+
+         <!-- The other columns will be automatically added upon loading after these 
+                    columns. They will have default appearance and behavior. -->
+      </xcdg:DetailConfiguration.Columns>
+
+      <xcdg:DetailConfiguration.ItemContainerStyle>
+         <!-- We force the height of the DataRow to be 26 (height of ComboBox when 
+                    displayed) to avoid resize when the columns using the ComboBox as 
+                    CellEditor are virtualized. -->
+         <Style TargetType="xcdg:DataRow">
+            <Setter Property="MinHeight"
+                    Value="26" />
+         </Style>
+      </xcdg:DetailConfiguration.ItemContainerStyle>
+
+      <xcdg:DetailConfiguration.Headers>
+         <DataTemplate>
+            <xcdg:InsertionRow />
+         </DataTemplate>
+      </xcdg:DetailConfiguration.Headers>
+
+      <xcdg:DetailConfiguration.Footers>
+         <DataTemplate>
+            <xcdg:StatRow>
+               <xcdg:StatCell FieldName="Freight"
+                              BorderBrush="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).HorizontalGridLineBrush}"
+                              BorderThickness="0,1,0,0"
+                              ResultPropertyName="freightTotal" />
+            </xcdg:StatRow>
+         </DataTemplate>
+      </xcdg:DetailConfiguration.Footers>
+
+      <!-- The products detail configuration (under the orders detail configuration). -->
+      <xcdg:DetailConfiguration.DetailConfigurations>
+         <xcdg:DetailConfiguration RelationName="OrdersOrderDetails"
+                                   Title="Products"
+                                   AllowDetailToggle="{Binding Source={x:Static local:MainPageParams.Singleton},Path=AllowDetailToggle}"
+                                   AutoCreateForeignKeyConfigurations="True">
+            <xcdg:DetailConfiguration.Columns>
+               <xcdg:Column FieldName="ProductID"
+                            Title="Product" />
+
+               <xcdg:Column FieldName="UnitPrice"
+                            Title="Unit Price"
+                            CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                            GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+
+               <xcdg:Column FieldName="Quantity"
+                            CellContentTemplate="{StaticResource integralCellContentTemplate}"
+                            GroupValueTemplate="{StaticResource integralCellContentTemplate}" />
+            </xcdg:DetailConfiguration.Columns>
+
+            <xcdg:DetailConfiguration.Headers>
+               <DataTemplate>
+                  <xcdg:InsertionRow />
+               </DataTemplate>
+            </xcdg:DetailConfiguration.Headers>
+
+            <xcdg:DetailConfiguration.ItemContainerStyle>
+               <!-- We force the height of the DataRow to be 26 (height of ComboBox when 
+                    displayed) to avoid resize when the columns using the ComboBox as 
+                    CellEditor are virtualized. -->
+               <Style TargetType="xcdg:DataRow">
+                  <Setter Property="MinHeight"
+                          Value="26" />
+               </Style>
+            </xcdg:DetailConfiguration.ItemContainerStyle>
+
+         </xcdg:DetailConfiguration>
+      </xcdg:DetailConfiguration.DetailConfigurations>
+   </xcdg:DetailConfiguration>
+</ResourceDictionary>

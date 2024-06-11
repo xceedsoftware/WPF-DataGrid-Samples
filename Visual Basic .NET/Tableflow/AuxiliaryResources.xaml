@@ -1,0 +1,109 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Tableflow™ view Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [AuxiliaryResources.xaml]
+
+  This ResourceDictionary contains styles and templates useful for some features of this
+  sample but not directly related to what it demonstrates.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Tableflow">
+
+   <!-- Using binding in WPF is a quick and easy way to display values in a UI.
+        However, frequently the way the information is displayed is a bit too raw and 
+        you'll want to customize it. Converters are good way to do that. The Xceed
+        DataGridControl conforms entirely to this WPF structure. You can use Binding,
+        Converters and DataTemplates like everywhere else in the Framework. -->
+
+   <!-- Define a resource for the converters needed by the cell content templates. -->
+   <local:FlagPathConverter x:Key="flagconverter" />
+   <local:IntegralConverter x:Key="integralConverter" />
+   <xcdg:CurrencyConverter x:Key="currencyConverter" />
+   <xcdg:StatResultConverter x:Key="statResultConverter" />
+   <local:BooleanToVisibilityConverter x:Key="visibilityConverter" />
+   <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+   <local:NameConverter x:Key="nameConverter" />
+   <local:NameMultiConverter x:Key="nameMultiConverter" />
+   <local:CustomerConverter x:Key="customerConverter" />
+   <local:CustomerMultiConverter x:Key="customerMultiConverter" />
+   <local:CustomerForeignKeyConverter x:Key="customerForeignKeyConverter" />
+   <local:EmployeeForeignKeyConverter x:Key="employeeForeignKeyConverter" />
+
+   <!-- DataTemplate to display the name of the Country followed by the flag -->
+   <DataTemplate x:Key="countryCellContentTemplate">
+      <Grid>
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+         </Grid.ColumnDefinitions>
+
+         <Image Grid.Column="0"
+                Margin="1,1,4,1"
+                VerticalAlignment="Top"
+                Source="{Binding Converter={StaticResource flagconverter}}" />
+
+         <TextBlock Text="{Binding}"
+                    Grid.Column="1"
+                    Margin="2,0,4,0"
+                    VerticalAlignment="Top" />
+      </Grid>
+   </DataTemplate>
+
+   <!-- A cell content template that will be used for cells that contain an integral value. -->
+   <DataTemplate x:Key="integralCellContentTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource integralConverter}}" />
+   </DataTemplate>
+
+   <!-- A cell content template that will be used for cells that contain a currency value. -->
+   <DataTemplate x:Key="currencyCellContentTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource currencyConverter}}" />
+   </DataTemplate>
+
+   <!-- A cell content template that will be used for cells that contain a date value. -->
+   <DataTemplate x:Key="shortDateCellDataTemplate">
+      <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+   </DataTemplate>
+
+   <!-- A data template that will be used to represent an employee with his picture, first name and last name. -->
+   <DataTemplate x:Key="employeeDataTemplate">
+      <DockPanel>
+         <Image Source="{Binding SmallPhoto}"
+                Height="20"
+                VerticalAlignment="Top"
+                Margin="1"
+                DockPanel.Dock="Left" />
+
+         <TextBlock>
+            <TextBlock.Text>
+               <MultiBinding Converter="{StaticResource nameMultiConverter}"
+                             ConverterParameter="FormatLastFirst">
+                  <Binding Path="FirstName" />
+                  <Binding Path="LastName" />
+               </MultiBinding>
+            </TextBlock.Text>
+         </TextBlock>
+      </DockPanel>
+   </DataTemplate>
+
+   <!-- A data template that will be used to represent a customer with his company name and contact name. -->
+   <DataTemplate x:Key="customerDataTemplate">
+      <TextBlock>
+         <TextBlock.Text>
+            <MultiBinding Converter="{StaticResource customerMultiConverter}">
+               <Binding Path="CompanyName" />
+               <Binding Path="ContactName" />
+            </MultiBinding>
+         </TextBlock.Text>
+      </TextBlock>
+   </DataTemplate>
+
+</ResourceDictionary>

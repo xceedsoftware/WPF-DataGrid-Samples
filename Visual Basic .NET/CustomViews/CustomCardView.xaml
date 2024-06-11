@@ -1,0 +1,215 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Custom Views Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [CustomCardView.xaml]
+
+  This ResourceDictionary contains various styles and templates defining
+  the appearance and behavior of a custom card view layout for Xceed DataGrid.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid">
+
+   <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+
+   <!-- This Cell Template is very simple. It only shows the Cell's value, without its
+        parent column's Title.-->
+   <ControlTemplate x:Key="titleLessCell"
+                    TargetType="xcdg:DataCell">
+      <!-- When defining the Template of a Cell, we usually want to make sure that
+           all its potential Content sources are working : Content, ContentTemplate
+           and ContentTemplateSelector. -->
+      <xcdg:CellContentPresenter />
+   </ControlTemplate>
+
+   <!-- This DataRow Template constitutes the layout of the Card. It explicitly 
+        positions some fields (by name) and let the other position themselves in 
+        a vertical Panel.-->
+   <ControlTemplate x:Key="customDataRowTemplate"
+                    TargetType="{x:Type xcdg:DataRow}">
+
+      <!-- This is the Border of the DataRow. We simply make sure that it will reflect
+           the relevant DataRow's properties. -->
+      <!-- The consequence of naming the Expander "PART_RowFocusRoot" is that
+           the DataGridControl will automatically focus this Element when 
+           navigating. Without this, the grid would focus the PART_CellsHost. -->
+      <Border x:Name="PART_RowFocusRoot"
+              Background="{TemplateBinding Background}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              Padding="{TemplateBinding Padding}">
+         <Grid>
+            <!-- This is the Card's colored bar at the top. -->
+            <Canvas Height="27"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Stretch">
+               <Canvas.Background>
+                  <LinearGradientBrush StartPoint="0,0"
+                                       EndPoint="0,1">
+                     <GradientStop Color="#FFD56C00"
+                                   Offset="0" />
+                     <GradientStop Color="#FFF29200"
+                                   Offset="1" />
+                  </LinearGradientBrush>
+               </Canvas.Background>
+            </Canvas>
+
+            <Border x:Name="currentItemBorder"
+                    Margin="0,27,0,0"
+                    Padding="3,0,3,3"
+                    BorderBrush="Transparent"
+                    BorderThickness="2,0,2,2"
+                    CornerRadius="0,0,8,8" />
+
+            <Border Padding="6,0,6,6">
+               <!-- This panel is in 3 sections :
+                    1 - The header section with the photo, full name, ...
+                    2 - The other employee's field automatically added (CellsHost).
+                    3 - The Notes field in an expander. -->
+               <StackPanel>
+                  <!-- In the following panel, we explicitly add some Cells part (FieldName) 
+                       of our future DataSource. 
+                       All these cells uses the "titleLessCell" Template defined above. We assume
+                       that the Cell's content will speak for itself and don't need any title! -->
+                  <DockPanel>
+                     <!-- The photo is at the left. -->
+                     <Grid DockPanel.Dock="Left"
+                           Margin="3,4,2,2"
+                           MaxWidth="85"
+                           MaxHeight="85">
+                        <Border Background="#66000000"
+                                VerticalAlignment="Bottom"
+                                Margin="4,4,0,0">
+                           <xcdg:DataCell FieldName="Photo"
+                                          Template="{StaticResource titleLessCell}">
+                              <xcdg:DataCell.RenderTransform>
+                                 <TranslateTransform Y="-4"
+                                                     X="-4" />
+                              </xcdg:DataCell.RenderTransform>
+                           </xcdg:DataCell>
+                        </Border>
+                     </Grid>
+
+                     <!-- At the right, we display the LastName, FirstName, City, Country and 
+                          Birthdate.-->
+                     <StackPanel Margin="8,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                           <xcdg:DataCell FieldName="LastName"
+                                          Margin="0,0,0,3"
+                                          FontSize="20"
+                                          Template="{StaticResource titleLessCell}" />
+
+                           <!-- Somewhere in the DataRow Template, we want to specify the
+                                position of the "CurrentItem" glyph. Its content is declared 
+                                somewhere above. -->
+                           <ContentPresenter x:Name="glyphPresenter"
+                                             Content="{x:Null}"
+                                             ContentTemplate="{x:Null}"
+                                             HorizontalAlignment="Right"
+                                             Margin="15,0,0,0" />
+                        </StackPanel>
+
+                        <xcdg:DataCell FieldName="FirstName"
+                                       FontSize="16"
+                                       Template="{StaticResource titleLessCell}" />
+                        <Border BorderThickness="1"
+                                BorderBrush="LightGray"
+                                Margin="0,2,0,2" />
+                        <xcdg:DataCell FieldName="City"
+                                       Template="{StaticResource titleLessCell}" />
+                        <xcdg:DataCell FieldName="Country"
+                                       Template="{StaticResource titleLessCell}" />
+                        <!-- It's not mandatory to use a DataCell to display a field's value.
+                             Here, we use a simple TextBlock with an explicit converter 
+                             that modifies the date to a short format. -->
+                        <TextBlock Text="{Binding [BirthDate], Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+                        <!-- We nonetheless add the BirthDate DataCell (here, collapsed) to prevent 
+                             the DataGrid from automatically adding it to the PART_CellsHost. 
+                             Alternatively, in a more typical application, we could have set 
+                             the Column's Visible property to False. -->
+                        <xcdg:DataCell FieldName="BirthDate"
+                                       Visibility="Collapsed" />
+                     </StackPanel>
+                  </DockPanel>
+
+                  <!-- The PART_CellsHost part designates the Panel to which this Row's Cells - not 
+                       explicitly added above and below - will be added.
+                       It is set as a Grid.IsSharedSizeScope because the Cell template will use a 
+                       SharedSizeGroup to layout the field names. -->
+                  <StackPanel x:Name="PART_CellsHost"
+                              Orientation="Vertical"
+                              Grid.IsSharedSizeScope="True"
+                              Margin="0,5,5,5" />
+
+                  <!-- Finally, the Notes Cell - a bit less relevant and too cumbersome in a 
+                       card view context - is explicitly put in an Expander. -->
+                  <Expander Header="Notes"
+                            Padding="5"
+                            TextElement.Foreground="{TemplateBinding Foreground}">
+                     <xcdg:DataCell FieldName="Notes"
+                                    Template="{StaticResource titleLessCell}" />
+                  </Expander>
+               </StackPanel>
+            </Border>
+         </Grid>
+      </Border>
+
+      <!-- We have redefined the DataRow's Template. We have to reproduce the behaviors of 
+           the default DataRow Template that interest us. In our case, we only want to bring
+           back the CurrentItemGlyph. 
+           The other visual cues that we could have wanted to activate are:
+           SelectionBackground, SelectionForeground, InactiveSelectionBackground, 
+           InactiveSelectionForeground, EditingRowGlyph, ValidationErrorGlyph. -->
+      <ControlTemplate.Triggers>
+         <Trigger Property="IsCurrent"
+                  Value="True">
+            <Setter TargetName="glyphPresenter"
+                    Property="ContentTemplate"
+                    Value="{Binding RelativeSource={RelativeSource Self}, Path=(xcdg:DataGridControl.DataGridContext).CurrentItemGlyph}" />
+            <Setter TargetName="currentItemBorder"
+                    Property="BorderBrush"
+                    Value="#FFF29200" />
+         </Trigger>
+      </ControlTemplate.Triggers>
+   </ControlTemplate>
+
+   <!-- This will eventually (in code, see MainPage source code) be used as an implicit 
+        style for all DataRows. -->
+   <Style x:Key="customCardViewDataRow"
+          TargetType="{x:Type xcdg:DataRow}">
+      <!-- Set the Row's background to Transparent to make it hit-testable
+           while preserving the background drawn by the underlying DataGridControl. -->
+      <Setter Property="Background"
+              Value="Transparent" />
+      <Setter Property="Template"
+              Value="{StaticResource customDataRowTemplate}" />
+      <!-- The current item is very obvious without the FocusVisualStyle, disable it. -->
+      <Setter Property="FocusVisualStyle"
+              Value="{x:Null}" />
+   </Style>
+
+   <!-- The CardTitleTemplate property receives a DataTemplate. It will be set in code 
+        (see MainPage source code) -->
+   <DataTemplate x:Key="alternativeCardTitleTemplate">
+      <TextBlock Text="Employee" />
+   </DataTemplate>
+
+   <!-- Our sample custom view is simply a CompactCardView for which we modify the 
+        various Headers/Footers content. -->
+   <!-- This CompactCardView instance will be assign in code when the CardView sample
+        is activated. -->
+   <!-- In this sample, you can define the defaultTheme resource to specify the default 
+        theme this DataGridControl will be in. This is not mandatory, so we
+        use a DynamicResource to silently ignore its absence (it will then be "System"). -->
+   <xcdg:CompactCardView x:Key="cardViewInstance"
+                         Theme="{DynamicResource defaultAeroTheme}"
+                         UseDefaultHeadersFooters="False" />
+
+</ResourceDictionary>

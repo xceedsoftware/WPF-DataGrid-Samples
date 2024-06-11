@@ -1,0 +1,97 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Views 3D Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Views 3D sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.Views3D.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Views3D">
+   <Page.Resources>
+      <xcdg:CurrencyConverter x:Key="currencyConverter" />
+
+      <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+
+      <xcdg:DataGridCollectionViewSource x:Key="cvsProducts"
+                                         Source="{Binding Source={x:Static Application.Current},Path=Products}" />
+
+      <!--A data template that will be used to format a double in currency form-->
+      <DataTemplate x:Key="currencyCellDataTemplate">
+         <TextBlock Text="{Binding Converter={StaticResource currencyConverter}}" />
+      </DataTemplate>
+
+      <!--A data template that will be used to format a date in short form-->
+      <DataTemplate x:Key="shortDateCellDataTemplate">
+         <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+      </DataTemplate>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <local:ConfigurationPanel DataGridControl="{Binding ElementName=grid}" />
+      </ContentControl>
+
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsProducts}}"
+                            EditTriggers="BeginEditCommand">
+         <xcdg:DataGridControl.View>
+            <xcdg:CardflowView3D x:Name="cardFlowView">
+               <xcdg:CardflowView3D.Theme>
+                  <xcdg:ElementalBlackTheme>
+                     <xcdg:ElementalBlackTheme.SurfaceConfigurations>
+                        <xcdg:ImageAndTitleSurfaceConfiguration xcdg:CardflowView3D.Surfaces="Left,Center,Right"/>
+                     </xcdg:ElementalBlackTheme.SurfaceConfigurations>
+                  </xcdg:ElementalBlackTheme>
+               </xcdg:CardflowView3D.Theme>
+            </xcdg:CardflowView3D>
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="ProductID"
+                         Title="Product ID"/>
+
+            <xcdg:Column FieldName="ProductName"
+                         Title="Name"
+                         IsMainColumn="True" />
+
+            <xcdg:Column FieldName="QuantityPerUnit"
+                         Title="Qty per unit"/>
+
+            <xcdg:Column FieldName="UnitPrice"
+                         Title="Unit price"
+                         CellContentTemplate="{StaticResource currencyCellDataTemplate}"/>
+
+            <xcdg:Column FieldName="UnitsInStock"
+                         Title="In stock"/>
+
+            <xcdg:Column FieldName="UnitsOnOrder"
+                         Title="On order"/>
+
+            <xcdg:Column FieldName="ReorderDate"
+                         Title="Reorder date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}"/>
+
+            <xcdg:Column FieldName="SupplierID"
+                         Visible="False" />
+
+            <xcdg:Column FieldName="CategoryID"
+                         Visible="False" />
+
+            <xcdg:Column FieldName="ReorderLevel"
+                         Visible="False" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

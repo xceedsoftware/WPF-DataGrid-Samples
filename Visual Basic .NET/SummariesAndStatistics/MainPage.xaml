@@ -1,0 +1,243 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Summaries & Statistics Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Summaries & Statistics sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.SummariesAndStatistics.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.SummariesAndStatistics">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <!-- This xaml defines the header and footer templates used in table view -->
+            <ResourceDictionary Source="TableViewTemplates.xaml" />
+            <!-- This xaml defines the header and footer templates used in card view -->
+            <ResourceDictionary Source="CardViewTemplates.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <xcdg:CurrencyConverter x:Key="currencyConverter" />
+
+         <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+
+         <!-- This StatResultConverter will be used in the section above the DataGridControl.
+              It simply replaces the default error message when an invalid value is 
+              encountered during the calculation of a statistical result. -->
+         <xcdg:StatResultConverter x:Key="statResultConverter"
+                                   InvalidValueMessage="!!CANNOT CALCULATE THE HARMONIC MEAN!!" />
+
+         <xcdg:DataGridCollectionViewSource x:Key="cvsProducts"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Products}">
+
+            <!--Defining foreign key descriptions will make sure sorting on the corresponding columns will be according to the displayed values,
+                not according to the foreign key values-->
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+               <xcdg:DataGridItemProperty Name="SupplierID">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current}, Path=Suppliers}"
+                                                          ValuePath="SupplierID"
+                                                          DisplayMemberPath="CompanyName" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+
+               <xcdg:DataGridItemProperty Name="CategoryID">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current}, Path=Categories}"
+                                                          ValuePath="CategoryID"
+                                                          DisplayMemberPath="CategoryName" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+
+            <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="SupplierID" />
+            </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+
+            <!-- Every StatFunction that will eventually be used with this data source HAS 
+                 to be declared here. StatFunctions are only supported by the 
+                 DataGridCollectionView and DataGridCollectionViewSource classes.-->
+            <xcdg:DataGridCollectionViewSource.StatFunctions>
+               <xcdg:MinimumFunction ResultPropertyName="MinOfReorderLevel"
+                                     SourcePropertyName="ReorderLevel" />
+
+               <xcdg:MaximumFunction ResultPropertyName="MaxOfReorderLevel"
+                                     SourcePropertyName="ReorderLevel" />
+
+               <xcdg:AverageFunction ResultPropertyName="AverageOfUnitPrice"
+                                     SourcePropertyName="UnitPrice" />
+
+               <xcdg:SumFunction ResultPropertyName="SumOfUnitsInStock"
+                                 SourcePropertyName="UnitsInStock" />
+
+               <xcdg:SumFunction ResultPropertyName="SumOfUnitsOnOrder"
+                                 SourcePropertyName="UnitsOnOrder" />
+
+               <xcdg:CountFunction ResultPropertyName="CountOfProductID"
+                                   SourcePropertyName="ProductID" />
+
+               <xcdg:HarmonicMeanFunction ResultPropertyName="HarMeanOfUnitPrice"
+                                          SourcePropertyName="UnitPrice" />
+
+               <!-- Some StatFunctions expose properties that affect the result of the
+                    calculation. Here, EntirePopulation is used to specify that we have
+                    a complete set of data. -->
+               <xcdg:StandardDeviationFunction ResultPropertyName="StDevOfUnitPrice"
+                                               SourcePropertyName="UnitPrice"
+                                               EntirePopulation="True" />
+
+               <!-- You can create your own StatFunction. Here is an example of a custom
+                    CountIf function that takes regular expressions to "filter" items when
+                    counting. -->
+               <local:CountIfFunction ResultPropertyName="CountProductsToOrder"
+                                      SourcePropertyName="ReorderLevel,UnitsOnOrder">
+                  <!-- Only count products which have a ReorderLevel of 5, 10, 15, or 20, and
+                       a UnitsOnOrder value of 0. -->
+                  <local:CountIfFunction.Conditions>
+                     <sys:String>^5$|^10$|^15$|^20$</sys:String>
+                     <sys:String>^0$</sys:String>
+                  </local:CountIfFunction.Conditions>
+               </local:CountIfFunction>
+            </xcdg:DataGridCollectionViewSource.StatFunctions>
+         </xcdg:DataGridCollectionViewSource>
+
+         <DataTemplate x:Key="currencyCellContentTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource currencyConverter}}" />
+         </DataTemplate>
+
+         <DataTemplate x:Key="shortDateCellDataTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+         </DataTemplate>
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition MaxWidth="470" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Summary Type"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      VerticalAlignment="Top"
+                      Grid.Column="0">
+               <!-- These radio buttons will control the value of the useful 
+                    GroupConfiguration's InitiallyExpanded property. 
+                    This is done in code. -->
+               <StackPanel RadioButton.Checked="SummaryTypeChanged">
+                  <RadioButton x:Name="expandedRadioButton"
+                               Margin="{StaticResource configItemMargin}"
+                               IsChecked="True"
+                               Content="Expanded view"
+                               ToolTip="Show all the items of each group with their statistics. Each group can be individually collapsed and expanded." />
+
+                  <RadioButton x:Name="collapsedRadioButton"
+                               Margin="{StaticResource configItemMargin}"
+                               Content="Collapsed view"
+                               ToolTip="Show only the group headers and their statistics. Each group can be individually expanded and collapsed." />
+
+                  <RadioButton x:Name="summaryRadioButton"
+                               Margin="{StaticResource configItemMargin}"
+                               Content="Summary view"
+                               ToolTip="Show only the group headers. Each group can be individually expanded and collapsed." />
+
+                  <RadioButton x:Name="labelRadioButton"
+                               Margin="{StaticResource configItemMargin}"
+                               Content="Labeled stats cells"
+                               ToolTip="Show all the items of each group with their statistics, with labels in chosen StatCells." />
+               </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Error Handling"
+                      Grid.Column="1"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}">
+               <StackPanel>
+                  <TextBlock Text="A StatResultConverter can be used to format the result of a stat function or display messages when an exception occurs. E.g., the harmonic mean of the UnitPrice column is: "
+                             TextWrapping="Wrap"
+                             Margin="0,0,0,8" />
+
+                  <!-- To display the statistical result outside the grid, simply do a 
+                       binding on the DataGridControl's StatContext property. -->
+                  <TextBlock Text="{Binding ElementName=grid,Path=StatContext.HarMeanOfUnitPrice,Converter={StaticResource statResultConverter},ConverterParameter=c}"
+                             FontWeight="Bold"
+                             Margin="0,0,0,8" />
+
+                  <TextBlock TextWrapping="Wrap"
+                             Text="If a UnitPrice is 0 or negative, an exception will be thrown and a custom error message will be displayed. Try it!" />
+               </StackPanel>
+            </GroupBox>
+         </Grid>
+      </ContentControl>
+
+      <!-- The main DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsProducts}}"
+                            ItemScrollingBehavior="Immediate"
+                            AutoCreateForeignKeyConfigurations="True">
+
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"
+                                AllowStatsEditor="True"
+                                AllowHeadersFootersEditor="True" />
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="ProductID"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="QuantityPerUnit"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="Discontinued"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="Photo"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="ProductName"
+                         Title="Product"
+                         Width="150" />
+            <xcdg:Column FieldName="CategoryID"
+                         Title="Category"
+                         Width="100" />
+            <xcdg:Column FieldName="SupplierID"
+                         Title="Supplier"
+                         Width="150" />
+            <xcdg:Column FieldName="UnitPrice"
+                         Title="Unit Price"
+                         CellContentTemplate="{StaticResource currencyCellContentTemplate}"
+                         GroupValueTemplate="{StaticResource currencyCellContentTemplate}" />
+            <xcdg:Column FieldName="UnitsInStock"
+                         Title="Units in Stock"
+                         Width="135" />
+            <xcdg:Column FieldName="UnitsOnOrder"
+                         Title="Units on Order"
+                         Width="135" />
+            <xcdg:Column FieldName="ReorderLevel"
+                         Title="Reorder Level" />
+            <xcdg:Column FieldName="ReorderDate"
+                         Title="Reorder Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

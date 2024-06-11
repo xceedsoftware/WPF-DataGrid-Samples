@@ -1,0 +1,299 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Formatting Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [MainPage.xaml]
+
+  This Page contains the UI declarations of the Formatting sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+<Page x:Class="Xceed.Wpf.DataGrid.Samples.Formatting.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+      xmlns:compModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Formatting">
+   <Page.Resources>
+      <ResourceDictionary>
+         <xcdg:DateTimeToStringConverter x:Key="dateTimeToStringConverter" />
+
+         <xcdg:DataGridCollectionViewSource x:Key="cvsProducts"
+                                            Source="{Binding Source={x:Static Application.Current},Path=Products}">
+
+            <!--Defining foreign key descriptions will make sure sorting on the corresponding columns will be according to the displayed values,
+                not according to the foreign key values-->
+            <xcdg:DataGridCollectionViewSource.ItemProperties>
+               <xcdg:DataGridItemProperty Name="SupplierID">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current}, Path=Suppliers}"
+                                                          ValuePath="SupplierID"
+                                                          DisplayMemberPath="CompanyName" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+
+               <xcdg:DataGridItemProperty Name="CategoryID">
+                  <xcdg:DataGridItemProperty.ForeignKeyDescription>
+                     <xcdg:DataTableForeignKeyDescription ItemsSource="{Binding Source={x:Static Application.Current}, Path=Categories}"
+                                                          ValuePath="CategoryID"
+                                                          DisplayMemberPath="CategoryName" />
+                  </xcdg:DataGridItemProperty.ForeignKeyDescription>
+               </xcdg:DataGridItemProperty>
+            </xcdg:DataGridCollectionViewSource.ItemProperties>
+
+            <xcdg:DataGridCollectionViewSource.GroupDescriptions>
+               <xcdg:DataGridGroupDescription PropertyName="UnitPrice" />
+            </xcdg:DataGridCollectionViewSource.GroupDescriptions>
+
+            <!-- Every StatFunction that will eventually be used with this data source HAS 
+                 to be declared here. StatFunctions are only supported by the 
+                 DataGridCollectionView and DataGridCollectionViewSource classes.-->
+            <xcdg:DataGridCollectionViewSource.StatFunctions>
+               <xcdg:AverageFunction ResultPropertyName="AverageOfUnitPrice"
+                                     SourcePropertyName="UnitPrice" />
+            </xcdg:DataGridCollectionViewSource.StatFunctions>
+
+         </xcdg:DataGridCollectionViewSource>
+
+         <DataTemplate x:Key="shortDateCellDataTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource dateTimeToStringConverter}, ConverterParameter='ShortDate' }" />
+         </DataTemplate>
+
+         <DataTemplate x:Key="UnitPriceTemplate">
+            <TextBlock Text="{Binding}"
+                       Foreground="Red" />
+         </DataTemplate>
+
+         <sys:String x:Key="CurrencyThreeDecimalDigits">{0:C3}</sys:String>
+         <sys:String x:Key="PercentOneDecimalDigit">{0:P1}</sys:String>
+         <sys:String x:Key="FixedTwoDecimalDigit">{0:F2}</sys:String>
+      </ResourceDictionary>
+   </Page.Resources>
+
+   <DockPanel>
+      <!-- This is the configuration Panel at the Top. -->
+      <ContentControl x:Name="parametersHost"
+                      DockPanel.Dock="Top"
+                      Style="{StaticResource parametersHostStyle}">
+         <Grid>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="Auto" />
+               <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Formatting"
+                      Grid.Column="0"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      HorizontalAlignment="Left">
+               <GroupBox.Resources>
+                  <Style TargetType="{x:Type ComboBox}"
+                         BasedOn="{StaticResource {x:Type ComboBox}}">
+                     <Setter Property="SelectedIndex"
+                             Value="0" />
+                     <Setter Property="Margin"
+                             Value="5" />
+                     <Setter Property="VerticalAlignment"
+                             Value="Center" />
+                     <Setter Property="Width"
+                             Value="190" />
+                     <Setter Property="Height"
+                             Value="21" />
+                  </Style>
+                  <Style TargetType="{x:Type TextBlock}">
+                     <Setter Property="VerticalAlignment"
+                             Value="Center" />
+                     <Setter Property="Margin"
+                             Value="{StaticResource configItemMargin}" />
+                  </Style>
+               </GroupBox.Resources>
+               <Grid>
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="Auto" />
+                     <ColumnDefinition Width="Auto" />
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="Auto" />
+                     <RowDefinition Height="Auto" />
+                  </Grid.RowDefinitions>
+
+                  <TextBlock Text="DataCells:"
+                             Grid.Row="0"
+                             Grid.Column="0" />
+                  <ComboBox x:Name="DataCellFormattingComboBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            SelectedIndex="1"
+                            ToolTip="Format the DataCells of the Unit Prices column.">
+                     <ComboBoxItem Content="Null"
+                                   Tag="{x:Null}" />
+                     <ComboBoxItem Content="Currency with 3 decimal digits"
+                                   Tag="{StaticResource CurrencyThreeDecimalDigits}" />
+                     <ComboBoxItem Content="Percent with 1 decimal digit"
+                                   Tag="{StaticResource PercentOneDecimalDigit}" />
+                     <ComboBoxItem Content="Fixed with 2 decimal digits"
+                                   Tag="{StaticResource FixedTwoDecimalDigit}" />
+                  </ComboBox>
+
+                  <TextBlock Text="Groups:"
+                             Grid.Row="1"
+                             Grid.Column="0" />
+                  <ComboBox x:Name="GroupFormattingComboBox"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            SelectedIndex="1"
+                            ToolTip="Format the Group text of the Unit Prices column.">
+                     <ComboBoxItem Content="Null"
+                                   Tag="{x:Null}" />
+                     <ComboBoxItem Content="Currency with 3 decimal digits"
+                                   Tag="{StaticResource CurrencyThreeDecimalDigits}" />
+                     <ComboBoxItem Content="Percent with 1 decimal digit"
+                                   Tag="{StaticResource PercentOneDecimalDigit}" />
+                     <ComboBoxItem Content="Fixed with 2 decimal digits"
+                                   Tag="{StaticResource FixedTwoDecimalDigit}" />
+                  </ComboBox>
+
+                  <TextBlock Text="StatCells:"
+                             Grid.Row="2"
+                             Grid.Column="0" />
+                  <ComboBox x:Name="StatCellFormattingComboBox"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            SelectedIndex="1"
+                            ToolTip="Format the statCell text of the Unit Prices column.">
+                     <ComboBoxItem Content="Null"
+                                   Tag="{x:Null}" />
+                     <ComboBoxItem Content="Currency with 3 decimal digits"
+                                   Tag="{StaticResource CurrencyThreeDecimalDigits}" />
+                     <ComboBoxItem Content="Percent with 1 decimal digit"
+                                   Tag="{StaticResource PercentOneDecimalDigit}" />
+                     <ComboBoxItem Content="Fixed with 2 decimal digits"
+                                   Tag="{StaticResource FixedTwoDecimalDigit}" />
+                  </ComboBox>
+
+                  <TextBlock Text="Culture:"
+                             Grid.Row="3"
+                             Grid.Column="0" />
+                  <ComboBox x:Name="CultureFormattingComboBox"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            SelectedIndex="0"
+                            ItemsSource="{Binding Cultures, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                            ToolTip="Modify the culture of the columns or groups using formatting : Unit Prices column and Unit Price grouping in this case." />
+               </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Export to Excel"
+                      Grid.Column="1"
+                      Margin="{StaticResource groupBoxMargin}"
+                      Padding="{StaticResource groupBoxPadding}"
+                      HorizontalAlignment="Left">
+               <StackPanel>
+                  <TextBlock Text="Export UnitPrice's statCell in:"
+                             HorizontalAlignment="Left" />
+                  <ComboBox x:Name="ExportFormattingComboBox"
+                            SelectedIndex="0"
+                            ToolTip="Export the StatCell of the Unit Prices column in another column."
+                            HorizontalAlignment="Left"
+                            Margin="0,5,0,10">
+                     <ComboBoxItem Content="Unit Price's column"
+                                   Tag="{x:Null}" />
+                     <ComboBoxItem Content="Category's column"
+                                   Tag="CategoryID" />
+                     <ComboBoxItem Content="Product's column"
+                                   Tag="ProductName" />
+                  </ComboBox>
+
+                  <Button Content="Export to Excel"
+                          Click="ExportButton_Click"
+                          HorizontalAlignment="Left" />
+               </StackPanel>
+            </GroupBox>
+
+         </Grid>
+      </ContentControl>
+
+      <!-- The main DataGridControl. -->
+      <xcdg:DataGridControl x:Name="grid"
+                            ItemsSource="{Binding Source={StaticResource cvsProducts}}"
+                            ItemScrollingBehavior="Immediate"
+                            AutoCreateForeignKeyConfigurations="True">
+         <xcdg:DataGridControl.View>
+            <!-- In this sample, you can define this resource to specify the default 
+                 theme this DataGridControl will be in. This is not mandatory, so we
+                 use a DynamicResource to silently ignore its absence. -->
+            <xcdg:TableflowView Theme="{DynamicResource defaultTheme}">
+               <xcdg:TableflowView.FixedFooters>
+                  <DataTemplate>
+                     <xcdg:StatRow>
+                        <!-- Each StatCell has a default StatResultConverter assigned to it, 
+                          allowing only a ConverterParameter that will format
+                          the result to be specified. To improve its usage in XAML, the StatResultConverter's
+                          parameter supports a simplified syntax of composite formatting. 
+                          Refer to the documentation for more informations. -->
+                        <xcdg:StatCell FieldName="UnitPrice"
+                                       Foreground="Red"
+                                       ResultPropertyName="AverageOfUnitPrice" />
+                     </xcdg:StatRow>
+                  </DataTemplate>
+               </xcdg:TableflowView.FixedFooters>
+            </xcdg:TableflowView>
+         </xcdg:DataGridControl.View>
+
+         <xcdg:DataGridControl.StatCellConfigurations>
+            <xcdg:StatCellConfiguration ResultPropertyName="AverageOfUnitPrice"
+                                        StringFormat="{Binding Source={x:Reference StatCellFormattingComboBox}, Path=SelectedItem.Tag}"
+                                        StringFormatCulture="{Binding Source={x:Reference CultureFormattingComboBox}, Path=SelectedItem}"
+                                        ExportFieldName="{Binding Source={x:Reference ExportFormattingComboBox}, Path=SelectedItem.Tag}" />
+         </xcdg:DataGridControl.StatCellConfigurations>
+
+         <xcdg:DataGridControl.Columns>
+            <xcdg:Column FieldName="ProductID"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="QuantityPerUnit"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="Discontinued"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="Photo"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="ReorderLevel"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="UnitsOnOrder"
+                         Visible="False"
+                         ShowInColumnChooser="False" />
+            <xcdg:Column FieldName="ProductName"
+                         Title="Product"
+                         Width="200" />
+            <xcdg:Column FieldName="CategoryID"
+                         Title="Category"
+                         Width="100" />
+            <xcdg:Column FieldName="SupplierID"
+                         Title="Supplier"
+                         Width="240" />
+            <xcdg:Column FieldName="UnitPrice"
+                         Title="Unit Price"
+                         CellContentTemplate="{StaticResource UnitPriceTemplate}"
+                         GroupValueTemplate="{StaticResource UnitPriceTemplate}"
+                         CellContentStringFormat="{Binding Source={x:Reference DataCellFormattingComboBox}, Path=SelectedItem.Tag}"
+                         GroupValueStringFormat="{Binding Source={x:Reference GroupFormattingComboBox}, Path=SelectedItem.Tag}"
+                         DefaultCulture="{Binding Source={x:Reference CultureFormattingComboBox}, Path=SelectedItem}" />
+            <xcdg:Column FieldName="UnitsInStock"
+                         Title="Units in Stock" />
+            <xcdg:Column FieldName="ReorderDate"
+                         Title="Reorder Date"
+                         CellContentTemplate="{StaticResource shortDateCellDataTemplate}" />
+         </xcdg:DataGridControl.Columns>
+      </xcdg:DataGridControl>
+   </DockPanel>
+</Page>

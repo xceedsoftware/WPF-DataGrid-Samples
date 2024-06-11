@@ -1,0 +1,248 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Column Management Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ConfigurationPanel.xaml]
+
+  This UserControl contains the UI allowing the end-user to modify the 
+  settings demonstrated in this sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.ColumnManagement.ConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:coll="clr-namespace:System.Collections;assembly=mscorlib"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.ColumnManagement"
+             DataContext="{x:Static local:ConfigurationData.Singleton}">
+   <UserControl.Resources>
+      <!-- This BooleanToVisibilityConverter will return Hidden for a True value;
+           Visible otherwise. It is used for the column width's grid. -->
+      <local:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+
+      <ObjectDataProvider x:Key="columnChooserSortOrderValues"
+                          MethodName="GetValues"
+                          ObjectType="{x:Type s:Enum}">
+         <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="xcdg:ColumnChooserSortOrder" />
+         </ObjectDataProvider.MethodParameters>
+      </ObjectDataProvider>
+
+      <DataTemplate x:Key="columnChooserSortOrderComboBoxItemTemplate"
+                    DataType="{x:Type ComboBoxItem}">
+         <TextBlock Text="{Binding Converter={x:Static local:ColumnChooserSortOrderConverter.Singleton}}" />
+      </DataTemplate>
+   </UserControl.Resources>
+
+   <Grid>
+      <Grid.Resources>
+         <x:Array x:Key="columnStretchModes"
+                  Type="coll:DictionaryEntry">
+            <coll:DictionaryEntry Key="None"
+                                  Value="Starred widths" />
+            <coll:DictionaryEntry Key="First"
+                                  Value="Stretch first column" />
+            <coll:DictionaryEntry Key="Last"
+                                  Value="Stretch last column" />
+            <coll:DictionaryEntry Key="All"
+                                  Value="Stretch all columns" />
+         </x:Array>
+
+         <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+
+            <Setter Property="Margin"
+                    Value="0,0,5,0" />
+         </Style>
+      </Grid.Resources>
+
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="250" />
+         <ColumnDefinition Width="250" />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+         <RowDefinition />
+         <RowDefinition />
+      </Grid.RowDefinitions>
+
+      <GroupBox Header="Column Stretching"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}"
+                Grid.Column="0"
+                Grid.Row="0">
+         <StackPanel>
+            <Grid Margin="0,5,0,0">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+
+               <TextBlock Text="Stretch mode:"
+                          Grid.Column="0" />
+
+               <ComboBox ItemsSource="{StaticResource columnStretchModes}"
+                         DisplayMemberPath="Value"
+                         SelectedValuePath="Key"
+                         SelectedValue="{Binding ColumnStretchMode}"
+                         SelectionChanged="ColumnStretchMode_SelectionChanged"
+                         Grid.Column="1" />
+            </Grid>
+
+            <Grid Margin="0,5,0,0">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+
+               <TextBlock Text="Stretched column minimum width:"
+                          Grid.Column="0" />
+
+               <xcdg:NumericTextBox AutoSelectBehavior="OnFocus"
+                                    MinValue="0"
+                                    Value="{Binding ColumnStretchMinWidth}"
+                                    IsEnabled="{Binding IsColumnStretchMinWidthEnabled}"
+                                    NumberStyles="Float"
+                                    Grid.Column="1" />
+            </Grid>
+
+            <CheckBox Content="Allow column resizing"
+                      IsChecked="{Binding AllowColumnResizing}"
+                      IsEnabled="{Binding IsAllowColumnResizingEnabled}"
+                      ToolTip="Allow columns whose widths are not automatically calculated (e.g., '*') to be resized."
+                      Margin="0,5,0,0" />
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Column chooser"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}"
+                Grid.Column="0"
+                Grid.Row="1">
+         <StackPanel>
+            <CheckBox x:Name="chkAllowColumnChooser"
+                      Content="Allow column chooser"
+                      IsChecked="{Binding AllowColumnChooser}"
+                      ToolTip="A context menu will be shown when right-clicking on a column, allowing you to show or hide the columns in the grid." />
+
+            <Grid Margin="0,5,0,0">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+
+               <TextBlock Text="Sort order:"
+                          Padding="10,0,0,0"
+                          Grid.Column="0" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource columnChooserSortOrderValues}}"
+                         ItemTemplate="{StaticResource columnChooserSortOrderComboBoxItemTemplate}"
+                         SelectedItem="{Binding ColumnChooserSortOrder}"
+                         IsEnabled="{Binding ElementName=chkAllowColumnChooser, Path=IsChecked}"
+                         Grid.Column="1" />
+            </Grid>
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Widths"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}"
+                Grid.Column="1"
+                Grid.Row="0"
+                Grid.RowSpan="2">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition Height="Auto" />
+               <RowDefinition Height="5" />
+               <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <CheckBox x:Name="useAdvancedColumnManagementCheckBox"
+                      Content="Use advanced column management"
+                      IsChecked="{Binding UseAdvancedColumnManagement}"
+                      Grid.Row="0" />
+
+            <TextBlock Visibility="{Binding ElementName=useAdvancedColumnManagementCheckBox, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter}, ConverterParameter=Visible}"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Top"
+                       Grid.Row="2">
+               In advanced mode, you can use the first three rows of the data grid to play with the MinWidth, MaxWidth and Width properties of each column.<LineBreak />
+               <LineBreak />
+               You can reset the set values (in orange) via the context-menu (right-click).
+            </TextBlock>
+
+            <!-- Setting the UpdateSourceTrigger property to CellContentChanged 
+                 will cause the column widths in the Songs grid to be modified 
+                 immediately when a new width is provided. -->
+            <xcdg:DataGridControl x:Name="columnWidthGrid"
+                                  Grid.Row="2"
+                                  ItemsSource="{Binding Source={x:Static local:ConfigurationData.Singleton}, Path=DataGrid.VisibleColumns}"
+                                  AutoCreateColumns="False"
+                                  EditTriggers="CellIsCurrent,ActivationGesture,BeginEditCommand"
+                                  UpdateSourceTrigger="CellContentChanged"
+                                  Visibility="{Binding ElementName=useAdvancedColumnManagementCheckBox, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter}}">
+               <xcdg:DataGridControl.Resources>
+                  <Style TargetType="xcdg:TableViewScrollViewer">
+                     <Setter Property="VerticalScrollBarVisibility"
+                             Value="Hidden" />
+                  </Style>
+               </xcdg:DataGridControl.Resources>
+
+               <xcdg:DataGridControl.View>
+                  <xcdg:TableflowView Theme="{DynamicResource defaultTheme}"
+                                      UseDefaultHeadersFooters="False"
+                                      ShowFixedColumnSplitter="False"
+                                      ShowRowSelectorPane="False"
+                                      AllowColumnChooser="False"
+                                      ColumnStretchMode="Last">
+                     <xcdg:TableflowView.FixedHeaders>
+                        <DataTemplate>
+                           <xcdg:ColumnManagerRow AllowColumnResize="False"
+                                                  AllowSort="False"
+                                                  AllowColumnReorder="False" />
+                        </DataTemplate>
+                     </xcdg:TableflowView.FixedHeaders>
+                  </xcdg:TableflowView>
+               </xcdg:DataGridControl.View>
+
+               <xcdg:DataGridControl.Columns>
+                  <xcdg:Column FieldName="Title"
+                               Title="Column"
+                               IsMainColumn="False"
+                               ReadOnly="True" />
+
+                  <xcdg:Column FieldName="Width"
+                               Title="Width">
+                     <!-- The default binding would be OneWay by default for the Width property.
+                          Override this behavior by forcing a BindingInfo with ReadOnly set to 
+                          False (resulting in a TwoWay binding). This way, modifications to the
+                          column widths using the resizing thumb will be reflected in this grid
+                          in real-time. -->
+                     <xcdg:Column.DisplayMemberBindingInfo>
+                        <xcdg:DataGridBindingInfo Path="Width"
+                                                  ReadOnly="False" />
+                     </xcdg:Column.DisplayMemberBindingInfo>
+                  </xcdg:Column>
+               </xcdg:DataGridControl.Columns>
+            </xcdg:DataGridControl>
+
+            <!-- This border give a disabled appearance to the column widths grid
+                 when the Stretch All mode is selected. Indeed, under this mode, 
+                 the Column's Width property would have no effect. -->
+            <Border x:Name="disablingBorder"
+                    Background="#77000000"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Left"
+                    Visibility="{Binding ElementName=useAdvancedColumnManagementCheckBox, Path=IsChecked, Converter={StaticResource booleanToVisibilityConverter}}"
+                    Grid.Row="2" />
+         </Grid>
+      </GroupBox>
+   </Grid>
+</UserControl>

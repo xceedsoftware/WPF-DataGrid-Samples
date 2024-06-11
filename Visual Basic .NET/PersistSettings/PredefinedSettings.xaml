@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.PersistSettings">
+
+   <local:PredefinedSettingsItemObservableCollection x:Key="predefinedSettingsItems">
+      <local:PredefinedSettingsItem DisplayName="Default settings"
+                                    XmlUri="pack://application:,,,/PersistSettings/Default.xml" />
+
+      <local:PredefinedSettingsItem DisplayName="Simple suppliers list"
+                                    XmlUri="pack://application:,,,/PersistSettings/Simple suppliers list.xml" />
+
+      <local:PredefinedSettingsItem DisplayName="Detailed suppliers list"
+                                    XmlUri="pack://application:,,,/PersistSettings/Detailed suppliers list.xml" />
+
+      <local:PredefinedSettingsItem DisplayName="Filtered suppliers list"
+                                    XmlUri="pack://application:,,,/PersistSettings/Filtered suppliers list.xml" />
+   </local:PredefinedSettingsItemObservableCollection>
+
+</ResourceDictionary>

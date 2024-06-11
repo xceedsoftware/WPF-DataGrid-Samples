@@ -1,0 +1,42 @@
+﻿<!-- 
+   Xceed DataGrid for WPF - SAMPLE CODE - Spanned Cells Sample Application
+   Copyright (c) 2007-2024 Xceed Software Inc.
+
+   [CountryTemplates.xaml]
+
+   This ResourceDictionary contains various DataTemplates used to customize
+   the way Country informations are displayed and edited.
+
+   This file is part of the Xceed DataGrid for WPF product. The use
+   and distribution of this Sample Code is subject to the terms
+   and conditions referring to "Sample Code" that are specified in
+   the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.SpannedCells">
+
+   <local:FlagPathConverter x:Key="flagconverter" />
+
+   <!-- DataTemplate to display the name of the Country followed by the flag -->
+   <DataTemplate x:Key="countryCellContentTemplate">
+      <Grid>
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+         </Grid.ColumnDefinitions>
+
+         <Image Grid.Column="0"
+                Margin="1,1,4,1"
+                VerticalAlignment="Top"
+                Source="{Binding Converter={StaticResource flagconverter}}" />
+
+         <TextBlock Text="{Binding}"
+                    TextWrapping="Wrap"
+                    Grid.Column="1"
+                    Margin="2,0,4,0"
+                    VerticalAlignment="Top" />
+      </Grid>
+   </DataTemplate>
+
+</ResourceDictionary>

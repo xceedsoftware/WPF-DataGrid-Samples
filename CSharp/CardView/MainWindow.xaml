@@ -1,0 +1,25 @@
+﻿<!-- 
+     Xceed DataGrid for WPF - SAMPLE CODE - Card View Sample Application
+     Copyright (c) 2007-2024 Xceed Software Inc.
+
+     [MainWindow.xaml]
+
+     This is the main window for the Card View sample.
+
+     This file is part of the Xceed DataGrid for WPF product. The use
+     and distribution of this Sample Code is subject to the terms
+     and conditions referring to "Sample Code" that are specified in
+     the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<Window x:Class="Xceed.Wpf.DataGrid.Samples.CardView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples"
+        Title="Xceed DataGrid for WPF - Card View Sample"
+        Icon="App.ico">
+
+   <Frame x:Name="rootFrame"
+          Focusable="False"
+          Source="MainPage.xaml" />
+</Window>

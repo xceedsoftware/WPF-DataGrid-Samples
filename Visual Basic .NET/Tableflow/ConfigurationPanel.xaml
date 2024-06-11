@@ -1,0 +1,266 @@
+﻿<!--
+  Xceed DataGrid for WPF - SAMPLE CODE - Table View Sample Application
+  Copyright (c) 2007-2024 Xceed Software Inc.
+
+  [ConfigurationPanel.xaml]
+
+  This UserControl contains the UI allowing the end-user to modify the 
+  settings demonstrated in this sample.
+
+  This file is part of the Xceed DataGrid for WPF product. The use 
+  and distribution of this Sample Code is subject to the terms 
+  and conditions referring to "Sample Code" that are specified in 
+  the XCEED SOFTWARE LICENSE AGREEMENT accompanying this product.
+-->
+
+<UserControl x:Class="Xceed.Wpf.DataGrid.Samples.Tableflow.ConfigurationPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:local="clr-namespace:Xceed.Wpf.DataGrid.Samples.Tableflow"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             DataContext="{x:Static local:ConfigurationData.Singleton}">
+
+   <UserControl.Resources>
+
+      <ObjectDataProvider x:Key="insertionModeDataSource"
+                          ObjectType="s:Enum"
+                          MethodName="GetValues">
+         <ObjectDataProvider.MethodParameters>
+            <x:Type Type="xcdg:InsertionMode" />
+         </ObjectDataProvider.MethodParameters>
+      </ObjectDataProvider>
+   </UserControl.Resources>
+
+   <Grid>
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="Auto" />
+         <ColumnDefinition Width="Auto" />
+         <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+         <RowDefinition Height="Auto" />
+         <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <GroupBox Header="Show/Hide Elements"
+                Grid.Column="0"
+                Grid.RowSpan="2"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+            <!-- These check box are used to choose which elements are shown. -->
+            <CheckBox Content="Headers/Footers editor"
+                      IsChecked="{Binding ShowHeadersFootersEditor}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Search control (or press CTRL-F)"
+                      IsChecked="{Binding ShowSearchControl}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Group-by control"
+                      IsChecked="{Binding ShowGroupByControl}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Merged Headers"
+                      IsChecked="{Binding ShowMergedHeaders}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox x:Name="chkColumnManagerRow"
+                      Content="Column-manager row"
+                      IsChecked="{Binding ShowColumnManagerRow}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox x:Name="chkInsertionRow"
+                      Content="Insertion row"
+                      IsChecked="{Binding ShowInsertionRow}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <Grid>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="5" />
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+
+               <TextBlock Text="Mode:"
+                          Margin="0,5,5,5"
+                          Grid.Column="1" />
+
+               <ComboBox ItemsSource="{Binding Source={StaticResource insertionModeDataSource}}"
+                         IsEnabled="{Binding ElementName=chkInsertionRow, Path=IsChecked}"
+                         SelectedItem="{Binding InsertionMode}"
+                         MinWidth="90"
+                         Grid.Column="2" />
+            </Grid>
+
+            <CheckBox Content="Allow fixed-column splitter drag"
+                      IsChecked="{Binding AllowFixedColumnSplitterDrag}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Show fixed-column splitter"
+                      IsChecked="{Binding ShowFixedColumnSplitter}"
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Scroll tip"
+                      x:Name="chkShowScrollTip"
+                      IsChecked="{Binding ShowScrollTip}"
+                      ToolTip="Shows a tooltip when scrolling amongst the data items."
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Column chooser"
+                      IsChecked="{Binding AllowColumnChooser}"
+                      IsEnabled="{Binding ElementName=chkColumnManagerRow, Path=IsChecked}"
+                      ToolTip="A context menu will be shown when right-clicking on a column, allowing you to show or hide the columns in the grid."
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Alternate row style"
+                      IsChecked="{Binding IsAlternatingRowStyleEnabled}"
+                      ToolTip="Odd rows will appear with a different background."
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox Content="Show Sort Index"
+                      IsChecked="{Binding ShowSortIndex}"
+                      ToolTip="Index of the sortedColumn will be shown next to its Sorting glyph."
+                      Margin="{StaticResource configItemMargin}" />
+
+            <CheckBox x:Name="ShowMasterDetailchecked"
+                      Content="Master/Detail"
+                      IsChecked="{Binding ShowMasterDetail}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the OrderDetails details are visible." />
+
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Tableflow™ Specific Options"
+                Grid.Column="1"
+                Grid.RowSpan="2"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+
+            <CheckBox Content="Make group headers sticky"
+                      IsChecked="{Binding AreGroupHeadersSticky}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the group headers are sticky." />
+
+            <CheckBox Content="Make group footers sticky"
+                      IsChecked="{Binding AreGroupFootersSticky}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the group footers are sticky" />
+
+            <CheckBox Content="Make grid and detail headers sticky"
+                      IsChecked="{Binding AreHeadersSticky}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the headers of the grid and details are sticky" />
+
+            <CheckBox Content="Make grid and detail footers sticky"
+                      IsChecked="{Binding AreFootersSticky}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the footers of the grid and details are sticky" />
+
+            <CheckBox Content="Make parent rows sticky"
+                      IsEnabled="{Binding ShowMasterDetail}"
+                      IsChecked="{Binding AreParentRowsSticky}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the parent (e.g., master) rows in master/detail are sticky" />
+
+            <CheckBox Content="Flatten groups"
+                      IsChecked="{Binding AreGroupsFlattened}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the groups are flattened" />
+
+            <CheckBox Content="Enabled animated column reordering"
+                      IsChecked="{Binding IsAnimatedColumnReorderingEnabled}"
+                      Margin="{StaticResource configItemMargin}"
+                      ToolTip="Indicates if the animated column reordering is enabled" />
+
+            <Grid Margin="{StaticResource configItemMargin}">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+               </Grid.RowDefinitions>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+               </Grid.ColumnDefinitions>
+
+               <TextBlock Text="Scrolling animation duration "
+                          Grid.Row="0"
+                          Grid.Column="0" />
+               <xcdg:NumericTextBox ValueDataType="{x:Type s:Double}"
+                                    Value="{Binding ScrollingAnimationDuration}"
+                                    HorizontalContentAlignment="Right"
+                                    MinWidth="40"
+                                    MinValue="0"
+                                    Grid.Row="0"
+                                    Grid.Column="1" />
+
+               <TextBlock Text="Row fade-in animation duration "
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="0,2,0,0" />
+               <xcdg:NumericTextBox ValueDataType="{x:Type s:Double}"
+                                    Value="{Binding RowFadeInAnimationDuration}"
+                                    HorizontalContentAlignment="Right"
+                                    MinWidth="40"
+                                    MinValue="0"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="0,2,0,0" />
+            </Grid>
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Flow Direction"
+                Grid.Column="2"
+                Grid.Row="1"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}">
+         <StackPanel>
+            <!-- These radio buttons are used to choose the flow direction. -->
+            <RadioButton Content="Left to right"
+                         IsChecked="{Binding FlowDirectionLeftToRight}"
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Right to left"
+                         IsChecked="{Binding FlowDirectionRightToLeft}"
+                         Margin="{StaticResource configItemMargin}" />
+         </StackPanel>
+      </GroupBox>
+
+      <GroupBox Header="Filtering"
+                Margin="{StaticResource groupBoxMargin}"
+                Padding="{StaticResource groupBoxPadding}"
+                Grid.Column="2"
+                Grid.Row="0">
+         <StackPanel>
+            <!-- These radio buttons are used to choose the filtering UI. -->
+            <RadioButton Content="None"
+                         IsChecked="{Binding FilteringMethodNone}"
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Automatic filtering"
+                         IsChecked="{Binding FilteringMethodAuto}"
+                         IsEnabled="{Binding ElementName=chkColumnManagerRow, Path=IsChecked}"
+                         ToolTip="Drop-down lists will be available in the column headers to filter the data items."
+                         Margin="{StaticResource configItemMargin}" />
+
+            <RadioButton Content="Filter row"
+                         IsChecked="{Binding FilteringMethodFilterRow}"
+                         Margin="{StaticResource configItemMargin}">
+               <RadioButton.ToolTip>
+                  <ToolTip>
+                     <TextBlock>
+                        A specialized filter row will be available in the fixed headers to allow end users<LineBreak />
+                        to filter the items in the corresponding column with custom filtering criteria.
+                     </TextBlock>
+                  </ToolTip>
+               </RadioButton.ToolTip>
+            </RadioButton>
+         </StackPanel>
+      </GroupBox>
+   </Grid>
+</UserControl>
