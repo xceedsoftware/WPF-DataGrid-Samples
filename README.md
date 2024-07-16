@@ -133,7 +133,7 @@ Open the solution file in Visual Studio and build the project to restore the nec
   
 ## Documentation
 
-For more information on how to use the Xceed DataGrid for WPF, please refer to the [official documentation](https://doc.xceed.com/xceed-datagrid-for-wpf/).
+For more information on how to use the Xceed DataGrid for WPF, please refer to the [official documentation](https://doc.xceed.com/xceed-datagrid-for-wpf/webframe.html#rootWelcome.html).
 
 ## Licensing
 
