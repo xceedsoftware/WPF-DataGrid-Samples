@@ -25,7 +25,7 @@ The Xceed DataGrid for WPF is a feature-rich and efficient data grid control for
 
 For more information, please visit the [official product page](https://xceed.com/en/our-products/product/datagrid-for-wpf).
 
-## Getting Started
+## Getting Started with the DataGrid
 
 ### 1. Installing the DataGrid from nuget
 To install the Xceed DataGrid for WPF from NuGet, follow these steps:
@@ -116,7 +116,7 @@ Below is a list of the examples available in this repository:
 - **Validation**: Demonstrates data validation techniques.
 - **Views3D**: Provides examples of 3D views.
 
-## Getting Started
+## Getting Started with the Samples
 
 To get started with these examples, clone the repository and open the solution file in Visual Studio.
 
