@@ -25,6 +25,60 @@ The Xceed DataGrid for WPF is a feature-rich and efficient data grid control for
 
 For more information, please visit the [official product page](https://xceed.com/en/our-products/product/datagrid-for-wpf).
 
+## Getting Started
+
+### 1. Installing the DataGrid from nuget
+To install the Xceed DataGrid for WPF from NuGet, follow these steps:
+
+1. **Open your project in Visual Studio.**
+2. **Open the NuGet Package Manager Console** by navigating to `Tools > NuGet Package Manager > Package Manager Console`.
+3. **Run the following command:**
+```sh
+   dotnet add package Xceed.Products.Wpf.DataGrid.Full
+```
+
+4. Alternatively, you can use the NuGet Package Manager GUI:
+
+1. Right-click on your project in the Solution Explorer.
+2. Select Manage NuGet Packages.
+3. Search for Xceed.Products.Wpf.DataGrid.Full and click Install.
+
+### 2. Adding a DataGrid to the XAML
+
+To add a DataGrid to your XAML, follow these steps:
+
+1. **Open your XAML file (e.g., MainWindow.xaml).**
+2. **Add the following namespace at the top of your XAML file:**
+   ```xaml
+   xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+   ```
+3. **Add the DataGrid control to your layout:**
+   ```xaml
+   <xcdg:DataGridControl x:Name="myDataGrid"
+                         AutoCreateColumns="True"
+                         ItemsSource="{Binding YourDataSource}" />
+   ```
+4. Ensure your DataContext is set to an appropriate data source in your code-behind or ViewModel.
+
+### 3. How to License the Product Using the LicenseKey Property
+To license the Xceed DataGrid for WPF using the LicenseKey property, follow these steps:
+
+1. **Obtain your license key** from Xceed. (Download the product from xceed.com or send us a request at support@xceed.com
+2. **Set the LicenseKey property in your application startup code:**
+   ```csharp
+   using System.Windows;
+
+   public partial class MainWindow : Window
+   {
+       public MainWindow()
+       {
+           InitializeComponent();
+           Xceed.Wpf.DataGrid.Licenser.LicenseKey = "Your-Key-Here";
+       }
+   }
+   ```
+3. Ensure the license key is set before any DataGrid control is instantiated.
+
 ## Examples Overview
 
 Below is a list of the examples available in this repository:
